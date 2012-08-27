@@ -22,33 +22,32 @@
 --]]
 
 local function deep_copy(t)
-	local r = {}
-	for k,v in pairs(t) do
-		if type(v) == 'table' then r[k] = deep_copy(v) else r[k] = v end
-	end
-	return r
+  local r = {}
+  for k,v in pairs(t) do
+    if type(v) == 'table' then r[k] = deep_copy(v) else r[k] = v end
+  end
+  return r
 end
 
 local function instantiate(self,...)
-	local instance = setmetatable({},self)
-		if self.__init then
-			self.__init(instance, ...)
-		end
-	return instance
+  local instance = setmetatable({},self)
+  if self.__init then
+    self.__init(instance, ...)
+  end
+  return instance
 end
 
 local function extends(self,extra_params)
-	local heirClass = class(extra_params)
-	heirClass.__index, heirClass.super = heirClass, self
-	return setmetatable(heirClass,self)
+  local heirClass = class(extra_params)
+  heirClass.__index, heirClass.super = heirClass, self
+  return setmetatable(heirClass,self)
 end
 
 local baseMt = {__call = function (self,...) return self:new(...) end}
 class = function(members)
-	local newClass = members and deep_copy(members) or {}
-	newClass.__index, newClass.__call = newClass, baseMt.__call
-	newClass.new = instantiate
-	newClass.extends = extends
-	return setmetatable(newClass,baseMt)
+  local newClass = members and deep_copy(members) or {}
+  newClass.__index, newClass.__call = newClass, baseMt.__call
+  newClass.new = instantiate
+  newClass.extends = extends
+  return setmetatable(newClass,baseMt)
 end
-
