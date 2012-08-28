@@ -11,7 +11,7 @@ When loaded, __30log__ returns its main function .
 
 ##Quicktour
 ###Creating a class
-Making a new class is fairly simple. Just call function <tt>class</tt>, then add some properties to this class :
+Making a new class is fairly simple. Just call the returned function, then add some properties to this class :
     
 	class = require '30log'
     Window = class ()
