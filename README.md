@@ -7,18 +7,20 @@ And yes, it makes __30 lignes__ length. No less, no more.
 
 ##Installation
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder, call it using [require](pgl.yoyo.org/luai/i/require) function.<br/>
-When loaded, __30log__ adds in the global environnement (__table _G__) a unique function named <tt>class</tt>.
+When loaded, __30log__ returns its main function .
 
 ##Quicktour
 ###Creating a class
 Making a new class is fairly simple. Just call function <tt>class</tt>, then add some properties to this class :
-
+    
+	class = require '30log'
     Window = class ()
     Window.x, Window.y = 10, 10
     Window.width, Window.height = 100,100
   
 You can also shortcut it, passing the default properties as a table to <tt>class</tt> :
   
+    class = require '30log'
     Window = class { width = 100, height = 100, w = 10, y = 10}
   
 
@@ -91,7 +93,6 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
     -- The base class "Window"
 	Window = class { width = 100, height = 100, x = 10, y = 10}
     function Window:__init(x,y,width,height)
-	   print('window',self)
 	   self.x,self.y = x,y
 	   self.width,self.height = width,height
     end

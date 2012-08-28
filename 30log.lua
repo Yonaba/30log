@@ -21,6 +21,8 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
+local class
+
 local function deep_copy(t)
   local r = {}
   for k,v in pairs(t) do
@@ -31,9 +33,7 @@ end
 
 local function instantiate(self,...)
   local instance = setmetatable({},self)
-  if self.__init then
-    self.__init(instance, ...)
-  end
+  if self.__init then self.__init(instance, ...) end
   return instance
 end
 
@@ -45,9 +45,9 @@ end
 
 local baseMt = {__call = function (self,...) return self:new(...) end}
 class = function(members)
-  local newClass = members and deep_copy(members) or {}
-  newClass.__index, newClass.__call = newClass, baseMt.__call
-  newClass.new = instantiate
-  newClass.extends = extends
-  return setmetatable(newClass,baseMt)
+  local c = members and deep_copy(members) or {}
+  c.new, c.extends, c.__index, c.__call = instantiate, extends, c, baseMt.__call
+  return setmetatable(c,baseMt)
 end
+
+return class
