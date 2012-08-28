@@ -56,152 +56,151 @@ When loaded, <strong>30log</strong> returns its main function .</p>
 
 <p>Making a new class is fairly simple. Just call the returned function, then add some properties to this class :</p>
 
-<pre><code>class = require '30log'
-Window = class ()
-Window.x, Window.y = 10, 10
-Window.width, Window.height = 100,100
-</code></pre>
+<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
+<span class="n">Window</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">Window</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span>
+<span class="n">Window</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">Window</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="mi">100</span>
+</pre></div>
 
 <p>You can also shortcut it, passing the default properties as a table to <tt>class</tt> :</p>
 
-<pre><code>class = require '30log'
-Window = class { width = 100, height = 100, w = 10, y = 10}
-</code></pre>
+<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+</pre></div>
 
 <h3>Instances</h3>
 
 <p>Once a class is set, you can easily create new <strong>instances</strong> from the class.</p>
 
-<pre><code>appFrame = Window:new()
-print(appFrame.x,appFrame.y) --&gt; 10, 10
-print(appFrame.width,appFrame.height) --&gt; 100, 100
-</code></pre>
+<div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
+</pre></div>
 
 <p>You can also use a shortcut, calling the class <strong>as a function</strong> :</p>
 
-<pre><code>appFrame = Window()
-print(appFrame.x,appFrame.y) --&gt; 10, 10
-print(appFrame.width,appFrame.height) --&gt; 100, 100  
-</code></pre>
+<div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
+</pre></div>
 
 <p>From the two examples above, you might have noticed that once an instance is created from a class, its properties takes <strong>by default</strong> the class properties.
 But, you can init objects from a class with your own specific properties. To accomplish that, you must have implemented a method named <tt><strong>__init</strong></tt> inside the base class.<br>
 In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</strong> to be used as a <strong>class constructor</strong>.</p>
 
-<pre><code>Window = class { width = 100, height = 100, x = 10, y = 10}
-function Window:__init(x,y,width,height)
-     self.x,self.y = x,y
-     self.width,self.height = width,height
-end
+<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
+<span class="k">end</span>
 
-appFrame = Window:new(50,60,800,600)
-   -- or appFrame = Window(50,60,800,600)
-print(appFrame.x,appFrame.y) --&gt; 50, 60
-print(appFrame.width,appFrame.height) --&gt; 800, 600
-</code></pre>
+<span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+   <span class="c1">-- or appFrame = Window(50,60,800,600)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 50, 60</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
+</pre></div>
 
 <h3>Methods</h3>
 
 <p><strong>Methods</strong> are supported. Obviously.</p>
 
-<pre><code>Window = class { width = 100, height = 100, w = 10, y = 10}
-function Window:__init(x,y,width,height)
-     self.x,self.y = x,y
-     self.width,self.height = width,height
-end
+<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
+<span class="k">end</span>
 
-function Window:set(x,y)
-     self.x, self.y = x, y 
-end
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> 
+<span class="k">end</span>
 
-function Window:resize(width, height)
-   self.width, self.height = width, height
-  end
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span>
+<span class="k">end</span>
 
-appFrame = Window()
-appFrame:set(50,60)
-print(appFrame.x,appFrame.y) --&gt; 50, 60
-appFrame:resize(800,600)
-print(appFrame.width,appFrame.height) --&gt; 800, 600
-</code></pre>
+<span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
+<span class="n">appFrame</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 50, 60</span>
+<span class="n">appFrame</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
+</pre></div>
 
 <h3>Inheritance</h3>
 
 <p>A class can <strong>derive</strong> from a base class using a default method named <tt>:extends</tt>.
 The new class will inherit his mother class default <strong>members</strong> and <strong>methods</strong>.</p>
 
-<pre><code>Window = class { width = 100, height = 100, x = 10, y = 10}
-Frame = Window:extends { color = 'black' }
-print(Frame.x, Frame.y) --&gt; 10, 10
+<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span> <span class="p">{</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'</span><span class="s">black'</span> <span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Frame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">Frame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 
-appFrame = Frame()
-print(appFrame.x,appFrame.y) --&gt; 10, 10
-</code></pre>
+<span class="n">appFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
+</pre></div>
 
 <p>A derived class can <strong>overload any method</strong> defined in its base class (or mother class). Therefore, the derived class still has access to his mother class methods via a special key named <tt>super</tt>.<br>
 Let's use this feature to build a class constructor for our <tt>Frame</tt> class.</p>
 
-<pre><code>-- The base class "Window"
-Window = class { width = 100, height = 100, x = 10, y = 10}
-function Window:__init(x,y,width,height)
-   self.x,self.y = x,y
-   self.width,self.height = width,height
-end
+<div class="highlight"><pre><span class="c1">-- The base class "Window"</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
+<span class="k">end</span>
 
-function Window:set(x,y)
-   self.x, self.y = x, y
-end
+<span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="k">end</span>
 
--- A derived class named "Frame"
-Frame = Window:extends { color = 'black' }
-function Frame:__init(x,y,width,height,color)
-   -- Calling the superclass constructor
-   self.super.__init(self,x,y,width,height)
-   -- Setting the extra class member
-   self.color = color
-end
+<span class="c1">-- A derived class named "Frame"</span>
+<span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span> <span class="p">{</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'</span><span class="s">black'</span> <span class="p">}</span>
+<span class="k">function</span> <span class="nf">Frame</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
+  <span class="c1">-- Calling the superclass constructor</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+  <span class="c1">-- Setting the extra class member</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+<span class="k">end</span>
 
--- Overloading Window:set()
-function Frame:set(x,y)
-   self.x = x - self.width/2
-   self.y = y - self.height/2
-end
+<span class="c1">-- Overloading Window:set()</span>
+<span class="k">function</span> <span class="nf">Frame</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">end</span>
 
--- A appFrame from "Frame" class
-appFrame = Frame(100,100,800,600,'red')
-print(appFrame.x,appFrame.y) --&gt; 100, 100
+<span class="c1">-- A appFrame from "Frame" class</span>
+<span class="n">appFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="s1">'</span><span class="s">red'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 
-appFrame:set(400,400)
-print(appFrame.x,appFrame.y) --&gt; 0, 100
+<span class="n">appFrame</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 0, 100</span>
 
-appFrame.super.set(appFrame,400,300)
-print(appFrame.x,appFrame.y) --&gt; 400, 300
-</code></pre>
+<span class="n">appFrame</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">appFrame</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
+</pre></div>
 
 <h2>License</h2>
 
 <p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
 Copyright (c) 2012 Roland Yonaba</p>
 
-<pre><code>Permission is hereby granted, free of charge, to any person obtaining a
+<p>Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+the following conditions:</p>
 
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
+<p>The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.</p>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
-</code></pre>
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
