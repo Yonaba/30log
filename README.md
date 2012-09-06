@@ -6,7 +6,7 @@ It features __class creation__, __object instantiation__, __class inheritance__ 
 And yes, it makes __30 lignes__ length. No less, no more.
 
 ##Installation
-Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder, call it using [require](pgl.yoyo.org/luai/i/require) function.<br/>
+Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder, call it using [require](http://pgl.yoyo.org/luai/i/require) function.<br/>
 When loaded, __30log__ returns its main function .
 
 ##Quicktour
