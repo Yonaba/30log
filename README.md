@@ -22,10 +22,10 @@ Window.width, Window.height = 100,100
 
 You can also shortcut it, passing the default properties as a table to <tt>class</tt> :
 
-```lua  
+```lua
 class = require '30log'
-Window = class { width = 100, height = 100, w = 10, y = 10}
-```  
+Window = class { width = 100, height = 100, x = 10, y = 10}
+```
 
 ###Instances
 
@@ -73,7 +73,7 @@ function Window:__init(x,y,width,height)
 end
 
 function Window:set(x,y)
-  self.x, self.y = x, y 
+  self.x, self.y = x, y
 end
 
 function Window:resize(width, height)

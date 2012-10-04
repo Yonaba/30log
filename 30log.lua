@@ -21,7 +21,7 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
-local class
+local type, pairs, setmetatable, class = type, pairs, setmetatable
 
 local function deep_copy(t)
   local r = {}
