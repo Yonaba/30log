@@ -1,5 +1,8 @@
 #Version history#
 
+##0.2.1 (10/31/12)
+* Added specs
+
 ##0.2.1 (10/04/12)
 * Added local shortcuts to global functions internally used
 * Typo fix in Readme's snippets

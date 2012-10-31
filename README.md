@@ -141,6 +141,13 @@ appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) --> 400, 300
 ```
 
+##Specification
+Specs tests have been included. Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
+
+```
+tsc -f specs/*
+```
+
 ##License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
 Copyright (c) 2012 Roland Yonaba
