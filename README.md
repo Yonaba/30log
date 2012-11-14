@@ -1,9 +1,9 @@
 30log
 =====
 
-__30log__, in extenso *30 Lines Of Goodness* is a minified library for [pseudo object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It features __class creation__, __object instantiation__, __class inheritance__ and __method overload__ through inheritance.<br/>
-And yes, it makes __30 lignes__ length. No less, no more.
+__30log__, in extenso *30 Lines Of Goodness* is a minified framework for [pseudo object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
+It features __class creation__, __instantiation__, __inheritance__ .<br/>
+And, it makes __30 lines__. No less, no more.
 
 ##Installation
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder, call it using [require](http://pgl.yoyo.org/luai/i/require) function.<br/>
