@@ -164,6 +164,27 @@ Specs tests have been included. Run them using [Telescope](https://github.com/no
 ```
 tsc -f specs/*
 ```
+##Class Commons support
+
+See https://github.com/bartbes/Class-Commons
+
+```lua
+require("30log-classcommons")
+
+common.class(...)
+common.instance(...)
+```
+
+See https://github.com/bartbes/Class-Commons-Tests
+
+```
+$ lua tests.lua 30log-classcommons
+Testing implementation: 30log-classcommons
+  Summary:
+    Failed: 0
+    Out of: 10
+    Rate: 100%
+```
 
 ##License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
