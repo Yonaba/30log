@@ -1,5 +1,5 @@
 --[[
-	Copyright (c) 2012 Roland Yonaba
+	Copyright (c) 2012 TsT <tst worldmaster fr>
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the
@@ -21,33 +21,23 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
-local type, pairs, setmetatable, class = type, pairs, setmetatable
+local class = require("30log")
 
-local function deep_copy(t)
-  local r = {}
-  for k,v in pairs(t) do
-    if type(v) == 'table' and k ~= "__index" then r[k] = deep_copy(v) else r[k] = v end
-  end
-  return r
+-- interface for cross class-system compatibility (see https://github.com/bartbes/Class-Commons).
+if class_commons ~= false and not common then
+	common_class = true
+	common = {}
+	function common.class(name, prototype, parent)
+		local init = prototype.init or (parent or {}).init
+
+		local c = class():extends(parent):extends(prototype)
+		if init then
+			c.__init = init
+		end
+		return c
+	end
+	function common.instance(class, ...)
+		return class:new(...)
+	end
 end
 
-local function instantiate(self,...)
-  local instance = setmetatable({},self)
-  if self.__init then self.__init(instance, ...) end
-  return instance
-end
-
-local function extends(self,extra_params)
-  local heirClass = class(extra_params)
-  heirClass.__index, heirClass.super = heirClass, self
-  return setmetatable(heirClass,self)
-end
-
-local baseMt = {__call = function (self,...) return self:new(...) end}
-class = function(members)
-  local c = members and deep_copy(members) or {}
-  c.new, c.extends, c.__index, c.__call = instantiate, extends, c, baseMt.__call
-  return setmetatable(c,baseMt)
-end
-
-return class
