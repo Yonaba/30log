@@ -41,14 +41,42 @@
       <section>
         <h1>30log</h1>
 
-<p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified library for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">pseudo object-orientation</a> in Lua.
-It features <strong>class creation</strong>, <strong>object instantiation</strong>, <strong>class inheritance</strong> and <strong>method overload</strong> through inheritance.<br>
-And yes, it makes <strong>30 lignes</strong> length. No less, no more.</p>
+<p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a></p>
+
+<p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
+It features <strong>class creation</strong>, <strong>instantiation</strong>, <strong>inheritance</strong> .<br>
+And, it makes <strong>30 lines</strong>. No less, no more.</p>
+
+<h2>Download</h2>
+
+<h3>Bash</h3>
+
+<div class="highlight"><pre>git clone git://github.com/Yonaba/30log.git
+</pre></div>
+
+<h3>Archive</h3>
+
+<ul>
+<li>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/master.zip">current</a> | <a href="https://github.com/Yonaba/30log/tags">old packages</a>
+</li>
+<li>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/master.tar.gz">current</a> | <a href="https://github.com/Yonaba/30log/tags">old packages</a>
+</li>
+</ul><h3>LuaRocks</h3>
+
+<pre><code>luarocks install 30log
+</code></pre>
+
+<h3>MoonRocks</h3>
+
+<div class="highlight"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba 30log
+</pre></div>
 
 <h2>Installation</h2>
 
 <p>Copy the file <a href="https://github.com/Yonaba/30log/blob/master/Lib/30log.lua">30log.lua</a> inside your project folder, call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function.<br>
-When loaded, <strong>30log</strong> returns its main function .</p>
+When loaded, <strong>30log</strong> returns its main function.</p>
 
 <h2>Quicktour</h2>
 
@@ -65,7 +93,7 @@ When loaded, <strong>30log</strong> returns its main function .</p>
 <p>You can also shortcut it, passing the default properties as a table to <tt>class</tt> :</p>
 
 <div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
-<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 </pre></div>
 
 <h3>Instances</h3>
@@ -111,7 +139,7 @@ In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</s
 <span class="k">end</span>
 
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> 
+  <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 <span class="k">end</span>
 
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
@@ -178,7 +206,83 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
 </pre></div>
 
-<h2>License</h2>
+<h2>Class Commons support</h2>
+
+<p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common API for lua classes libraries.</p>
+
+<div class="highlight"><pre><span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">30logclasscommons"</span><span class="p">)</span>
+
+<span class="n">common</span><span class="p">.</span><span class="n">class</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">common</span><span class="p">.</span><span class="n">instance</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+
+<h2>Specification</h2>
+
+<h3>30log Specs</h3>
+
+<p>Specs tests have been included.<br>
+Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
+
+<pre><code>tsc -f specs/*
+</code></pre>
+
+<pre><code>Assuming the returned value when requiring "30log" 
+is held in variable named Class
+------------------------------------------------------------------------
+Class():                                                             
+When Class is called with no args passed:                            
+  it returns a new class (regular Lua table)                         [P]
+Attributes:                                                          
+  can be added to classes                                            [P]
+  can be passed in a table to Class()                                [P]
+Methods:                                                             
+  can be added to classes                                            [P]
+------------------------------------------------------------------------
+Derivation (Inheritance):                                            
+Class can be derived from a superclass:                              
+  Via "extends()" method                                             [P]
+  With extra-arguments passed to method "extends()" as a table       [P]
+A derived class still points to its superclass:                      
+  Via its "super" key                                                [P]
+  Via "getmetatable()" function                                      [P]
+A derived class:                                                     
+  can instantiate objects                                            [P]
+  shares its superclass attributes                                   [P]
+  shares its superclass methods                                      [P]
+  can reimplement its superclass methods                             [P]
+  Yet, it still has access to the original superclass method         [P]
+------------------------------------------------------------------------
+Instances (Objects):                                                 
+When a class is created:                                             
+  new objects can be created via Class:new()                         [P]
+  new objects can be created calling the class as a function         [P]
+  new objects share their class attributes                           [P]
+  new objects share their class methods                              [P]
+Providing an :__init() method to classes:                            
+  Overrides instantiation scheme with Class:new()                    [P]
+  Overrides instantiation scheme with Class()                        [P]
+------------------------------------------------------------------------
+19 tests 19 passed 25 assertions 0 failed 0 errors 0 unassertive 0 pending
+</code></pre>
+
+<h3>Class-Commons testing implementation</h3>
+
+<p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
+
+<pre><code>$ lua tests.lua 30logclasscommons
+Testing implementation: 30logclasscommons
+  Summary:
+    Failed: 0
+    Out of: 10
+    Rate: 100%
+</code></pre>
+
+<h2>Contributors</h2>
+
+<ul>
+<li>
+<a href="https://github.com/tst2005">TsT2005</a>, for Class-commons support.</li>
+</ul><h2>License</h2>
 
 <p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
 Copyright (c) 2012 Roland Yonaba</p>
