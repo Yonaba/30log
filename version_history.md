@@ -1,5 +1,9 @@
 #Version history#
 
+##0.2.2 (03/01/13)
+* Added Class-Commons support (Thanks to [TsT2005](https://github.com/tst2005))
+* Added Tracis-CI validation
+
 ##0.2.1 (10/31/12)
 * Added specs
 
