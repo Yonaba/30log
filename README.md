@@ -27,7 +27,7 @@ luarocks install 30log
 ###MoonRocks
 
 ```bash
-luarocks install --server=http://rocks.moonscript.org/manifests/30log 30log
+luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
 ````
 
 ##Installation
