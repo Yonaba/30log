@@ -164,7 +164,7 @@ print(appFrame.x,appFrame.y) --> 400, 300
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for lua classes libraries.
 
 ```lua
-require("30log-classcommons")
+require("30logclasscommons")
 
 common.class(...)
 common.instance(...)
@@ -223,8 +223,8 @@ Providing an :__init() method to classes:
 See [Class-Commons-Tests](https://github.com/bartbes/Class-Commons-Tests)
 
 ```
-$ lua tests.lua 30log-classcommons
-Testing implementation: 30log-classcommons
+$ lua tests.lua 30logclasscommons
+Testing implementation: 30logclasscommons
   Summary:
     Failed: 0
     Out of: 10

@@ -21,6 +21,6 @@ build = {
   type = "builtin",
   modules = {
     ["30log"] = "30log.lua"
-    ["30log-classcommons"] = "30log-classcommons.lua"
+    ["30logclasscommons"] = "30logclasscommons.lua"
   }
 }
