@@ -158,15 +158,8 @@ appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) --> 400, 300
 ```
 
-##Specification
-Specs tests have been included. Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
-
-```
-tsc -f specs/*
-```
 ##Class Commons support
-
-See https://github.com/bartbes/Class-Commons
+[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for lua classes libraries.
 
 ```lua
 require("30log-classcommons")
@@ -175,7 +168,57 @@ common.class(...)
 common.instance(...)
 ```
 
-See https://github.com/bartbes/Class-Commons-Tests
+##Specification
+
+###30log Specs
+Specs tests have been included.<br/>
+Run them using [Telescope](https://github.com/norman/telescope) with the following command from the root foolder:
+```
+tsc -f specs/*
+```
+
+````
+Assuming the returned value when requiring "30log" 
+is held in variable named Class
+------------------------------------------------------------------------
+Class():                                                             
+When Class is called with no args passed:                            
+  it returns a new class (regular Lua table)                         [P]
+Attributes:                                                          
+  can be added to classes                                            [P]
+  can be passed in a table to Class()                                [P]
+Methods:                                                             
+  can be added to classes                                            [P]
+------------------------------------------------------------------------
+Derivation (Inheritance):                                            
+Class can be derived from a superclass:                              
+  Via "extends()" method                                             [P]
+  With extra-arguments passed to method "extends()" as a table       [P]
+A derived class still points to its superclass:                      
+  Via its "super" key                                                [P]
+  Via "getmetatable()" function                                      [P]
+A derived class:                                                     
+  can instantiate objects                                            [P]
+  shares its superclass attributes                                   [P]
+  shares its superclass methods                                      [P]
+  can reimplement its superclass methods                             [P]
+  Yet, it still has access to the original superclass method         [P]
+------------------------------------------------------------------------
+Instances (Objects):                                                 
+When a class is created:                                             
+  new objects can be created via Class:new()                         [P]
+  new objects can be created calling the class as a function         [P]
+  new objects share their class attributes                           [P]
+  new objects share their class methods                              [P]
+Providing an :__init() method to classes:                            
+  Overrides instantiation scheme with Class:new()                    [P]
+  Overrides instantiation scheme with Class()                        [P]
+------------------------------------------------------------------------
+19 tests 19 passed 25 assertions 0 failed 0 errors 0 unassertive 0 pending
+````
+
+###Class-Commons testing implementation
+See [Class-Commons-Tests](https://github.com/bartbes/Class-Commons-Tests)
 
 ```
 $ lua tests.lua 30log-classcommons
@@ -185,6 +228,10 @@ Testing implementation: 30log-classcommons
     Out of: 10
     Rate: 100%
 ```
+
+##Contributors
+* [TsT2005](https://github.com/tst2005), for Class-commons support.
+
 
 ##License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
