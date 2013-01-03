@@ -24,6 +24,12 @@ git clone git://github.com/Yonaba/30log.git
 luarocks install 30log
 ````
 
+###MoonRocks
+
+```bash
+luarocks install --server=http://rocks.moonscript.org/manifests/30log 30log
+````
+
 ##Installation
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder, call it using [require](http://pgl.yoyo.org/luai/i/require) function.<br/>
 When loaded, __30log__ returns its main function.
