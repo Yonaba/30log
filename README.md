@@ -1,6 +1,8 @@
 30log
 =====
 
+[![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
+
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It features __class creation__, __instantiation__, __single inheritance__ .<br/>
 And, it makes __30 lines__. No less, no more.
