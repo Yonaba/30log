@@ -1,7 +1,5 @@
 _G.Class = require '30log'
 
-print('Assuming the returned value when requiring "30log" \nis held in variable named Class')
-
 context('Class()', function()
   
   context('When Class is called with no args passed', function()

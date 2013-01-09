@@ -79,4 +79,47 @@ context('Derivation (Inheritance)',function()
     
   end)
   
+  context('In a single inheritance model', function()
+    local A, B, C, D
+    before(function()
+      A = Class()
+      function A.__init(instance,a)
+        instance.a = a
+      end
+      B = A:extends()
+      function B.__init(instance, a, b)
+        B.super.__init(instance, a)
+        instance.b = b
+      end
+      C = B:extends()
+      function C.__init(instance, a, b, c)
+        C.super.__init(instance,a, b)
+        instance.c = c
+      end
+      D = C:extends()
+      function D.__init(instance, a, b, c, d)
+        D.super.__init(instance,a, b, c)
+        instance.d = d
+      end
+    end)
+      
+    test('__init() class constructor can chain', function()
+      local a = A(1)
+      local b = B(1,2)
+      local c = C(1,2,3)
+      local d = D(1,2,3,4)
+      assert_equal(a.a,1)
+      assert_equal(b.a,1)
+      assert_equal(b.b,2)
+      assert_equal(c.a,1)
+      assert_equal(c.b,2)
+      assert_equal(c.c,3)
+      assert_equal(d.a,1)
+      assert_equal(d.b,2)
+      assert_equal(d.c,3)
+      assert_equal(d.d,4)
+    end)
+    
+  end)
+  
  end)

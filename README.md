@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
 
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It features __class creation__, __instantiation__, __inheritance__ .<br/>
+It features __class creation__, __instantiation__, __single inheritance__ .<br/>
 And, it makes __30 lines__. No less, no more.
 
 ##Download
@@ -165,6 +165,47 @@ print(appFrame.x,appFrame.y) --> 0, 100
 appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) --> 400, 300
 ```
+##Chained initialisation
+In a single inheritance model, <tt>**__init**</tt> constructor can be chained from one class to another.
+
+```lua
+-- A mother class 'A'
+local A = Class()
+function A.__init(instance,a)
+  instance.a = a
+end
+
+-- Class 'B', deriving from class 'A'
+local B = A:extends()
+function B.__init(instance, a, b)
+  B.super.__init(instance, a)
+  instance.b = b
+end
+
+-- Class 'C', deriving from class 'B'
+local C = B:extends()
+function C.__init(instance, a, b, c)
+  C.super.__init(instance,a, b)
+  instance.c = c
+end
+
+-- Class 'D', deriving from class 'C'
+local D = C:extends()
+function D.__init(instance, a, b, c, d)
+  D.super.__init(instance,a, b, c)
+  instance.d = d
+end
+
+-- Creating an instance of class 'D'
+local objD = D(1,2,3,4)
+for k,v in pairs(objD) do print(k,v) end
+
+-- Output:
+--> a	1
+--> d	4
+--> c	3
+--> b	2
+```
 
 ##Class Commons support
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for lua classes libraries.
@@ -186,8 +227,6 @@ tsc -f specs/*
 ```
 
 ````
-Assuming the returned value when requiring "30log" 
-is held in variable named Class
 ------------------------------------------------------------------------
 Class():                                                             
 When Class is called with no args passed:                            
@@ -211,6 +250,8 @@ A derived class:
   shares its superclass methods                                      [P]
   can reimplement its superclass methods                             [P]
   Yet, it still has access to the original superclass method         [P]
+In a single inheritance model:                                       
+  __init() class constructor can chain                               [P]
 ------------------------------------------------------------------------
 Instances (Objects):                                                 
 When a class is created:                                             
@@ -222,7 +263,7 @@ Providing an :__init() method to classes:
   Overrides instantiation scheme with Class:new()                    [P]
   Overrides instantiation scheme with Class()                        [P]
 ------------------------------------------------------------------------
-19 tests 19 passed 25 assertions 0 failed 0 errors 0 unassertive 0 pending
+20 tests 20 passed 35 assertions 0 failed 0 errors 0 unassertive 0 pending
 ````
 
 ###Class-Commons testing implementation
