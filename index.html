@@ -44,7 +44,7 @@
 <p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a></p>
 
 <p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
-It features <strong>class creation</strong>, <strong>instantiation</strong>, <strong>inheritance</strong> .<br>
+It features <strong>class creation</strong>, <strong>instantiation</strong>, <strong>single inheritance</strong> .<br>
 And, it makes <strong>30 lines</strong>. No less, no more.</p>
 
 <h2>Download</h2>
@@ -206,6 +206,48 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
 </pre></div>
 
+<h2>Chained initialisation</h2>
+
+<p>In a single inheritance model, <tt><strong>__init</strong></tt> constructor can be chained from one class to another.</p>
+
+<div class="highlight"><pre><span class="c1">-- A mother class 'A'</span>
+<span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
+<span class="k">function</span> <span class="nc">A</span><span class="p">.</span><span class="nf">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+  <span class="n">instance</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="k">end</span>
+
+<span class="c1">-- Class 'B', deriving from class 'A'</span>
+<span class="kd">local</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nc">B</span><span class="p">.</span><span class="nf">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="n">B</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+  <span class="n">instance</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="c1">-- Class 'C', deriving from class 'B'</span>
+<span class="kd">local</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nc">C</span><span class="p">.</span><span class="nf">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+  <span class="n">C</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="n">instance</span><span class="p">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+<span class="k">end</span>
+
+<span class="c1">-- Class 'D', deriving from class 'C'</span>
+<span class="kd">local</span> <span class="n">D</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nc">D</span><span class="p">.</span><span class="nf">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+  <span class="n">D</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+  <span class="n">instance</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span>
+<span class="k">end</span>
+
+<span class="c1">-- Creating an instance of class 'D'</span>
+<span class="kd">local</span> <span class="n">objD</span> <span class="o">=</span> <span class="n">D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">objD</span><span class="p">)</span> <span class="k">do</span> <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="k">end</span>
+
+<span class="c1">-- Output:</span>
+<span class="c1">--&gt; a   1</span>
+<span class="c1">--&gt; d   4</span>
+<span class="c1">--&gt; c   3</span>
+<span class="c1">--&gt; b   2</span>
+</pre></div>
+
 <h2>Class Commons support</h2>
 
 <p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common API for lua classes libraries.</p>
@@ -226,9 +268,7 @@ Run them using <a href="https://github.com/norman/telescope">Telescope</a> with 
 <pre><code>tsc -f specs/*
 </code></pre>
 
-<pre><code>Assuming the returned value when requiring "30log" 
-is held in variable named Class
-------------------------------------------------------------------------
+<pre><code>------------------------------------------------------------------------
 Class():                                                             
 When Class is called with no args passed:                            
   it returns a new class (regular Lua table)                         [P]
@@ -251,6 +291,8 @@ A derived class:
   shares its superclass methods                                      [P]
   can reimplement its superclass methods                             [P]
   Yet, it still has access to the original superclass method         [P]
+In a single inheritance model:                                       
+  __init() class constructor can chain                               [P]
 ------------------------------------------------------------------------
 Instances (Objects):                                                 
 When a class is created:                                             
@@ -262,7 +304,7 @@ Providing an :__init() method to classes:
   Overrides instantiation scheme with Class:new()                    [P]
   Overrides instantiation scheme with Class()                        [P]
 ------------------------------------------------------------------------
-19 tests 19 passed 25 assertions 0 failed 0 errors 0 unassertive 0 pending
+20 tests 20 passed 35 assertions 0 failed 0 errors 0 unassertive 0 pending
 </code></pre>
 
 <h3>Class-Commons testing implementation</h3>
