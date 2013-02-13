@@ -87,6 +87,19 @@ print(appFrame.x,appFrame.y) --> 50, 60
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
+As of [version 0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), **<tt>__init**</tt> can also be a __table with named args__. </br>
+In that case though, each instances will keep the same values for their properties, no matter what the values passed-in to the <tt>**:new**</tt> method would be.
+
+```lua
+Window = class()
+Window.__init = { width = 100, height = 100, x = 10, y = 10}
+
+appFrame = Window:new(50,60,800,600)
+   -- or appFrame = Window(50,60,800,600)
+print(appFrame.x,appFrame.y) --> 10, 10
+print(appFrame.width,appFrame.height) --> 100, 100
+````
+
 ###Methods
 __Methods__ are supported. Obviously.
 
@@ -207,6 +220,25 @@ for k,v in pairs(objD) do print(k,v) end
 --> b	2
 ```
 
+##Printing classes and objects
+As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), a light feature have been added.<br/>
+Any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a class/instance 
+will return a special string, mostly useful when debugging.
+
+```lua
+-- A Cat Class
+local Cat = class({name = 'Animal'})
+-- Init
+function Cat:__init(name)
+  self.name = name
+end
+
+print(Cat) --> "class: <table: 00550AD0>"
+
+local kitten = Cat('kitty')
+print(kitten) --> "object: <table: 00550C10>"
+````
+
 ##Class Commons support
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for lua classes libraries.
 
@@ -236,6 +268,8 @@ Attributes:
   can be passed in a table to Class()                                [P]
 Methods:                                                             
   can be added to classes                                            [P]
+tostring:                                                            
+  classes can be stringified                                         [P]
 ------------------------------------------------------------------------
 Derivation (Inheritance):                                            
 Class can be derived from a superclass:                              
@@ -262,8 +296,13 @@ When a class is created:
 Providing an :__init() method to classes:                            
   Overrides instantiation scheme with Class:new()                    [P]
   Overrides instantiation scheme with Class()                        [P]
+.__init can also be a table of named args for static instantiati...: 
+  Overrides instantiation scheme with Class:new()                    [P]
+  Overrides instantiation scheme with Class()                        [P]
+tostring:                                                            
+  objects can be stringified                                         [P]
 ------------------------------------------------------------------------
-20 tests 20 passed 35 assertions 0 failed 0 errors 0 unassertive 0 pending
+24 tests 24 passed 39 assertions 0 failed 0 errors 0 unassertive 0 pending
 ````
 
 ###Class-Commons testing implementation
