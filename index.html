@@ -128,6 +128,18 @@ In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</s
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
 </pre></div>
 
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">version 0.4.0</a>, <strong><tt>__init</tt></strong> can also be a <strong>table with named args</strong>. 
+In that case though, each instances will keep the same values for their properties, no matter what the values passed-in to the <tt><strong>:new</strong></tt> method would be.</p>
+
+<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="n">Window</span><span class="p">.</span><span class="n">__init</span> <span class="o">=</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+
+<span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+   <span class="c1">-- or appFrame = Window(50,60,800,600)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
+</pre></div>
+
 <h3>Methods</h3>
 
 <p><strong>Methods</strong> are supported. Obviously.</p>
@@ -248,6 +260,25 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 <span class="c1">--&gt; b   2</span>
 </pre></div>
 
+<h2>Printing classes and objects</h2>
+
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, a light feature have been added.<br>
+Any attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> a class/instance 
+will return a special string, mostly useful when debugging.</p>
+
+<div class="highlight"><pre><span class="c1">-- A Cat Class</span>
+<span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">({</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Animal'</span><span class="p">})</span>
+<span class="c1">-- Init</span>
+<span class="k">function</span> <span class="nf">Cat</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class: &lt;table: 00550AD0&gt;"</span>
+
+<span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">(</span><span class="s1">'</span><span class="s">kitty'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object: &lt;table: 00550C10&gt;"</span>
+</pre></div>
+
 <h2>Class Commons support</h2>
 
 <p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common API for lua classes libraries.</p>
@@ -266,57 +297,6 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
 
 <pre><code>tsc -f specs/*
-</code></pre>
-
-<pre><code>------------------------------------------------------------------------
-Class():                                                             
-When Class is called with no args passed:                            
-  it returns a new class (regular Lua table)                         [P]
-Attributes:                                                          
-  can be added to classes                                            [P]
-  can be passed in a table to Class()                                [P]
-Methods:                                                             
-  can be added to classes                                            [P]
-------------------------------------------------------------------------
-Derivation (Inheritance):                                            
-Class can be derived from a superclass:                              
-  Via "extends()" method                                             [P]
-  With extra-arguments passed to method "extends()" as a table       [P]
-A derived class still points to its superclass:                      
-  Via its "super" key                                                [P]
-  Via "getmetatable()" function                                      [P]
-A derived class:                                                     
-  can instantiate objects                                            [P]
-  shares its superclass attributes                                   [P]
-  shares its superclass methods                                      [P]
-  can reimplement its superclass methods                             [P]
-  Yet, it still has access to the original superclass method         [P]
-In a single inheritance model:                                       
-  __init() class constructor can chain                               [P]
-------------------------------------------------------------------------
-Instances (Objects):                                                 
-When a class is created:                                             
-  new objects can be created via Class:new()                         [P]
-  new objects can be created calling the class as a function         [P]
-  new objects share their class attributes                           [P]
-  new objects share their class methods                              [P]
-Providing an :__init() method to classes:                            
-  Overrides instantiation scheme with Class:new()                    [P]
-  Overrides instantiation scheme with Class()                        [P]
-------------------------------------------------------------------------
-20 tests 20 passed 35 assertions 0 failed 0 errors 0 unassertive 0 pending
-</code></pre>
-
-<h3>Class-Commons testing implementation</h3>
-
-<p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
-
-<pre><code>$ lua tests.lua 30logclasscommons
-Testing implementation: 30logclasscommons
-  Summary:
-    Failed: 0
-    Out of: 10
-    Rate: 100%
 </code></pre>
 
 <h2>Contributors</h2>
