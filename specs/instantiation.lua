@@ -49,5 +49,33 @@ context('Instances (Objects)',function()
     end)      
     
   end)
+	
+  context('.__init can also be a table of named args for static instantiation',function()
+    local Window
+    
+    before(function()
+      Window = Class()
+      function Window:setSize(size) self.size = size end
+      Window.__init = {size = 25}
+    end)
+    
+    test('Overrides instantiation scheme with Class:new()',function()
+      local window = Window:new(100)
+      assert_equal(window.size,25)
+    end)
+    
+    test('Overrides instantiation scheme with Class()',function()
+      local window = Window(90)
+      assert_equal(window.size,25)
+    end)      
+    
+  end)
+	
+	context('tostring', function()
+		test('objects can be stringified', function()
+			local myClass = Class()
+			assert_not_nil(tostring(myClass()):match('object: <table: [%d%w]+>'))
+		end)
+	end)	
   
 end)

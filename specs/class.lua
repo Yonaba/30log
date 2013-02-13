@@ -40,4 +40,11 @@ context('Class()', function()
     end)    
   end)
  
+	context('tostring', function()
+		test('classes can be stringified', function()
+			local myClass = Class()
+			assert_not_nil(tostring(myClass):match('class: <table: [%d%w]+>'))
+		end)
+	end)
+	
 end)
