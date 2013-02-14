@@ -43,8 +43,16 @@ context('Class()', function()
 	context('tostring', function()
 		test('classes can be stringified', function()
 			local myClass = Class()
-			assert_not_nil(tostring(myClass):match('class: <table: [%d%w]+>'))
+			assert_not_nil(tostring(myClass):match('class (Unnamed): <table: [%d%w]+>'))
 		end)
 	end)
+	
+	context('named classes', function()
+		test('classes can be named implementing the special attribute __name', function()
+			local myClass = Class()
+			Class.__name = 'aClass'
+			assert_not_nil(tostring(myClass):match('class (aClass): <table: [%d%w]+>'))
+		end)
+	end)	
 	
 end)
