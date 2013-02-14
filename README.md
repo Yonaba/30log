@@ -7,6 +7,16 @@ __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object
 It features __class creation__, __instantiation__, __single inheritance__ .<br/>
 And, it makes __30 lines__. No less, no more.
 
+##Contents
+* [Download](https://github.com/Yonaba/30log/#download)
+* [Installation](https://github.com/Yonaba/30log/#installation)
+* [Quicktour](https://github.com/Yonaba/30log/#quicktour)
+* [Chained initialisation](https://github.com/Yonaba/30log/#chained-initialisation)
+* [Printing classes and objects](https://github.com/Yonaba/30log/#printing-classes-and-objects)
+* [Class Commons support](https://github.com/Yonaba/30log/#class-commons-support)
+* [Specification](https://github.com/Yonaba/30log/#specification)
+* [Contributors](https://github.com/Yonaba/30log/#contributors)
+
 ##Download
 ###Bash
 
