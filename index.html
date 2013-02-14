@@ -4,40 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>30log by Yonaba</title>
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-
+    <div class="wrapper">
       <header>
         <h1>30log</h1>
         <p>A 30-lines library for object-orientation in Lua</p>
+
+        <p class="view"><a href="https://github.com/Yonaba/30log">View the Project on GitHub <small>Yonaba/30log</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Yonaba/30log/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Yonaba/30log/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Yonaba/30log">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/Yonaba/30log" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/Yonaba/30log/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/Yonaba/30log/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
-
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
       <section>
         <h1>30log</h1>
 
@@ -47,7 +36,18 @@
 It features <strong>class creation</strong>, <strong>instantiation</strong>, <strong>single inheritance</strong> .<br>
 And, it makes <strong>30 lines</strong>. No less, no more.</p>
 
-<h2>Download</h2>
+<h2>Contents</h2>
+
+<ul>
+<li><a href="https://github.com/Yonaba/30log/#download">Download</a></li>
+<li><a href="https://github.com/Yonaba/30log/#installation">Installation</a></li>
+<li><a href="https://github.com/Yonaba/30log/#quicktour">Quicktour</a></li>
+<li><a href="https://github.com/Yonaba/30log/#chained-initialisation">Chained initialisation</a></li>
+<li><a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">Printing classes and objects</a></li>
+<li><a href="https://github.com/Yonaba/30log/#class-commons-support">Class Commons support</a></li>
+<li><a href="https://github.com/Yonaba/30log/#specification">Specification</a></li>
+<li><a href="https://github.com/Yonaba/30log/#contributors">Contributors</a></li>
+</ul><h2>Download</h2>
 
 <h3>Bash</h3>
 
@@ -96,6 +96,17 @@ When loaded, <strong>30log</strong> returns its main function.</p>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 </pre></div>
 
+<h3>Named classes</h3>
+
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.1</a>, classes can be named, setting manually a string value (corresponding to the name you want to set) to a special key named <tt><strong>__name</strong></tt></p>
+
+<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
+<span class="n">Window</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Window'</span>
+</pre></div>
+
+<p>This feature can be quite useful when debugging your code. See <a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">printing classes</a> for more details.</p>
+
 <h3>Instances</h3>
 
 <p>Once a class is set, you can easily create new <strong>instances</strong> from the class.</p>
@@ -128,7 +139,7 @@ In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</s
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
 </pre></div>
 
-<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">version 0.4.0</a>, <strong><tt>__init</tt></strong> can also be a <strong>table with named args</strong>. 
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, <strong><tt>__init</tt></strong> can also be a <strong>table with named args</strong>. 
 In that case though, each instances will keep the same values for their properties, no matter what the values passed-in to the <tt><strong>:new</strong></tt> method would be.</p>
 
 <div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
@@ -262,21 +273,28 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 
 <h2>Printing classes and objects</h2>
 
-<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, a light feature have been added.<br>
-Any attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> a class/instance 
-will return a special string, mostly useful when debugging.</p>
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, ay attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> 
+a <strong>class</strong> or an <strong>instance</strong> will return a special string, mostly useful when debugging.</p>
+
+<p>Let's illustrate this, with an unnamed <strong>Cat</strong> class:</p>
 
 <div class="highlight"><pre><span class="c1">-- A Cat Class</span>
-<span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">({</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Animal'</span><span class="p">})</span>
-<span class="c1">-- Init</span>
-<span class="k">function</span> <span class="nf">Cat</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-  <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-<span class="k">end</span>
+<span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (Unnamed): &lt;table: 00550AD0&gt;"</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class: &lt;table: 00550AD0&gt;"</span>
+<span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Unnamed): &lt;table: 00550C10&gt;"</span>
+</pre></div>
 
-<span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">(</span><span class="s1">'</span><span class="s">kitty'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object: &lt;table: 00550C10&gt;"</span>
+<p>Let's define a named <strong>Cat</strong> class now:</p>
+
+<div class="highlight"><pre><span class="c1">-- A Cat Class</span>
+<span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="n">Cat</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Cat'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (Cat): &lt;table: 00411858&gt;"</span>
+
+<span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Cat): &lt;table: 00411880&gt;"</span>
 </pre></div>
 
 <h2>Class Commons support</h2>
@@ -297,6 +315,18 @@ will return a special string, mostly useful when debugging.</p>
 Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
 
 <pre><code>tsc -f specs/*
+</code></pre>
+
+<h3>Class-Commons testing implementation</h3>
+
+<p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
+
+<pre><code>$ lua tests.lua 30logclasscommons
+Testing implementation: 30logclasscommons
+  Summary:
+    Failed: 0
+    Out of: 10
+    Rate: 100%
 </code></pre>
 
 <h2>Contributors</h2>
@@ -330,11 +360,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </code></pre>
       </section>
       <footer>
-        <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+        <p>This project is maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    <script src="javascripts/scale.fix.js"></script>
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
