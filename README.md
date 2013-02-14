@@ -51,7 +51,16 @@ You can also shortcut it, passing the default properties as a table to <tt>class
 class = require '30log'
 Window = class { width = 100, height = 100, x = 10, y = 10}
 ```
+###Named classes
+As of [v0.4.1](https://github.com/Yonaba/30log/blob/master/version_history.md), classes can be named, setting manually a string value (corresponding to the name you want to set) to a special key named <tt>**__name**</tt>
 
+```lua
+class = require '30log'
+Window = class ()
+Window.__name = 'Window'
+```
+
+This feature can be quite useful when debugging your code. See [printing classes](https://github.com/Yonaba/30log/#printing-classes-and-objects) for more details.
 ###Instances
 
 Once a class is set, you can easily create new __instances__ from the class.
@@ -87,7 +96,7 @@ print(appFrame.x,appFrame.y) --> 50, 60
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
-As of [version 0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), **<tt>__init**</tt> can also be a __table with named args__. </br>
+As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), **<tt>__init**</tt> can also be a __table with named args__. </br>
 In that case though, each instances will keep the same values for their properties, no matter what the values passed-in to the <tt>**:new**</tt> method would be.
 
 ```lua
@@ -221,22 +230,30 @@ for k,v in pairs(objD) do print(k,v) end
 ```
 
 ##Printing classes and objects
-As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), a light feature have been added.<br/>
-Any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a class/instance 
-will return a special string, mostly useful when debugging.
+As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), ay attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) 
+a __class__ or an __instance__ will return a special string, mostly useful when debugging.
+
+Let's illustrate this, with an unnamed __Cat__ class:
 
 ```lua
 -- A Cat Class
-local Cat = class({name = 'Animal'})
--- Init
-function Cat:__init(name)
-  self.name = name
-end
+local Cat = class()
+print(Cat) --> "class (Unnamed): <table: 00550AD0>"
 
-print(Cat) --> "class: <table: 00550AD0>"
+local kitten = Cat()
+print(kitten) --> "object (of Unnamed): <table: 00550C10>"
+````
 
-local kitten = Cat('kitty')
-print(kitten) --> "object: <table: 00550C10>"
+Let's define a named __Cat__ class now:
+
+```lua
+-- A Cat Class
+local Cat = class()
+Cat.__name = 'Cat'
+print(Cat) --> "class (Cat): <table: 00411858>"
+
+local kitten = Cat()
+print(kitten) --> "object (of Cat): <table: 00411880>"
 ````
 
 ##Class Commons support
