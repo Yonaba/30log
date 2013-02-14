@@ -297,6 +297,8 @@ Methods:
   can be added to classes                                            [P]
 tostring:                                                            
   classes can be stringified                                         [P]
+named classes:                                                       
+  classes can be named implementing the special attribute __name     [P]
 ------------------------------------------------------------------------
 Derivation (Inheritance):                                            
 Class can be derived from a superclass:                              
@@ -328,8 +330,9 @@ Providing an :__init() method to classes:
   Overrides instantiation scheme with Class()                        [P]
 tostring:                                                            
   objects can be stringified                                         [P]
+  the output takes into account the mother class name can be stri... [P]
 ------------------------------------------------------------------------
-24 tests 24 passed 39 assertions 0 failed 0 errors 0 unassertive 0 pending
+26 tests 26 passed 41 assertions 0 failed 0 errors 0 unassertive 0 pending
 ````
 
 ###Class-Commons testing implementation
