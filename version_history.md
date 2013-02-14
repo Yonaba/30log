@@ -1,5 +1,8 @@
 #Version history#
 
+#0.4.1 (02/14/2013)
+* named classes
+
 ##0.4.0 (02/13/2013)
 * __init can be either be a table or a function
 * tostringable classes and objects 
