@@ -329,10 +329,10 @@ Providing an :__init() method to classes:
   Overrides instantiation scheme with Class:new()                    [P]
   Overrides instantiation scheme with Class()                        [P]
 tostring:                                                            
-  objects can be stringified                                         [P]
-  the output takes into account the mother class name can be stri... [P]
+  objects from unnammed classes can be stringified                   [P]
+  objects from named classes can be stringified                      [P]
 ------------------------------------------------------------------------
-26 tests 26 passed 41 assertions 0 failed 0 errors 0 unassertive 0 pending
+26 tests 26 passed 43 assertions 0 failed 0 errors 0 unassertive 0 pending
 ````
 
 ###Class-Commons testing implementation
