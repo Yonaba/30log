@@ -18,6 +18,8 @@ context('Derivation (Inheritance)',function()
     test('With extra-arguments passed to method "extends()" as a table',function()
       local Frame = Window:extends {ID = 1}
       assert_equal(Frame.ID,1)
+      assert_equal(Frame.width,100)
+      assert_equal(Frame.height,100)
     end)
     
   end)
