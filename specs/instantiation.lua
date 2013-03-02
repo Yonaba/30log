@@ -73,12 +73,12 @@ context('Instances (Objects)',function()
 	
 	context('tostring', function()
 	
-		test('objects can be stringified', function()
+		test('objects from unnammed classes can be stringified', function()
 			local myClass = Class()
 			assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of Unnamed)')
 		end)
 
-		test('the output takes into account the mother class name can be stringified', function()
+		test('objects from named classes can be stringified', function()
 			local myClass = Class()
 			myClass.__name = 'aClass'
 			assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of aClass)')
