@@ -4,29 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>30log by Yonaba</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
-    <div class="wrapper">
+
       <header>
         <h1>30log</h1>
         <p>A 30-lines library for object-orientation in Lua</p>
-
-        <p class="view"><a href="https://github.com/Yonaba/30log">View the Project on GitHub <small>Yonaba/30log</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/Yonaba/30log/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Yonaba/30log/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Yonaba/30log">View On <strong>GitHub</strong></a></li>
-        </ul>
       </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/Yonaba/30log" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/Yonaba/30log/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/Yonaba/30log/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
       <section>
         <h1>30log</h1>
 
@@ -207,7 +218,7 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 <span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span> <span class="p">{</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'</span><span class="s">black'</span> <span class="p">}</span>
 <span class="k">function</span> <span class="nf">Frame</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
   <span class="c1">-- Calling the superclass constructor</span>
-  <span class="n">self</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+  <span class="n">Frame</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
   <span class="c1">-- Setting the extra class member</span>
   <span class="n">self</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 <span class="k">end</span>
@@ -317,6 +328,55 @@ Run them using <a href="https://github.com/norman/telescope">Telescope</a> with 
 <pre><code>tsc -f specs/*
 </code></pre>
 
+<pre><code>------------------------------------------------------------------------
+Class():                                                             
+When Class is called with no args passed:                            
+  it returns a new class (regular Lua table)                         [P]
+Attributes:                                                          
+  can be added to classes                                            [P]
+  can be passed in a table to Class()                                [P]
+Methods:                                                             
+  can be added to classes                                            [P]
+tostring:                                                            
+  classes can be stringified                                         [P]
+named classes:                                                       
+  classes can be named implementing the special attribute __name     [P]
+------------------------------------------------------------------------
+Derivation (Inheritance):                                            
+Class can be derived from a superclass:                              
+  Via "extends()" method                                             [P]
+  With extra-arguments passed to method "extends()" as a table       [P]
+A derived class still points to its superclass:                      
+  Via its "super" key                                                [P]
+  Via "getmetatable()" function                                      [P]
+A derived class:                                                     
+  can instantiate objects                                            [P]
+  shares its superclass attributes                                   [P]
+  shares its superclass methods                                      [P]
+  can reimplement its superclass methods                             [P]
+  Yet, it still has access to the original superclass method         [P]
+In a single inheritance model:                                       
+  __init() class constructor can chain                               [P]
+------------------------------------------------------------------------
+Instances (Objects):                                                 
+When a class is created:                                             
+  new objects can be created via Class:new()                         [P]
+  new objects can be created calling the class as a function         [P]
+  new objects share their class attributes                           [P]
+  new objects share their class methods                              [P]
+Providing an :__init() method to classes:                            
+  Overrides instantiation scheme with Class:new()                    [P]
+  Overrides instantiation scheme with Class()                        [P]
+.__init can also be a table of named args for static instantiati...: 
+  Overrides instantiation scheme with Class:new()                    [P]
+  Overrides instantiation scheme with Class()                        [P]
+tostring:                                                            
+  objects from unnammed classes can be stringified                   [P]
+  objects from named classes can be stringified                      [P]
+------------------------------------------------------------------------
+26 tests 26 passed 43 assertions 0 failed 0 errors 0 unassertive 0 pending
+</code></pre>
+
 <h3>Class-Commons testing implementation</h3>
 
 <p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
@@ -360,11 +420,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </code></pre>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
