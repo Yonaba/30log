@@ -176,7 +176,7 @@ end
 Frame = Window:extends { color = 'black' }
 function Frame:__init(x,y,width,height,color)
   -- Calling the superclass constructor
-  self.super.__init(self,x,y,width,height)
+  Frame.super.__init(self,x,y,width,height)
   -- Setting the extra class member
   self.color = color
 end
