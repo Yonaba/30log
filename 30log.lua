@@ -1,5 +1,5 @@
 --[[
-	Copyright (c) 2012 Roland Yonaba
+	Copyright (c) 2012-2013 Roland Yonaba
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the
@@ -22,12 +22,13 @@
 --]]
 
 local type, pairs, setmetatable, rawget, baseMt, _instances, _classes, class = type, pairs, setmetatable, rawget, {}, {}, {}
-local function deep_copy(t, dest)
+local function deep_copy(t, dest, aType)
   local t, r = t or {}, dest or {}
   for k,v in pairs(t) do
-    if type(v) == 'table' and k ~= "__index" then r[k] = deep_copy(v) else r[k] = v end
-  end
-  return r
+		if aType and type(v)==aType then r[k] = v elseif not aType then
+			if type(v) == 'table' and k ~= "__index" then r[k] = deep_copy(v) else r[k] = v end
+		end
+  end; return r
 end
 local function instantiate(self,...)
   local instance = {} ; _instances[instance] = tostring(instance)
@@ -37,17 +38,16 @@ local function instantiate(self,...)
   return setmetatable(instance,self)
 end
 local function extends(self,extra_params)
-  local heirClass = class(extra_params)
-  heirClass.__index, heirClass.super = heirClass, self
+  local heirClass = class(extra_params); heirClass.__index, heirClass.super = heirClass, self
   return setmetatable(heirClass,self)
 end
-baseMt = { __call = function (self,...) return self:new(...) end, __tostring = function(self,...)
-	if _instances[self] then return ('object (of %s): <%s>'):format((rawget(getmetatable(self),'__name') or 'Unnamed'), _instances[self]) end
-	return _classes[self] and ('class (%s): <%s>'):format((rawget(self,'__name') or 'Unnamed'),_classes[self]) or self
-end}
+baseMt = { __call = function (self,...) return self:new(...) end,
+	 __tostring = function(self,...)
+		if _instances[self] then return ('object (of %s): <%s>'):format((rawget(getmetatable(self),'__name') or 'Unnamed'), _instances[self]) end
+		return _classes[self] and ('class (%s): <%s>'):format((rawget(self,'__name') or 'Unnamed'),_classes[self]) or self
+	end}
 class = function(attr)
-  local c = deep_copy(attr) ; _classes[c] = tostring(c)
+  local c = deep_copy(attr) ; _classes[c] = tostring(c); c.mixin = function(self,include) return deep_copy(include, self, 'function') end
   c.new, c.extends, c.__index, c.__call, c.__tostring = instantiate, extends, c, baseMt.__call, baseMt.__tostring
 	return setmetatable(c,baseMt)
-end
-return class
+end; return class
