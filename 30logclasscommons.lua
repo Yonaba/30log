@@ -1,5 +1,5 @@
 --[[
-	Copyright (c) 2012 TsT <tst worldmaster fr>
+	Copyright (c) 2012-2013 TsT <tst worldmaster fr>
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the
