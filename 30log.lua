@@ -21,7 +21,7 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
-local type, pairs, setmetatable, rawget, baseMt, _instances, _classes, class = type, pairs, setmetatable, rawget, {}, {}, {}
+local pairs, type, tostring, baseMt, _instances, _classes, class =  pairs, type, tostring, {}, {}, {}
 local function deep_copy(t, dest, aType)
   local t, r = t or {}, dest or {}
   for k,v in pairs(t) do
