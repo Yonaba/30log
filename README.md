@@ -13,9 +13,11 @@ __30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet i
 * [Installation](https://github.com/Yonaba/30log/#installation)
 * [Quicktour](https://github.com/Yonaba/30log/#quicktour)
 * [Chained initialisation](https://github.com/Yonaba/30log/#chained-initialisation)
+* [Mixins](https://github.com/Yonaba/30log/#mixins)
 * [Printing classes and objects](https://github.com/Yonaba/30log/#printing-classes-and-objects)
-* [Class Commons support](https://github.com/Yonaba/30log/#class-commons-support)
+* [Class Commons support](https://github.com/Yonaba/30log/#class-commons)
 * [Specification](https://github.com/Yonaba/30log/#specification)
+* [Clean source](https://github.com/Yonaba/30log/#clean-source)
 * [Contributors](https://github.com/Yonaba/30log/#contributors)
 
 ##Download
@@ -70,7 +72,7 @@ Window = class { width = 100, height = 100, x = 10, y = 10}
 ```
 
 ###Named classes
-As of [v0.4.1](https://github.com/Yonaba/30log/blob/master/version_history.md), classes can be named.
+As of [v0.4.1](https://github.com/Yonaba/30log/blob/master/version_history.md#041-02142013), classes can be named.
 <br/>To name a class, you will have to set the desired name as a string value to the reserved key `__name` :
 
 ```lua
@@ -124,7 +126,7 @@ print(appFrame.x,appFrame.y) --> 50, 60
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
-__Note:__ As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), 
+__Note:__ As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013), 
 `__init` can also be a __table with named args__. </br>
 In that case though, the values of each single object's properties will be taken from the table 
 `__init` upon instantiation, no matter what the values passed-in at instantiation would be.
@@ -271,7 +273,7 @@ for k,v in pairs(objD) do print(k,v) end
 
 ##Mixins
 
-As of [v0.5.0](https://github.com/Yonaba/30log/blob/master/version_history.md), __30log__ provides a basic support
+As of [v0.5.0](https://github.com/Yonaba/30log/blob/master/version_history.md#050-06132013), __30log__ provides a basic support
 for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can be use to implement a 
 functionnality into differents classes without having any special relationship between them, such as 
 inheritance.<br/>
@@ -309,7 +311,7 @@ __Note:__ When including a mixin into a class, **only methods** (functions, actu
 class.
 
 ##Printing classes and objects
-As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md), any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__ will return a special string, mostly meant for debugging purposes.
+As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013), any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__ will return a special string, mostly meant for debugging purposes.
 
 ```lua
 -- Let's illustrate this, with an unnamed __Cat__ class:

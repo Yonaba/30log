@@ -1,11 +1,11 @@
 #Version history#
 
-#0.5.0 (06/13/2013)
+##0.5.0 (06/13/2013)
 * Added mixins
 * Added clean source
 * Updated Readme and specs tests
 
-#0.4.1 (02/14/2013)
+##0.4.1 (02/14/2013)
 * named classes
 
 ##0.4.0 (02/13/2013)
