@@ -46,7 +46,7 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
 ````
 
 ##Installation
-Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/Lib/30log.lua) inside your project folder,
+Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua) inside your project folder,
 call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single function, 
 while keeping safe the global environment.<br/>
 
@@ -374,7 +374,7 @@ Testing implementation: 30logclasscommons
 __30log__ was initially designed for minimalistic purposes. But then commit after commit, I came  with a source code
 that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule. And, as a trade-off, the original source is not 
 much elegant, yet 100 % functional.<br/>
-For those who might be interested, though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/Lib/30logclean.lua) contains the full source code, 
+For those who might be interested, though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
 properly formatted and well indented for your perusal.
 
 ##Contributors
