@@ -21,7 +21,7 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
-local pairs, type, tostring, baseMt, _instances, _classes, class =  pairs, type, tostring, {}, {}, {}
+local assert, pairs, type, tostring, baseMt, _instances, _classes, class =  assert, pairs, type, tostring, {}, {}, {}
 local function deep_copy(t, dest, aType)
   local t, r = t or {}, dest or {}
   for k,v in pairs(t) do
@@ -47,7 +47,7 @@ baseMt = { __call = function (self,...) return self:new(...) end,
 		return _classes[self] and ('class (%s): <%s>'):format((rawget(self,'__name') or 'Unnamed'),_classes[self]) or self
 	end}
 class = function(attr)
-  local c = deep_copy(attr) ; _classes[c] = tostring(c); c.mixin = function(self,include) return deep_copy(include, self, 'function') end
-  c.new, c.extends, c.__index, c.__call, c.__tostring = instantiate, extends, c, baseMt.__call, baseMt.__tostring
-	return setmetatable(c,baseMt)
+  local c = deep_copy(attr) ; _classes[c] = tostring(c);
+	c.with = function(self,include); assert(_classes[self], 'Mixing can only be used on classes'); return deep_copy(include, self, 'function') end
+  c.new, c.extends, c.__index, c.__call, c.__tostring = instantiate, extends, c, baseMt.__call, baseMt.__tostring; return setmetatable(c,baseMt)
 end; return class
