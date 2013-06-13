@@ -1,11 +1,16 @@
 #Version history#
 
+#0.5.0 (06/13/2013)
+* Added mixins
+* Added clean source
+* Updated Readme and specs tests
+
 #0.4.1 (02/14/2013)
 * named classes
 
 ##0.4.0 (02/13/2013)
-* __init can be either be a table or a function
-* tostringable classes and objects 
+* __init can either be a table or a function
+* Added the abitlity to turn classes and objects into strings.
 
 ##0.3.0 (09/01/13)
 * Added Class-Commons support (Thanks to [TsT2005](https://github.com/tst2005))
