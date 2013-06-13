@@ -48,6 +48,6 @@ baseMt = { __call = function (self,...) return self:new(...) end,
 	end}
 class = function(attr)
   local c = deep_copy(attr) ; _classes[c] = tostring(c);
-	c.with = function(self,include); assert(_classes[self], 'Mixing can only be used on classes'); return deep_copy(include, self, 'function') end
+	c.with = function(self,include) assert(_classes[self], 'Mixins can only be used on classes') return deep_copy(include, self, 'function') end
   c.new, c.extends, c.__index, c.__call, c.__tostring = instantiate, extends, c, baseMt.__call, baseMt.__tostring; return setmetatable(c,baseMt)
 end; return class
