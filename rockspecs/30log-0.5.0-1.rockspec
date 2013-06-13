@@ -1,7 +1,7 @@
 package = "30log"
 version = "0.5.0-1"
 source = {
-   url = "https://github.com/Yonaba/30log/archive/30log-0.4.1.tar.gz",
+   url = "https://github.com/Yonaba/30log/archive/30log-0.5.0-1.tar.gz",
    dir = "30log-30log-0.5.0-1"
 }
 description = {
