@@ -39,61 +39,76 @@
         <ul></ul>
       </nav>
       <section>
-        <h1>30log</h1>
+        <h1>
+<a name="30log" class="anchor" href="#30log"><span class="octicon octicon-link"></span></a>30log</h1>
 
 <p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a></p>
 
 <p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
-It features <strong>class creation</strong>, <strong>instantiation</strong>, <strong>single inheritance</strong> .<br>
-And, it makes <strong>30 lines</strong>. No less, no more.</p>
+It features <strong>class creation</strong>, <strong>object instantiation</strong>, <strong>single inheritance</strong> and a basic support for <strong>mixins</strong>.<br>
+And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> was meant for <a href="http://www.lua.org/versions.html#5.1">Lua 5.1.x</a>, yet it is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2.x.</a></p>
 
-<h2>Contents</h2>
+<h2>
+<a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h2>
 
 <ul>
 <li><a href="https://github.com/Yonaba/30log/#download">Download</a></li>
 <li><a href="https://github.com/Yonaba/30log/#installation">Installation</a></li>
 <li><a href="https://github.com/Yonaba/30log/#quicktour">Quicktour</a></li>
 <li><a href="https://github.com/Yonaba/30log/#chained-initialisation">Chained initialisation</a></li>
+<li><a href="https://github.com/Yonaba/30log/#mixins">Mixins</a></li>
 <li><a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">Printing classes and objects</a></li>
-<li><a href="https://github.com/Yonaba/30log/#class-commons-support">Class Commons support</a></li>
+<li><a href="https://github.com/Yonaba/30log/#class-commons">Class Commons support</a></li>
 <li><a href="https://github.com/Yonaba/30log/#specification">Specification</a></li>
+<li><a href="https://github.com/Yonaba/30log/#clean-source">Clean source</a></li>
 <li><a href="https://github.com/Yonaba/30log/#contributors">Contributors</a></li>
-</ul><h2>Download</h2>
+</ul><h2>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
 
-<h3>Bash</h3>
+<p>You can download <strong>30log</strong> via:</p>
+
+<h3>
+<a name="bash" class="anchor" href="#bash"><span class="octicon octicon-link"></span></a>Bash</h3>
 
 <div class="highlight"><pre>git clone git://github.com/Yonaba/30log.git
 </pre></div>
 
-<h3>Archive</h3>
+<h3>
+<a name="archive" class="anchor" href="#archive"><span class="octicon octicon-link"></span></a>Archive</h3>
 
 <ul>
 <li>
-<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/master.zip">current</a> | <a href="https://github.com/Yonaba/30log/tags">old packages</a>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.5.0.zip">0.5.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 <li>
-<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/master.tar.gz">current</a> | <a href="https://github.com/Yonaba/30log/tags">old packages</a>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.5.0.tar.gz">0.5.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
-</ul><h3>LuaRocks</h3>
+</ul><h3>
+<a name="luarocks" class="anchor" href="#luarocks"><span class="octicon octicon-link"></span></a>LuaRocks</h3>
 
 <pre><code>luarocks install 30log
 </code></pre>
 
-<h3>MoonRocks</h3>
+<h3>
+<a name="moonrocks" class="anchor" href="#moonrocks"><span class="octicon octicon-link"></span></a>MoonRocks</h3>
 
 <div class="highlight"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba 30log
 </pre></div>
 
-<h2>Installation</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Copy the file <a href="https://github.com/Yonaba/30log/blob/master/Lib/30log.lua">30log.lua</a> inside your project folder, call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function.<br>
-When loaded, <strong>30log</strong> returns its main function.</p>
+<p>Copy the file <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a> inside your project folder,
+call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function. It will return a single function, 
+while keeping safe the global environment.<br></p>
 
-<h2>Quicktour</h2>
+<h2>
+<a name="quicktour" class="anchor" href="#quicktour"><span class="octicon octicon-link"></span></a>Quicktour</h2>
 
-<h3>Creating a class</h3>
+<h3>
+<a name="creating-a-class" class="anchor" href="#creating-a-class"><span class="octicon octicon-link"></span></a>Creating a class</h3>
 
-<p>Making a new class is fairly simple. Just call the returned function, then add some properties to this class :</p>
+<p>Creating a new class is fairly simple. Just call the returned function, then add some properties to this class :</p>
 
 <div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
@@ -101,42 +116,53 @@ When loaded, <strong>30log</strong> returns its main function.</p>
 <span class="n">Window</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">Window</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="mi">100</span>
 </pre></div>
 
-<p>You can also shortcut it, passing the default properties as a table to <tt>class</tt> :</p>
+<p>You can also make it shorter, packing the default properties and their values within a 
+table and then pass it as a single argument to the <code>class</code> function :</p>
 
 <div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 </pre></div>
 
-<h3>Named classes</h3>
+<h3>
+<a name="named-classes" class="anchor" href="#named-classes"><span class="octicon octicon-link"></span></a>Named classes</h3>
 
-<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.1</a>, classes can be named, setting manually a string value (corresponding to the name you want to set) to a special key named <tt><strong>__name</strong></tt></p>
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#041-02142013">v0.4.1</a>, classes can be named.
+<br>To name a class, you will have to set the desired name as a string value to the reserved key <code>__name</code> :</p>
 
 <div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Window'</span>
 </pre></div>
 
-<p>This feature can be quite useful when debugging your code. See <a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">printing classes</a> for more details.</p>
+<p>This feature can be quite useful when debugging your code. See the section 
+<a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">printing classes</a> for more details.</p>
 
-<h3>Instances</h3>
+<h3>
+<a name="instances" class="anchor" href="#instances"><span class="octicon octicon-link"></span></a>Instances</h3>
 
-<p>Once a class is set, you can easily create new <strong>instances</strong> from the class.</p>
+<p>You can easily create new <strong>instances</strong> (objects) from a class using the <strong>default instantiation method</strong> 
+named <code>new()</code>:</p>
 
 <div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 </pre></div>
 
-<p>You can also use a shortcut, calling the class <strong>as a function</strong> :</p>
+<p>There is a shorter version though. You can call new class itself <strong>as a function</strong> :</p>
 
 <div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 </pre></div>
 
-<p>From the two examples above, you might have noticed that once an instance is created from a class, its properties takes <strong>by default</strong> the class properties.
-But, you can init objects from a class with your own specific properties. To accomplish that, you must have implemented a method named <tt><strong>__init</strong></tt> inside the base class.<br>
-In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</strong> to be used as a <strong>class constructor</strong>.</p>
+<p>From the two examples above, you might have noticed that once an object is created from a class, it 
+already implements the properties of his mother class. That's the definition of <code>inheritance</code>. 
+So, by default, the properties of the new object copy their values from the mother class.<br><br>
+Yet, you can init new objects from a class with custom values for properties. To accomplish that, 
+you will have to implement a <strong>class constructor</strong> into the class. Typically, it is a method that is 
+internally called right after an object was derived from a class and that can interact on the so-called 
+object to alter the values of its properties.<br>
+By default, <strong>30log</strong> uses the reserved key <code>__init</code> as a <strong>class constructor</strong>.</p>
 
 <div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
@@ -145,13 +171,15 @@ In a nutshell, <tt><strong>__init</strong></tt> is the <strong>default method</s
 <span class="k">end</span>
 
 <span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
-   <span class="c1">-- or appFrame = Window(50,60,800,600)</span>
+   <span class="c1">-- same as: appFrame = Window(50,60,800,600)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 50, 60</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
 </pre></div>
 
-<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, <strong><tt>__init</tt></strong> can also be a <strong>table with named args</strong>. 
-In that case though, each instances will keep the same values for their properties, no matter what the values passed-in to the <tt><strong>:new</strong></tt> method would be.</p>
+<p><strong>Note:</strong> As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013">v0.4.0</a>, 
+<code>__init</code> can also be a <strong>table with named args</strong>. 
+In that case though, the values of each single object's properties will be taken from the table 
+<code>__init</code> upon instantiation, no matter what the values passed-in at instantiation would be.</p>
 
 <div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">__init</span> <span class="o">=</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
@@ -162,7 +190,8 @@ In that case though, each instances will keep the same values for their properti
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 </pre></div>
 
-<h3>Methods</h3>
+<h3>
+<a name="methods" class="anchor" href="#methods"><span class="octicon octicon-link"></span></a>Methods</h3>
 
 <p><strong>Methods</strong> are supported. Obviously.</p>
 
@@ -187,10 +216,13 @@ In that case though, each instances will keep the same values for their properti
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
 </pre></div>
 
-<h3>Inheritance</h3>
+<h3>
+<a name="inheritance" class="anchor" href="#inheritance"><span class="octicon octicon-link"></span></a>Inheritance</h3>
 
-<p>A class can <strong>derive</strong> from a base class using a default method named <tt>:extends</tt>.
-The new class will inherit his mother class default <strong>members</strong> and <strong>methods</strong>.</p>
+<p>A class can <strong>inherit</strong> from any other class using a reserved method named <code>extends</code>.
+Similarly to <code>class</code>, this method also takes an optional table with named args as argument 
+to include <strong>the new properties</strong> that the derived class will implement.
+The new class will inherit his mother class <strong>properties</strong> as well as <strong>methods</strong>.</p>
 
 <div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span> <span class="p">{</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'</span><span class="s">black'</span> <span class="p">}</span>
@@ -200,16 +232,20 @@ The new class will inherit his mother class default <strong>members</strong> and
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 </pre></div>
 
-<p>A derived class can <strong>overload any method</strong> defined in its base class (or mother class). Therefore, the derived class still has access to his mother class methods via a special key named <tt>super</tt>.<br>
-Let's use this feature to build a class constructor for our <tt>Frame</tt> class.</p>
+<p>A derived class can <strong>redefine any method</strong> implemented in its base class (or mother class).
+Therefore, the derived class still has access to his mother class methods and properties via a 
+reserved key named <code>super</code>.<br></p>
 
-<div class="highlight"><pre><span class="c1">-- The base class "Window"</span>
+<div class="highlight"><pre><span class="c1">-- Let's use this feature to build a class constructor for our `Frame` class.</span>
+
+<span class="c1">-- The base class "Window"</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
   <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
 <span class="k">end</span>
 
+<span class="c1">-- A method</span>
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 <span class="k">end</span>
@@ -223,26 +259,30 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
   <span class="n">self</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
 <span class="k">end</span>
 
-<span class="c1">-- Overloading Window:set()</span>
+<span class="c1">-- Redefining the set() method</span>
 <span class="k">function</span> <span class="nf">Frame</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span>
   <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span>
 <span class="k">end</span>
 
-<span class="c1">-- A appFrame from "Frame" class</span>
+<span class="c1">-- An appFrame from "Frame" class</span>
 <span class="n">appFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="s1">'</span><span class="s">red'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 
+<span class="c1">-- Calls the new set() method</span>
 <span class="n">appFrame</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 0, 100</span>
 
+<span class="c1">-- Calls the old set() method in the mother class "Windows"</span>
 <span class="n">appFrame</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">appFrame</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
 </pre></div>
 
-<h2>Chained initialisation</h2>
+<h2>
+<a name="chained-initialisation" class="anchor" href="#chained-initialisation"><span class="octicon octicon-link"></span></a>Chained initialisation</h2>
 
-<p>In a single inheritance model, <tt><strong>__init</strong></tt> constructor can be chained from one class to another.</p>
+<p>In a single inheritance tree,  the <code>__init</code> constructor can be chained from one class to 
+another ( <em>Initception ?</em> ).</p>
 
 <div class="highlight"><pre><span class="c1">-- A mother class 'A'</span>
 <span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
@@ -276,20 +316,58 @@ Let's use this feature to build a class constructor for our <tt>Frame</tt> class
 <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">objD</span><span class="p">)</span> <span class="k">do</span> <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="k">end</span>
 
 <span class="c1">-- Output:</span>
-<span class="c1">--&gt; a   1</span>
-<span class="c1">--&gt; d   4</span>
+<span class="c1">--&gt; a  1</span>
+<span class="c1">--&gt; d  4</span>
 <span class="c1">--&gt; c   3</span>
 <span class="c1">--&gt; b   2</span>
 </pre></div>
 
-<h2>Printing classes and objects</h2>
+<h2>
+<a name="mixins" class="anchor" href="#mixins"><span class="octicon octicon-link"></span></a>Mixins</h2>
 
-<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md">v0.4.0</a>, ay attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> 
-a <strong>class</strong> or an <strong>instance</strong> will return a special string, mostly useful when debugging.</p>
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#050-06132013">v0.5.0</a>, <strong>30log</strong> provides a basic support
+for <a href="http://en.wikipedia.org/wiki/Mixin">mixins</a>. This is a powerful concept that can be use to implement a 
+functionnality into differents classes without having any special relationship between them, such as 
+inheritance.<br><strong>30log</strong> implements the concept of <strong>mixin</strong> as an object (actually a <em>simple lua table</em>) containing a 
+<strong>set of methods</strong>. To include a mixin in a class, use the reserved key named <code>with</code>.</p>
 
-<p>Let's illustrate this, with an unnamed <strong>Cat</strong> class:</p>
+<div class="highlight"><pre><span class="c1">-- A mixin</span>
+<span class="n">Geometry</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">getArea</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="k">end</span><span class="p">,</span>
+  <span class="n">resize</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="k">end</span>
+<span class="p">}</span>
 
-<div class="highlight"><pre><span class="c1">-- A Cat Class</span>
+<span class="c1">-- Let's define two unrelated classes</span>
+<span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span><span class="n">width</span> <span class="o">=</span> <span class="mi">480</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">250</span><span class="p">}</span>
+<span class="n">Button</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">onClick</span> <span class="o">=</span> <span class="kc">false</span><span class="p">}</span>
+
+<span class="c1">-- Include the "Geometry" mixin inside the two classes</span>
+<span class="n">Window</span><span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">Geometry</span><span class="p">)</span>
+<span class="n">Button</span><span class="p">:</span><span class="n">with</span><span class="p">(</span><span class="n">Geometry</span><span class="p">)</span>
+
+<span class="c1">-- Let's define objects from those classes</span>
+<span class="kd">local</span> <span class="n">aWindow</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">aButton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">()</span>
+
+<span class="c1">-- Objects can use functionalities brought by the mixin.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aWindow</span><span class="p">:</span><span class="n">getArea</span><span class="p">())</span> <span class="c1">--&gt; 480, 250</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aButton</span><span class="p">:</span><span class="n">getArea</span><span class="p">())</span> <span class="c1">--&gt; 100, 50</span>
+
+<span class="n">aButton</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="mi">225</span><span class="p">,</span><span class="mi">75</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aButton</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">aButton</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 255, 75</span>
+</pre></div>
+
+<p><strong>Note:</strong> When including a mixin into a class, <strong>only methods</strong> (functions, actually) will be imported into the 
+class.</p>
+
+<h2>
+<a name="printing-classes-and-objects" class="anchor" href="#printing-classes-and-objects"><span class="octicon octicon-link"></span></a>Printing classes and objects</h2>
+
+<p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013">v0.4.0</a>, any attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> a <strong>class</strong> or an <strong>instance</strong> will return a special string, mostly meant for debugging purposes.</p>
+
+<div class="highlight"><pre><span class="c1">-- Let's illustrate this, with an unnamed __Cat__ class:</span>
+
+<span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (Unnamed): &lt;table: 00550AD0&gt;"</span>
 
@@ -297,9 +375,9 @@ a <strong>class</strong> or an <strong>instance</strong> will return a special s
 <span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Unnamed): &lt;table: 00550C10&gt;"</span>
 </pre></div>
 
-<p>Let's define a named <strong>Cat</strong> class now:</p>
+<div class="highlight"><pre><span class="c1">-- Let's define a named __Cat__ class now:</span>
 
-<div class="highlight"><pre><span class="c1">-- A Cat Class</span>
+<span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
 <span class="n">Cat</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Cat'</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (Cat): &lt;table: 00411858&gt;"</span>
@@ -308,76 +386,32 @@ a <strong>class</strong> or an <strong>instance</strong> will return a special s
 <span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Cat): &lt;table: 00411880&gt;"</span>
 </pre></div>
 
-<h2>Class Commons support</h2>
+<h2>
+<a name="class-commons" class="anchor" href="#class-commons"><span class="octicon octicon-link"></span></a>Class Commons</h2>
 
-<p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common API for lua classes libraries.</p>
+<p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common 
+API for a wide range of object orientation libraries in Lua.
+The support for Class Commmons was provided by <a href="https://github.com/tst2005">TsT2005</a>. </p>
 
 <div class="highlight"><pre><span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">30logclasscommons"</span><span class="p">)</span>
-
 <span class="n">common</span><span class="p">.</span><span class="n">class</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">common</span><span class="p">.</span><span class="n">instance</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
-<h2>Specification</h2>
+<h2>
+<a name="specification" class="anchor" href="#specification"><span class="octicon octicon-link"></span></a>Specification</h2>
 
-<h3>30log Specs</h3>
+<h3>
+<a name="30log-specs" class="anchor" href="#30log-specs"><span class="octicon octicon-link"></span></a>30log specs</h3>
 
-<p>Specs tests have been included.<br>
-Run them using <a href="https://github.com/norman/telescope">Telescope</a> with the following command from the root foolder:</p>
+<p>You can run the included specs sing <a href="https://github.com/norman/telescope">Telescope</a> with the following 
+command from the root foolder:</p>
 
 <pre><code>tsc -f specs/*
 </code></pre>
 
-<pre><code>------------------------------------------------------------------------
-Class():                                                             
-When Class is called with no args passed:                            
-  it returns a new class (regular Lua table)                         [P]
-Attributes:                                                          
-  can be added to classes                                            [P]
-  can be passed in a table to Class()                                [P]
-Methods:                                                             
-  can be added to classes                                            [P]
-tostring:                                                            
-  classes can be stringified                                         [P]
-named classes:                                                       
-  classes can be named implementing the special attribute __name     [P]
-------------------------------------------------------------------------
-Derivation (Inheritance):                                            
-Class can be derived from a superclass:                              
-  Via "extends()" method                                             [P]
-  With extra-arguments passed to method "extends()" as a table       [P]
-A derived class still points to its superclass:                      
-  Via its "super" key                                                [P]
-  Via "getmetatable()" function                                      [P]
-A derived class:                                                     
-  can instantiate objects                                            [P]
-  shares its superclass attributes                                   [P]
-  shares its superclass methods                                      [P]
-  can reimplement its superclass methods                             [P]
-  Yet, it still has access to the original superclass method         [P]
-In a single inheritance model:                                       
-  __init() class constructor can chain                               [P]
-------------------------------------------------------------------------
-Instances (Objects):                                                 
-When a class is created:                                             
-  new objects can be created via Class:new()                         [P]
-  new objects can be created calling the class as a function         [P]
-  new objects share their class attributes                           [P]
-  new objects share their class methods                              [P]
-Providing an :__init() method to classes:                            
-  Overrides instantiation scheme with Class:new()                    [P]
-  Overrides instantiation scheme with Class()                        [P]
-.__init can also be a table of named args for static instantiati...: 
-  Overrides instantiation scheme with Class:new()                    [P]
-  Overrides instantiation scheme with Class()                        [P]
-tostring:                                                            
-  objects from unnammed classes can be stringified                   [P]
-  objects from named classes can be stringified                      [P]
-------------------------------------------------------------------------
-26 tests 26 passed 43 assertions 0 failed 0 errors 0 unassertive 0 pending
-</code></pre>
-
-<h3>Class-Commons testing implementation</h3>
+<h3>
+<a name="class-commons-testing-implementation" class="anchor" href="#class-commons-testing-implementation"><span class="octicon octicon-link"></span></a>Class-Commons testing implementation</h3>
 
 <p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
 
@@ -389,15 +423,26 @@ Testing implementation: 30logclasscommons
     Rate: 100%
 </code></pre>
 
-<h2>Contributors</h2>
+<h2>
+<a name="clean-source" class="anchor" href="#clean-source"><span class="octicon octicon-link"></span></a>Clean source</h2>
+
+<p><strong>30log</strong> was initially designed for minimalistic purposes. But then commit after commit, I came  with a source code
+that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule. And, as a trade-off, the original source is not 
+much elegant, yet 100 % functional.<br>
+For those who might be interested, though, the file <a href="https://github.com/Yonaba/30log/blob/master/30logclean.lua">30logclean.lua</a> contains the full source code, 
+properly formatted and well indented for your perusal.</p>
+
+<h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
 
 <ul>
 <li>
 <a href="https://github.com/tst2005">TsT2005</a>, for Class-commons support.</li>
-</ul><h2>License</h2>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
-Copyright (c) 2012 Roland Yonaba</p>
+Copyright (c) 2012-2013 Roland Yonaba</p>
 
 <pre><code>Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the
