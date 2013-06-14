@@ -21,7 +21,7 @@ build = {
   type = "builtin",
   modules = {
     ["30log"] = "30log.lua",
-    ["30logclasscommons"] = "30logclasscommons.lua"
+    ["30logclasscommons"] = "30logclasscommons.lua",
     ["30logclean"] = "30logclean.lua"
   },
   copy_directories = {"specs"}
