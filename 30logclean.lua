@@ -85,7 +85,7 @@ class = function(attr)
 	c.__call = baseMt.__call
 	c.__tostring = baseMt.__tostring
 	c.with = function(self,mixin)
-		assert(_classes[self], 'Mixing can only be used on classes')
+		assert(_classes[self], 'Mixins can only be used on classes')
 		return deep_copy(mixin, self, 'function') 
 	end
 	return setmetatable(c,baseMt)
