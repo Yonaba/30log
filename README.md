@@ -274,8 +274,8 @@ for k,v in pairs(objD) do print(k,v) end
 ##Mixins
 
 As of [v0.5.0](https://github.com/Yonaba/30log/blob/master/version_history.md#050-06132013), __30log__ provides a basic support
-for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can be use to implement a 
-functionnality into differents classes without having any special relationship between them, such as 
+for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can be used to implement
+functionnality into different classes without having any special relationship between them, such as 
 inheritance.<br/>
 __30log__ implements the concept of __mixin__ as an object (actually a *simple lua table*) containing a 
 **set of methods**. To include a mixin in a class, use the reserved key named `with`.
