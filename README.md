@@ -18,6 +18,7 @@ __30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet i
 * [Class Commons support](https://github.com/Yonaba/30log/#class-commons)
 * [Specification](https://github.com/Yonaba/30log/#specification)
 * [Clean source](https://github.com/Yonaba/30log/#clean-source)
+* [30log global](https://github.com/Yonaba/30log/#30log-global)
 * [Contributors](https://github.com/Yonaba/30log/#contributors)
 
 ##Download
@@ -27,7 +28,7 @@ You can download __30log__ via:
 ###Bash
 
 ```bash
-git clone git://github.com/Yonaba/30log.git
+git clone git://github.com/Yonaba/30log.git --recursive
 ````
 
 ###Archive
@@ -49,8 +50,8 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
 
 ##Installation
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua) inside your project folder,
-call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single function, 
-while keeping safe the global environment.<br/>
+call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single local function, 
+keeping safe the global environment.<br/>
 
 ##Quicktour
 ###Creating a class
@@ -340,10 +341,12 @@ print(kitten) --> "object (of Cat): <table: 00411880>"
 ##Class Commons
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common 
 API for a wide range of object orientation libraries in Lua.
-The support for Class Commmons was provided by [TsT2005](https://github.com/tst2005). 
+The original support for Class Commmons was provided by [TsT2005](https://github.com/tst2005). 
 
 ```lua
 require("30logclasscommons")
+
+-- Now use these
 common.class(...)
 common.instance(...)
 ```
@@ -352,23 +355,27 @@ common.instance(...)
 
 ###30log specs
 
-You can run the included specs sing [Telescope](https://github.com/norman/telescope) with the following 
+You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following 
 command from the root foolder:
 
 ```
-tsc -f specs/*
+lua tsc -f tests/lib_specs/*
 ```
 
 ###Class-Commons testing implementation
-See [Class-Commons-Tests](https://github.com/bartbes/Class-Commons-Tests)
+
+You can test the implementation of Class-commons with the following command from the root folder:
 
 ```
-$ lua tests.lua 30logclasscommons
-Testing implementation: 30logclasscommons
-  Summary:
-    Failed: 0
-    Out of: 10
-    Rate: 100%
+lua tests/class_commons/tests/tests.lua tests/class_commons/commons_tests
+```
+
+**Note**: The tests are included as a submodule in this repository. Make sure to have this file in your local copy.
+In case you don't have it, fetch it with the following command from Git.
+
+```
+git submodule init
+git submodule update
 ```
 
 ##Clean source
@@ -378,6 +385,11 @@ that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule.
 much elegant, yet 100 % functional.<br/>
 For those who might be interested, though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
 properly formatted and well indented for your perusal.
+
+##30log global
+
+Not much. The relevant file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
+This is convenient for some embed Lua implementations such as [Codea](http://twolivesleft.com/Codea/).
 
 ##Contributors
 * [TsT2005](https://github.com/tst2005), for Class-commons support.
