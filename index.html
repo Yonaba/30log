@@ -61,6 +61,7 @@ And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</str
 <li><a href="https://github.com/Yonaba/30log/#class-commons">Class Commons support</a></li>
 <li><a href="https://github.com/Yonaba/30log/#specification">Specification</a></li>
 <li><a href="https://github.com/Yonaba/30log/#clean-source">Clean source</a></li>
+<li><a href="https://github.com/Yonaba/30log/#30log-global">30log global</a></li>
 <li><a href="https://github.com/Yonaba/30log/#contributors">Contributors</a></li>
 </ul><h2>
 <a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
@@ -70,7 +71,7 @@ And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</str
 <h3>
 <a name="bash" class="anchor" href="#bash"><span class="octicon octicon-link"></span></a>Bash</h3>
 
-<div class="highlight"><pre>git clone git://github.com/Yonaba/30log.git
+<div class="highlight"><pre>git clone git://github.com/Yonaba/30log.git --recursive
 </pre></div>
 
 <h3>
@@ -99,8 +100,8 @@ And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</str
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Copy the file <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a> inside your project folder,
-call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function. It will return a single function, 
-while keeping safe the global environment.<br></p>
+call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function. It will return a single local function, 
+keeping safe the global environment.<br></p>
 
 <h2>
 <a name="quicktour" class="anchor" href="#quicktour"><span class="octicon octicon-link"></span></a>Quicktour</h2>
@@ -391,9 +392,11 @@ class.</p>
 
 <p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common 
 API for a wide range of object orientation libraries in Lua.
-The support for Class Commmons was provided by <a href="https://github.com/tst2005">TsT2005</a>. </p>
+The original support for Class Commmons was provided by <a href="https://github.com/tst2005">TsT2005</a>. </p>
 
 <div class="highlight"><pre><span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">30logclasscommons"</span><span class="p">)</span>
+
+<span class="c1">-- Now use these</span>
 <span class="n">common</span><span class="p">.</span><span class="n">class</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="n">common</span><span class="p">.</span><span class="n">instance</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
@@ -404,23 +407,25 @@ The support for Class Commmons was provided by <a href="https://github.com/tst20
 <h3>
 <a name="30log-specs" class="anchor" href="#30log-specs"><span class="octicon octicon-link"></span></a>30log specs</h3>
 
-<p>You can run the included specs sing <a href="https://github.com/norman/telescope">Telescope</a> with the following 
+<p>You can run the included specs with <a href="https://github.com/norman/telescope">Telescope</a> using the following 
 command from the root foolder:</p>
 
-<pre><code>tsc -f specs/*
+<pre><code>lua tsc -f tests/lib_specs/*
 </code></pre>
 
 <h3>
 <a name="class-commons-testing-implementation" class="anchor" href="#class-commons-testing-implementation"><span class="octicon octicon-link"></span></a>Class-Commons testing implementation</h3>
 
-<p>See <a href="https://github.com/bartbes/Class-Commons-Tests">Class-Commons-Tests</a></p>
+<p>You can test the implementation of Class-commons with the following command from the root folder:</p>
 
-<pre><code>$ lua tests.lua 30logclasscommons
-Testing implementation: 30logclasscommons
-  Summary:
-    Failed: 0
-    Out of: 10
-    Rate: 100%
+<pre><code>lua tests/class_commons/tests/tests.lua tests/class_commons/commons_tests
+</code></pre>
+
+<p><strong>Note</strong>: The tests are included as a submodule in this repository. Make sure to have this file in your local copy.
+In case you don't have it, fetch it with the following command from Git.</p>
+
+<pre><code>git submodule init
+git submodule update
 </code></pre>
 
 <h2>
@@ -431,6 +436,12 @@ that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule.
 much elegant, yet 100 % functional.<br>
 For those who might be interested, though, the file <a href="https://github.com/Yonaba/30log/blob/master/30logclean.lua">30logclean.lua</a> contains the full source code, 
 properly formatted and well indented for your perusal.</p>
+
+<h2>
+<a name="30log-global" class="anchor" href="#30log-global"><span class="octicon octicon-link"></span></a>30log global</h2>
+
+<p>Not much. The relevant file <a href="https://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the same source as the original <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, excepts that it sets a global function named <code>class</code>.
+This is convenient for some embed Lua implementations such as <a href="http://twolivesleft.com/Codea/">Codea</a>.</p>
 
 <h2>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
@@ -466,7 +477,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
