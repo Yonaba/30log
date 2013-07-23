@@ -25,7 +25,7 @@ local class = require("30log")
 
 -- Interface for cross class-system compatibility 
 -- see https://github.com/bartbes/Class-Commons).
-if common_class ~= false and not common_class then
+if common_class ~= false then
 	
 	common = {}
 	
