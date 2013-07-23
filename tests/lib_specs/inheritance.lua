@@ -1,4 +1,4 @@
-_G.Class = require '30log'
+local Class = require '30log'
 
 context('Derivation (Inheritance)',function()
   local Window
