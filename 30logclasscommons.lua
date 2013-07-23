@@ -1,5 +1,5 @@
 --[[
-	Copyright (c) 2012-2013 TsT <tst worldmaster fr>
+	Copyright (c) 2012-2013 TsT <tst worldmaster fr>, Roland_Y
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the
@@ -23,21 +23,23 @@
 
 local class = require("30log")
 
--- interface for cross class-system compatibility (see https://github.com/bartbes/Class-Commons).
-if class_commons ~= false and not common then
-	common_class = true
+-- Interface for cross class-system compatibility 
+-- see https://github.com/bartbes/Class-Commons).
+if common_class ~= false and not common_class then
+	
 	common = {}
+	
 	function common.class(name, prototype, parent)
 		local init = prototype.init or (parent or {}).init
-
 		local c = class():extends(parent):extends(prototype)
 		if init then
 			c.__init = init
 		end
 		return c
 	end
+	
 	function common.instance(class, ...)
 		return class:new(...)
 	end
+	
 end
-
