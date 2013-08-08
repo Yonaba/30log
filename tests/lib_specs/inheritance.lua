@@ -85,23 +85,23 @@ context('Derivation (Inheritance)',function()
     local A, B, C, D
     before(function()
       A = Class()
-      function A.__init(instance,a)
-        instance.a = a
+      function A:__init(a)
+        self.a = a
       end
       B = A:extends()
-      function B.__init(instance, a, b)
-        B.super.__init(instance, a)
-        instance.b = b
+      function B:__init(a, b)
+        B.super.__init(self, a)
+        self.b = b
       end
       C = B:extends()
-      function C.__init(instance, a, b, c)
-        C.super.__init(instance,a, b)
-        instance.c = c
+      function C:__init(a, b, c)
+        C.super.__init(self, a, b)
+        self.c = c
       end
       D = C:extends()
-      function D.__init(instance, a, b, c, d)
-        D.super.__init(instance,a, b, c)
-        instance.d = d
+      function D:__init(a, b, c, d)
+        D.super.__init(self, a, b, c)
+        self.d = d
       end
     end)
       
