@@ -1,5 +1,16 @@
 #Version history#
 
+##0.6.0 (08/08/2013)
+* Added global source
+* Made call to class methods available through initializers
+* Made class attributes instantly available upon derivation
+* Updated clean source
+* Updated `Class Commons` compatibility to meet with the its specifications
+* Added `Class Commons` test suite
+* Updated specs
+* Added performance benchmark
+* 2 whitespaces as tabs, for indentation
+
 ##0.5.0 (06/13/2013)
 * Added mixins
 * Added clean source

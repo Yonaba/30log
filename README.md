@@ -231,7 +231,8 @@ print(appFrame.x,appFrame.y) --> 400, 300
 
 ##Chained initialisation
 In a single inheritance tree,  the `__init` constructor can be chained from one class to 
-another ( *Initception ?* ).
+another. This is called *initception*.<br/>
+And, yes, *it is a joke.*
 
 ```lua
 -- A mother class 'A'
@@ -268,9 +269,36 @@ for k,v in pairs(objD) do print(k,v) end
 -- Output:
 --> a  1
 --> d  4
---> c	3
---> b	2
+--> c  3
+--> b  2
 ```
+
+The previous syntax can also be simplified, as follows:
+
+```lua
+local A = Class()
+function A:__init(a)
+  self.a = a
+end
+
+local B = A:extends()
+function B:__init(a, b)
+  B.super.__init(self, a)
+  self.b = b
+end
+
+local C = B:extends()
+function C:__init(a, b, c)
+  C.super.__init(self, a, b)
+  self.c = c
+end
+
+local D = C:extends()
+function D:__init(a, b, c, d)
+  D.super.__init(self, a, b, c)
+  self.d = d
+end
+````
 
 ##Mixins
 
