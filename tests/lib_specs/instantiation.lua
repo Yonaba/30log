@@ -29,7 +29,7 @@ context('Instances (Objects)',function()
     end)    
   end)
 
-  context('Providing an :__init() method to classes',function()
+  context('Providing an __init() method to classes',function()
     local Window
     
     before(function()
@@ -49,7 +49,26 @@ context('Instances (Objects)',function()
     end)      
     
   end)
-	
+  
+  context('Through the initializer', function()
+    
+    test('class methods are callable', function()
+      local upvalue = false
+      local foo = Class()
+
+      function foo:__init(bool)
+        self:set_upvalue(bool)
+      end
+
+      function foo:set_upvalue(bool)
+        upvalue = bool
+      end
+
+      local foo_obj = foo(true)
+      assert_true(upvalue)
+    end)
+    
+  end)
   context('.__init can also be a table of named args for static instantiation',function()
     local Window
     
@@ -70,20 +89,20 @@ context('Instances (Objects)',function()
     end)      
     
   end)
-	
-	context('tostring', function()
-	
-		test('objects from unnammed classes can be stringified', function()
-			local myClass = Class()
-			assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of Unnamed)')
-		end)
+  
+  context('tostring', function()
+  
+    test('objects from unnammed classes can be stringified', function()
+      local myClass = Class()
+      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of Unnamed)')
+    end)
 
-		test('objects from named classes can be stringified', function()
-			local myClass = Class()
-			myClass.__name = 'aClass'
-			assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of aClass)')
-		end)		
-		
-	end)
+    test('objects from named classes can be stringified', function()
+      local myClass = Class()
+      myClass.__name = 'aClass'
+      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of aClass)')
+    end)    
+    
+  end)
   
 end)
