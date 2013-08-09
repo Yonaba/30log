@@ -45,8 +45,8 @@
 <p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a></p>
 
 <p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
-It features <strong>class creation</strong>, <strong>object instantiation</strong>, <strong>single inheritance</strong> and a basic support for <strong>mixins</strong>.<br>
-And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> was meant for <a href="http://www.lua.org/versions.html#5.1">Lua 5.1.x</a>, yet it is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2.x.</a></p>
+It features <strong>class creation</strong>, <strong>object instantiation</strong>, <strong>single inheritance</strong> and provides basic support for <strong>mixins</strong>.<br>
+It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> was meant for <a href="http://www.lua.org/versions.html#5.1">Lua 5.1.x</a>, yet it is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2.x.</a> and <a href="http://www.lua.org/versions.html#5.3">Lua 5.3.x</a>.</p>
 
 <h2>
 <a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h2>
@@ -62,6 +62,7 @@ And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</str
 <li><a href="https://github.com/Yonaba/30log/#specification">Specification</a></li>
 <li><a href="https://github.com/Yonaba/30log/#clean-source">Clean source</a></li>
 <li><a href="https://github.com/Yonaba/30log/#30log-global">30log global</a></li>
+<li><a href="https://github.com/Yonaba/30log/#benchmark">Benchmark</a></li>
 <li><a href="https://github.com/Yonaba/30log/#contributors">Contributors</a></li>
 </ul><h2>
 <a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
@@ -79,10 +80,10 @@ And, it makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</str
 
 <ul>
 <li>
-<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.5.0.zip">0.5.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.6.0.zip">0.6.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 <li>
-<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.5.0.tar.gz">0.5.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz">0.6.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 </ul><h3>
 <a name="luarocks" class="anchor" href="#luarocks"><span class="octicon octicon-link"></span></a>LuaRocks</h3>
@@ -283,7 +284,8 @@ reserved key named <code>super</code>.<br></p>
 <a name="chained-initialisation" class="anchor" href="#chained-initialisation"><span class="octicon octicon-link"></span></a>Chained initialisation</h2>
 
 <p>In a single inheritance tree,  the <code>__init</code> constructor can be chained from one class to 
-another ( <em>Initception ?</em> ).</p>
+another. This is called <em>initception</em>.<br>
+And, yes, <em>it is a joke.</em></p>
 
 <div class="highlight"><pre><span class="c1">-- A mother class 'A'</span>
 <span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
@@ -319,8 +321,34 @@ another ( <em>Initception ?</em> ).</p>
 <span class="c1">-- Output:</span>
 <span class="c1">--&gt; a  1</span>
 <span class="c1">--&gt; d  4</span>
-<span class="c1">--&gt; c   3</span>
-<span class="c1">--&gt; b   2</span>
+<span class="c1">--&gt; c  3</span>
+<span class="c1">--&gt; b  2</span>
+</pre></div>
+
+<p>The previous syntax can also be simplified, as follows:</p>
+
+<div class="highlight"><pre><span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">A</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">B</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="n">B</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="n">C</span> <span class="o">=</span> <span class="n">B</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">C</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+  <span class="n">C</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="n">D</span> <span class="o">=</span> <span class="n">C</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">D</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+  <span class="n">D</span><span class="p">.</span><span class="n">super</span><span class="p">.</span><span class="n">__init</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span>
+<span class="k">end</span>
 </pre></div>
 
 <h2>
@@ -421,8 +449,8 @@ command from the root foolder:</p>
 <pre><code>lua tests/class_commons/tests/tests.lua tests/class_commons/commons_tests
 </code></pre>
 
-<p><strong>Note</strong>: The tests are included as a submodule in this repository. Make sure to have this file in your local copy.
-In case you don't have it, fetch it with the following command from Git.</p>
+<p><strong>Note</strong>: The tests are included as a submodule in this repository. Make sure to have the submodule <a href="https://github.com/bartbes/Class-Commons-Tests/blob/master/tests.lua">test file</a> in your local copy.
+In case you don't, fetch it with the following command from Git.</p>
 
 <pre><code>git submodule init
 git submodule update
@@ -440,8 +468,19 @@ properly formatted and well indented for your perusal.</p>
 <h2>
 <a name="30log-global" class="anchor" href="#30log-global"><span class="octicon octicon-link"></span></a>30log global</h2>
 
-<p>Not much. The relevant file <a href="https://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the same source as the original <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, excepts that it sets a global function named <code>class</code>.
+<p>Well, not much. The relevant file <a href="https://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the same source as the original <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, excepts that it sets a global function named <code>class</code>.
 This is convenient for some embed Lua implementations such as <a href="http://twolivesleft.com/Codea/">Codea</a>.</p>
+
+<h2>
+<a name="benchmark" class="anchor" href="#benchmark"><span class="octicon octicon-link"></span></a>Benchmark</h2>
+
+<p>Performance tests featuring class creations, instantiation and such have been included.
+You can run these test with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.</p>
+
+<div class="highlight"><pre><span class="n">lua</span> <span class="n">tests</span><span class="err">\</span><span class="n">benchmark</span><span class="err">\</span><span class="n">tests</span><span class="p">.</span><span class="n">lua</span> <span class="mi">30</span><span class="n">log</span>
+</pre></div>
+
+<p>Find <a href="https://github.com/Yonaba/30log/tree/master/tests/benchmark/results.md">here an example of output</a>.</p>
 
 <h2>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
