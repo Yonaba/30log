@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
 
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It features __class creation__, __object instantiation__, __single inheritance__ and a basic support for __mixins__.<br/>
-And, it makes __30 lines__. No less, no more.<br/>
-__30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet it is compatible with [Lua 5.2.x.](http://www.lua.org/versions.html#5.2)
+It features __class creation__, __object instantiation__, __single inheritance__ and provides basic support for __mixins__.<br/>
+It makes __30 lines__. No less, no more.<br/>
+__30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet it is compatible with [Lua 5.2.x.](http://www.lua.org/versions.html#5.2) and [Lua 5.3.x](http://www.lua.org/versions.html#5.3).
 
 ##Contents
 * [Download](https://github.com/Yonaba/30log/#download)
@@ -33,8 +33,8 @@ git clone git://github.com/Yonaba/30log.git --recursive
 
 ###Archive
 
-* __Zip__: [0.5.0](https://github.com/Yonaba/30log/archive/30log-0.5.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.5.0](https://github.com/Yonaba/30log/archive/30log-0.5.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Zip__: [0.6.0](https://github.com/Yonaba/30log/archive/30log-0.6.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Tar.gz__: [0.6.0](https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
 
 ###LuaRocks
 
@@ -398,8 +398,8 @@ You can test the implementation of Class-commons with the following command from
 lua tests/class_commons/tests/tests.lua tests/class_commons/commons_tests
 ```
 
-**Note**: The tests are included as a submodule in this repository. Make sure to have this file in your local copy.
-In case you don't have it, fetch it with the following command from Git.
+**Note**: The tests are included as a submodule in this repository. Make sure to have the submodule [test file](https://github.com/bartbes/Class-Commons-Tests/blob/master/tests.lua) in your local copy.
+In case you don't, fetch it with the following command from Git.
 
 ```
 git submodule init
@@ -416,7 +416,7 @@ properly formatted and well indented for your perusal.
 
 ##30log global
 
-Not much. The relevant file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
+Well, not much. The relevant file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
 This is convenient for some embed Lua implementations such as [Codea](http://twolivesleft.com/Codea/).
 
 ##Contributors
