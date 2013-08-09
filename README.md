@@ -19,6 +19,7 @@ __30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet i
 * [Specification](https://github.com/Yonaba/30log/#specification)
 * [Clean source](https://github.com/Yonaba/30log/#clean-source)
 * [30log global](https://github.com/Yonaba/30log/#30log-global)
+* [Benchmark](https://github.com/Yonaba/30log/#benchmark)
 * [Contributors](https://github.com/Yonaba/30log/#contributors)
 
 ##Download
@@ -418,6 +419,17 @@ properly formatted and well indented for your perusal.
 
 Well, not much. The relevant file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
 This is convenient for some embed Lua implementations such as [Codea](http://twolivesleft.com/Codea/).
+
+##Benchmark
+
+Performance tests featuring class creations, instantiation and such have been included.
+You can run these test with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
+
+```lua
+lua tests\benchmark\tests.lua 30log
+````
+
+Find [here an example of output](https://github.com/Yonaba/30log/tree/master/tests/benchmark/results.md).
 
 ##Contributors
 * [TsT2005](https://github.com/tst2005), for Class-commons support.
