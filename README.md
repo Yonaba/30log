@@ -457,3 +457,5 @@ Copyright (c) 2012-2013 Roland Yonaba
     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Yonaba/30log/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
