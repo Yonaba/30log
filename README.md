@@ -6,7 +6,7 @@
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It features __class creation__, __object instantiation__, __single inheritance__ and provides basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
-__30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet it is compatible with [Lua 5.2.x.](http://www.lua.org/versions.html#5.2) and [Lua 5.3.x](http://www.lua.org/versions.html#5.3).
+__30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet it is compatible with [Lua 5.2.x.](http://www.lua.org/versions.html#5.2).
 
 ##Contents
 * [Download](https://github.com/Yonaba/30log/#download)
@@ -34,8 +34,8 @@ git clone git://github.com/Yonaba/30log.git --recursive
 
 ###Archive
 
-* __Zip__: [0.6.0](https://github.com/Yonaba/30log/archive/30log-0.6.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.6.0](https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Zip__: [0.6.1](https://github.com/Yonaba/30log/archive/30log-0.6.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Tar.gz__: [0.6.1](https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
 
 ###LuaRocks
 
@@ -417,13 +417,13 @@ properly formatted and well indented for your perusal.
 
 ##30log global
 
-Well, not much. The relevant file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
-This is convenient for some embed Lua implementations such as [Codea](http://twolivesleft.com/Codea/).
+The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
+This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
 ##Benchmark
 
-Performance tests featuring class creations, instantiation and such have been included.
-You can run these test with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
+Performance tests featuring classes creation, instantiation and such have been included.
+You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
 
 ```lua
 lua tests\benchmark\tests.lua 30log
@@ -432,7 +432,7 @@ lua tests\benchmark\tests.lua 30log
 Find [here an example of output](https://github.com/Yonaba/30log/tree/master/tests/benchmark/results.md).
 
 ##Contributors
-* [TsT2005](https://github.com/tst2005), for Class-commons support.
+* [TsT2005](https://github.com/tst2005), for the original Class-commons support.
 
 
 ##License
