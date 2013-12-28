@@ -370,7 +370,7 @@ print(kitten) --> "object (of Cat): <table: 00411880>"
 ##Class Commons
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common 
 API for a wide range of object orientation libraries in Lua.
-The original support for Class Commmons was provided by [TsT2005](https://github.com/tst2005). 
+The original implementation for Class Commmons was provided by [TsT2005](https://github.com/tst2005). Find the latest reworked source [here](https://github.com/Yonaba/30log/blob/master/30logclasscommons.lua)
 
 ```lua
 require("30logclasscommons")
