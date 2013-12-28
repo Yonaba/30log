@@ -1,45 +1,35 @@
---[[
-  Copyright (c) 2012-2013 TsT <tst worldmaster fr>, Roland_Y
+local PATH = (...):match("^(.+)%.[^%.]+$") or ''
+local class = require(PATH .. ".30log")
 
-  Permission is hereby granted, free of charge, to any person obtaining a
-  copy of this software and associated documentation files (the
-  "Software"), to deal in the Software without restriction, including
-  without limitation the rights to use, copy, modify, merge, publish,
-  distribute, sublicense, and/or sell copies of the Software, and to
-  permit persons to whom the Software is furnished to do so, subject to
-  the following conditions:
-
-  The above copyright notice and this permission notice shall be included
-  in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
---]]
-
-local class = require("30log")
-
--- Interface for cross class-system compatibility 
--- see https://github.com/bartbes/Class-Commons).
-if common_class ~= false then
-  
-  common = {}
-  
-  function common.class(name, prototype, parent)
-    local init = prototype.init or (parent or {}).init
-    local c = class():extends(parent):extends(prototype)
-    if init then
-      c.__init = init
+local function table_clone(t)
+  local copy = {}
+  for k,v in pairs(t) do
+    if type(v) == 'table' then
+      copy[k] = table_clone(v)
+    else
+      copy[k] = v
     end
-    return c
   end
-  
+  return copy
+end
+
+local function table_merge(dest, source)
+  for k,v in pairs(source) do  
+    dest[k] = v
+  end
+  return dest
+end
+
+-- Interface for cross class-system compatibility
+-- see https://github.com/bartbes/Class-Commons).
+if common_class ~= false and not common then
+  common = {}
+  function common.class(name, prototype, parent)
+    local klass = table_merge(class(parent), prototype)
+    klass.__init = prototype.init or (parent or {}).init
+    return klass
+  end
   function common.instance(class, ...)
     return class:new(...)
   end
-  
 end
