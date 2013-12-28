@@ -3,3 +3,4 @@
 *.bat
 telescope*
 tsc
+bench*
