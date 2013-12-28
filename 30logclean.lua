@@ -48,12 +48,12 @@ local function instantiate(self,...)
 end
 
 local function extends(self,extra_params)
-  
-  local heirClass = deep_copy(self, class(extra_params))
-  heirClass.__index = heirClass
-  heirClass.super = self
-  return setmetatable(heirClass,self)
-  
+  local heir = {}
+  classes[heir] = tostring(heir)
+  deep_copy(self, deep_copy(extra_params, heir))
+  heir.__index = heir
+  heir.super = self
+  return setmetatable(heir,self)
 end
 
 baseMt = {

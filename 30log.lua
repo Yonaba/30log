@@ -15,8 +15,8 @@ local function instantiate(self,...)
   return instance
 end
 local function extends(self,extra_params)
-  local heirClass = deep_copy(self, class(extra_params)); heirClass.__index, heirClass.super = heirClass, self
-  return setmetatable(heirClass,self)
+  local heir = {}; _classes[heir] = tostring(heir); deep_copy(self, deep_copy(extra_params, heir));
+  heir.__index, heir.super = heir, self; return setmetatable(heir,self)
 end
 baseMt = { __call = function (self,...) return self:new(...) end,
    __tostring = function(self,...)
