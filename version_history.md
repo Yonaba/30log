@@ -1,5 +1,10 @@
 #Version history#
 
+##(12/29/2013)
+* Fix for chained class extension attributes overriding when given a prototype (Thanks @italomaia)
+* Updated specs
+* Removed class-commons plugin, to be moved to a separate repository
+
 ##0.6.0 (08/08/2013)
 * Added global source
 * Made call to class methods available through initializers
