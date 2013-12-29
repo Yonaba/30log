@@ -1,1 +1,0 @@
-require '30logclasscommons'
