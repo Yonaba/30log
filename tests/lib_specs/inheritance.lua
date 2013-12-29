@@ -79,6 +79,18 @@ context('Derivation (Inheritance)',function()
       assert_equal(Frame.height,55) 
     end)     
     
+    test('its members should also differ from the superclass members if overriden', function()
+      local class = Class {__name = 'class', x = 10, z = 'a', f = function() end}
+      local subclass = class:extends {__name = 'subclass', z = 'b', k = {}, f = function() end}
+      assert_equal(subclass.__name, 'subclass')
+      assert_equal(subclass.z, 'b')
+      assert_equal(type(subclass.k), 'table')
+      assert_nil(class.k)
+      assert_equal(subclass.x, 10)
+      assert_equal(type(subclass.f), 'function')
+      assert_not_equal(subclass.f, class.f)
+      assert_equal(getmetatable(subclass), class)
+    end)
   end)
   
   context('In a single inheritance model', function()
