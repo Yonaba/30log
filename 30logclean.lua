@@ -50,7 +50,7 @@ end
 local function extends(self,extra_params)
   local heir = {}
   classes[heir] = tostring(heir)
-  deep_copy(self, deep_copy(extra_params, heir))
+  deep_copy(extra_params, deep_copy(self, heir))
   heir.__index = heir
   heir.super = self
   return setmetatable(heir,self)
