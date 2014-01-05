@@ -33,8 +33,8 @@ git clone git://github.com/Yonaba/30log.git
 
 ###Archive
 
-* __Zip__: [0.6.1](https://github.com/Yonaba/30log/archive/30log-0.6.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.6.1](https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Zip__: [0.7.0](https://github.com/Yonaba/30log/archive/30log-0.7.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Tar.gz__: [0.7.0](https://github.com/Yonaba/30log/archive/30log-0.7.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
 
 ###LuaRocks
 
@@ -412,7 +412,7 @@ Find [here an example of output](https://github.com/Yonaba/30log/tree/master/per
 
 ##License
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
-Copyright (c) 2012-2013 Roland Yonaba
+Copyright (c) 2012-2014 Roland Yonaba
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the
