@@ -46,7 +46,7 @@
 
 <p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
 It features <strong>class creation</strong>, <strong>object instantiation</strong>, <strong>single inheritance</strong> and provides basic support for <strong>mixins</strong>.<br>
-It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> was meant for <a href="http://www.lua.org/versions.html#5.1">Lua 5.1.x</a>, yet it is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2.x.</a> and <a href="http://www.lua.org/versions.html#5.3">Lua 5.3.x</a>.</p>
+It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> was meant for <a href="http://www.lua.org/versions.html#5.1">Lua 5.1.x</a>, yet it is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2.x.</a>.</p>
 
 <h2>
 <a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h2>
@@ -60,8 +60,7 @@ It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> 
 <li><a href="https://github.com/Yonaba/30log/#printing-classes-and-objects">Printing classes and objects</a></li>
 <li><a href="https://github.com/Yonaba/30log/#class-commons">Class Commons support</a></li>
 <li><a href="https://github.com/Yonaba/30log/#specification">Specification</a></li>
-<li><a href="https://github.com/Yonaba/30log/#clean-source">Clean source</a></li>
-<li><a href="https://github.com/Yonaba/30log/#30log-global">30log global</a></li>
+<li><a href="https://github.com/Yonaba/30log/#source">Source</a></li>
 <li><a href="https://github.com/Yonaba/30log/#benchmark">Benchmark</a></li>
 <li><a href="https://github.com/Yonaba/30log/#contributors">Contributors</a></li>
 </ul><h2>
@@ -72,7 +71,7 @@ It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> 
 <h3>
 <a name="bash" class="anchor" href="#bash"><span class="octicon octicon-link"></span></a>Bash</h3>
 
-<div class="highlight"><pre>git clone git://github.com/Yonaba/30log.git --recursive
+<div class="highlight highlight-bash"><pre>git clone git://github.com/Yonaba/30log.git
 </pre></div>
 
 <h3>
@@ -80,10 +79,10 @@ It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> 
 
 <ul>
 <li>
-<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.6.0.zip">0.6.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.7.0.zip">0.7.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 <li>
-<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.6.0.tar.gz">0.6.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.7.0.tar.gz">0.7.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 </ul><h3>
 <a name="luarocks" class="anchor" href="#luarocks"><span class="octicon octicon-link"></span></a>LuaRocks</h3>
@@ -94,7 +93,7 @@ It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> 
 <h3>
 <a name="moonrocks" class="anchor" href="#moonrocks"><span class="octicon octicon-link"></span></a>MoonRocks</h3>
 
-<div class="highlight"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba 30log
+<div class="highlight highlight-bash"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba 30log
 </pre></div>
 
 <h2>
@@ -112,7 +111,7 @@ keeping safe the global environment.<br></p>
 
 <p>Creating a new class is fairly simple. Just call the returned function, then add some properties to this class :</p>
 
-<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<div class="highlight highlight-lua"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">Window</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">Window</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="mi">100</span>
@@ -121,7 +120,7 @@ keeping safe the global environment.<br></p>
 <p>You can also make it shorter, packing the default properties and their values within a 
 table and then pass it as a single argument to the <code>class</code> function :</p>
 
-<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<div class="highlight highlight-lua"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 </pre></div>
 
@@ -131,7 +130,7 @@ table and then pass it as a single argument to the <code>class</code> function :
 <p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#041-02142013">v0.4.1</a>, classes can be named.
 <br>To name a class, you will have to set the desired name as a string value to the reserved key <code>__name</code> :</p>
 
-<div class="highlight"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
+<div class="highlight highlight-lua"><pre><span class="n">class</span> <span class="o">=</span> <span class="nb">require</span> <span class="s1">'</span><span class="s">30log'</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">()</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Window'</span>
 </pre></div>
@@ -145,14 +144,14 @@ table and then pass it as a single argument to the <code>class</code> function :
 <p>You can easily create new <strong>instances</strong> (objects) from a class using the <strong>default instantiation method</strong> 
 named <code>new()</code>:</p>
 
-<div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
+<div class="highlight highlight-lua"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 </pre></div>
 
 <p>There is a shorter version though. You can call new class itself <strong>as a function</strong> :</p>
 
-<div class="highlight"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
+<div class="highlight highlight-lua"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
 </pre></div>
@@ -166,7 +165,7 @@ internally called right after an object was derived from a class and that can in
 object to alter the values of its properties.<br>
 By default, <strong>30log</strong> uses the reserved key <code>__init</code> as a <strong>class constructor</strong>.</p>
 
-<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<div class="highlight highlight-lua"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
   <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
@@ -183,7 +182,7 @@ By default, <strong>30log</strong> uses the reserved key <code>__init</code> as 
 In that case though, the values of each single object's properties will be taken from the table 
 <code>__init</code> upon instantiation, no matter what the values passed-in at instantiation would be.</p>
 
-<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<div class="highlight highlight-lua"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
 <span class="n">Window</span><span class="p">.</span><span class="n">__init</span> <span class="o">=</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 
 <span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
@@ -197,7 +196,7 @@ In that case though, the values of each single object's properties will be taken
 
 <p><strong>Methods</strong> are supported. Obviously.</p>
 
-<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<div class="highlight highlight-lua"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="k">function</span> <span class="nf">Window</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span>
   <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span><span class="n">height</span>
@@ -226,7 +225,7 @@ Similarly to <code>class</code>, this method also takes an optional table with n
 to include <strong>the new properties</strong> that the derived class will implement.
 The new class will inherit his mother class <strong>properties</strong> as well as <strong>methods</strong>.</p>
 
-<div class="highlight"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
+<div class="highlight highlight-lua"><pre><span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
 <span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span> <span class="p">{</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'</span><span class="s">black'</span> <span class="p">}</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Frame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">Frame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 
@@ -238,7 +237,7 @@ The new class will inherit his mother class <strong>properties</strong> as well 
 Therefore, the derived class still has access to his mother class methods and properties via a 
 reserved key named <code>super</code>.<br></p>
 
-<div class="highlight"><pre><span class="c1">-- Let's use this feature to build a class constructor for our `Frame` class.</span>
+<div class="highlight highlight-lua"><pre><span class="c1">-- Let's use this feature to build a class constructor for our `Frame` class.</span>
 
 <span class="c1">-- The base class "Window"</span>
 <span class="n">Window</span> <span class="o">=</span> <span class="n">class</span> <span class="p">{</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">}</span>
@@ -287,7 +286,7 @@ reserved key named <code>super</code>.<br></p>
 another. This is called <em>initception</em>.<br>
 And, yes, <em>it is a joke.</em></p>
 
-<div class="highlight"><pre><span class="c1">-- A mother class 'A'</span>
+<div class="highlight highlight-lua"><pre><span class="c1">-- A mother class 'A'</span>
 <span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
 <span class="k">function</span> <span class="nc">A</span><span class="p">.</span><span class="nf">__init</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
   <span class="n">instance</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
@@ -327,7 +326,7 @@ And, yes, <em>it is a joke.</em></p>
 
 <p>The previous syntax can also be simplified, as follows:</p>
 
-<div class="highlight"><pre><span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">A</span> <span class="o">=</span> <span class="n">Class</span><span class="p">()</span>
 <span class="k">function</span> <span class="nf">A</span><span class="p">:</span><span class="n">__init</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
   <span class="n">self</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
 <span class="k">end</span>
@@ -360,7 +359,7 @@ functionnality into differents classes without having any special relationship b
 inheritance.<br><strong>30log</strong> implements the concept of <strong>mixin</strong> as an object (actually a <em>simple lua table</em>) containing a 
 <strong>set of methods</strong>. To include a mixin in a class, use the reserved key named <code>with</code>.</p>
 
-<div class="highlight"><pre><span class="c1">-- A mixin</span>
+<div class="highlight highlight-lua"><pre><span class="c1">-- A mixin</span>
 <span class="n">Geometry</span> <span class="o">=</span> <span class="p">{</span>
   <span class="n">getArea</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="k">end</span><span class="p">,</span>
   <span class="n">resize</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span> <span class="n">self</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="k">end</span>
@@ -394,7 +393,7 @@ class.</p>
 
 <p>As of <a href="https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013">v0.4.0</a>, any attempt to <a href="http://pgl.yoyo.org/luai/i/print">print</a> or <a href="http://pgl.yoyo.org/luai/i/tostring">tostring</a> a <strong>class</strong> or an <strong>instance</strong> will return a special string, mostly meant for debugging purposes.</p>
 
-<div class="highlight"><pre><span class="c1">-- Let's illustrate this, with an unnamed __Cat__ class:</span>
+<div class="highlight highlight-lua"><pre><span class="c1">-- Let's illustrate this, with an unnamed __Cat__ class:</span>
 
 <span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
@@ -404,7 +403,7 @@ class.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Unnamed): &lt;table: 00550C10&gt;"</span>
 </pre></div>
 
-<div class="highlight"><pre><span class="c1">-- Let's define a named __Cat__ class now:</span>
+<div class="highlight highlight-lua"><pre><span class="c1">-- Let's define a named __Cat__ class now:</span>
 
 <span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
@@ -419,45 +418,24 @@ class.</p>
 <a name="class-commons" class="anchor" href="#class-commons"><span class="octicon octicon-link"></span></a>Class Commons</h2>
 
 <p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common 
-API for a wide range of object orientation libraries in Lua.
-The original support for Class Commmons was provided by <a href="https://github.com/tst2005">TsT2005</a>. </p>
-
-<div class="highlight"><pre><span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">30logclasscommons"</span><span class="p">)</span>
-
-<span class="c1">-- Now use these</span>
-<span class="n">common</span><span class="p">.</span><span class="n">class</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="n">common</span><span class="p">.</span><span class="n">instance</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-</pre></div>
+API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by <a href="https://github.com/tst2005">TsT</a> 
+which provides compatibility between <em>30log</em> and <em>Class-commons</em>.
+See here: <a href="http://github.com/Yonaba/30logclasscommons">30logclasscommons</a>.</p>
 
 <h2>
 <a name="specification" class="anchor" href="#specification"><span class="octicon octicon-link"></span></a>Specification</h2>
 
-<h3>
-<a name="30log-specs" class="anchor" href="#30log-specs"><span class="octicon octicon-link"></span></a>30log specs</h3>
-
 <p>You can run the included specs with <a href="https://github.com/norman/telescope">Telescope</a> using the following 
 command from the root foolder:</p>
 
-<pre><code>lua tsc -f tests/lib_specs/*
+<pre><code>lua tsc -f specs/*
 </code></pre>
 
 <h3>
-<a name="class-commons-testing-implementation" class="anchor" href="#class-commons-testing-implementation"><span class="octicon octicon-link"></span></a>Class-Commons testing implementation</h3>
+<a name="source" class="anchor" href="#source"><span class="octicon octicon-link"></span></a>Source</h3>
 
-<p>You can test the implementation of Class-commons with the following command from the root folder:</p>
-
-<pre><code>lua tests/class_commons/tests/tests.lua tests/class_commons/commons_tests
-</code></pre>
-
-<p><strong>Note</strong>: The tests are included as a submodule in this repository. Make sure to have the submodule <a href="https://github.com/bartbes/Class-Commons-Tests/blob/master/tests.lua">test file</a> in your local copy.
-In case you don't, fetch it with the following command from Git.</p>
-
-<pre><code>git submodule init
-git submodule update
-</code></pre>
-
-<h2>
-<a name="clean-source" class="anchor" href="#clean-source"><span class="octicon octicon-link"></span></a>Clean source</h2>
+<h3>
+<a name="30logclean" class="anchor" href="#30logclean"><span class="octicon octicon-link"></span></a>30logclean</h3>
 
 <p><strong>30log</strong> was initially designed for minimalistic purposes. But then commit after commit, I came  with a source code
 that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule. And, as a trade-off, the original source is not 
@@ -465,34 +443,34 @@ much elegant, yet 100 % functional.<br>
 For those who might be interested, though, the file <a href="https://github.com/Yonaba/30log/blob/master/30logclean.lua">30logclean.lua</a> contains the full source code, 
 properly formatted and well indented for your perusal.</p>
 
-<h2>
-<a name="30log-global" class="anchor" href="#30log-global"><span class="octicon octicon-link"></span></a>30log global</h2>
+<h3>
+<a name="30logglobal" class="anchor" href="#30logglobal"><span class="octicon octicon-link"></span></a>30logglobal</h3>
 
-<p>Well, not much. The relevant file <a href="https://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the same source as the original <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, excepts that it sets a global function named <code>class</code>.
-This is convenient for some embed Lua implementations such as <a href="http://twolivesleft.com/Codea/">Codea</a>.</p>
+<p>The file <a href="https://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the same source as the original <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, excepts that it sets a global function named <code>class</code>.
+This is convenient for Lua-based frameworks such as <a href="http://twolivesleft.com/Codea/">Codea</a>.</p>
 
 <h2>
 <a name="benchmark" class="anchor" href="#benchmark"><span class="octicon octicon-link"></span></a>Benchmark</h2>
 
-<p>Performance tests featuring class creations, instantiation and such have been included.
-You can run these test with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.</p>
+<p>Performance tests featuring classes creation, instantiation and such have been included.
+You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.</p>
 
-<div class="highlight"><pre><span class="n">lua</span> <span class="n">tests</span><span class="err">\</span><span class="n">benchmark</span><span class="err">\</span><span class="n">tests</span><span class="p">.</span><span class="n">lua</span> <span class="mi">30</span><span class="n">log</span>
+<div class="highlight highlight-lua"><pre><span class="n">lua</span> <span class="n">performance</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">lua</span> <span class="mi">30</span><span class="n">log</span>
 </pre></div>
 
-<p>Find <a href="https://github.com/Yonaba/30log/tree/master/tests/benchmark/results.md">here an example of output</a>.</p>
+<p>Find <a href="https://github.com/Yonaba/30log/tree/master/performance/results.md">here an example of output</a>.</p>
 
 <h2>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
 
 <ul>
 <li>
-<a href="https://github.com/tst2005">TsT2005</a>, for Class-commons support.</li>
+<a href="https://github.com/tst2005">TsT2005</a>, for the original Class-commons support.</li>
 </ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
-Copyright (c) 2012-2013 Roland Yonaba</p>
+Copyright (c) 2012-2014 Roland Yonaba</p>
 
 <pre><code>Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the
@@ -513,6 +491,8 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </code></pre>
+
+<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/Yonaba/30log/trend.png" alt="Bitdeli Badge"></a></p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
