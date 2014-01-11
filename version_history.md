@@ -1,7 +1,11 @@
 #Version history#
 
-##0.7.1 (01/11/2014)
+##0.8.0 (01/11/2014)
+* Mixins are now included with `include`, not `with`
+* Objects (instances) cannot call `new`
+* Shortened class/instances __tostring output (`class (?)` instead of `class (Unnamed)`
 * Bugfixes for `30logclean` (Thanks [zorfmorf](https://github.com/zorfmorf))
+* Updated specification tests and README
 
 ##0.7.0 (01/05/2014)
 * Fix for chained class extension attributes overriding when given a prototype (Thanks [Italo Maia](https://github.com/Yonaba/30log/issues/7))

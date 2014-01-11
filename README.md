@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
 
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It features __class creation__, __object instantiation__, __single inheritance__ and provides basic support for __mixins__.<br/>
+It features __named classes__, __single inheritance__ and basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
-__30log__ was meant for [Lua 5.1.x](http://www.lua.org/versions.html#5.1), yet it is compatible with [Lua 5.2.x.](http://www.lua.org/versions.html#5.2).
+__30log__ is [Lua 5.1](http://www.lua.org/versions.html#5.1), [Lua 5.2](http://www.lua.org/versions.html#5.2) compatible.
 
 ##Contents
 * [Download](https://github.com/Yonaba/30log/#download)
@@ -33,8 +33,8 @@ git clone git://github.com/Yonaba/30log.git
 
 ###Archive
 
-* __Zip__: [0.7.0](https://github.com/Yonaba/30log/archive/30log-0.7.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.7.0](https://github.com/Yonaba/30log/archive/30log-0.7.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Zip__: [0.8.0](https://github.com/Yonaba/30log/archive/30log-0.8.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Tar.gz__: [0.8.0](https://github.com/Yonaba/30log/archive/30log-0.8.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
 
 ###LuaRocks
 
@@ -73,8 +73,8 @@ Window = class { width = 100, height = 100, x = 10, y = 10}
 ```
 
 ###Named classes
-As of [v0.4.1](https://github.com/Yonaba/30log/blob/master/version_history.md#041-02142013), classes can be named.
-<br/>To name a class, you will have to set the desired name as a string value to the reserved key `__name` :
+Classes can be named.<br/>
+To name a class, you will have to set the desired name as a string value to the reserved key `__name` :
 
 ```lua
 class = require '30log'
@@ -96,7 +96,7 @@ print(appFrame.x,appFrame.y) --> 10, 10
 print(appFrame.width,appFrame.height) --> 100, 100
 ```
 
-There is a shorter version though. You can call new class itself __as a function__ :
+There is a shorter version though. You can call new class itself with parens, __just like a function__ :
 
 ```lua
 appFrame = Window()
@@ -105,13 +105,12 @@ print(appFrame.width,appFrame.height) --> 100, 100
 ```
 
 From the two examples above, you might have noticed that once an object is created from a class, it 
-already implements the properties of his mother class. That's the definition of `inheritance`. 
-So, by default, the properties of the new object copy their values from the mother class.<br/>
+already shares the properties of his mother class. That's the very basis of `inheritance`. 
+So, by default, the attributes of the newly created object will copy their values from its mother class.<br/>
 <br/>
 Yet, you can init new objects from a class with custom values for properties. To accomplish that, 
-you will have to implement a __class constructor__ into the class. Typically, it is a method that is 
-internally called right after an object was derived from a class and that can interact on the so-called 
-object to alter the values of its properties.<br/>
+you will have to implement your own __class constructor__. Typically, it is a method (a function) that will be
+called whenever the new() method is used from the class to derive a new object, and then define custom attributes and values for this object.<br/>
 By default, __30log__ uses the reserved key `__init` as a __class constructor__.
 
 ```lua
@@ -127,10 +126,9 @@ print(appFrame.x,appFrame.y) --> 50, 60
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
-__Note:__ As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013), 
-`__init` can also be a __table with named args__. </br>
-In that case though, the values of each single object's properties will be taken from the table 
-`__init` upon instantiation, no matter what the values passed-in at instantiation would be.
+`__init` can also be a __table with named keys__. </br>
+In that case though, the values of each single object's properties will be taken from this table
+upon instantiation, no matter what the values passed-in at instantiation would be. 
 
 ```lua
 Window = class()
@@ -143,7 +141,7 @@ print(appFrame.width,appFrame.height) --> 100, 100
 ````
 
 ###Methods
-__Methods__ are supported. Obviously.
+Objects can call their class __methods__.
 
 ```lua
 Window = class { width = 100, height = 100, w = 10, y = 10}
@@ -167,11 +165,19 @@ appFrame:resize(800,600)
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
+Though, objects cannot be used to instantiate new objects.
+
+```lua
+appFrame = Window:new()
+aFrame = appFrame:new() -- Creates an error
+aFrame = appFrame()     -- Also creates an error
+````
+
 ###Inheritance
 A class can __inherit__ from any other class using a reserved method named `extends`.
-Similarly to `class`, this method also takes an optional table with named args as argument 
-to include __the new properties__ that the derived class will implement.
-The new class will inherit his mother class __properties__ as well as __methods__.
+Similarly to `class`, this method also takes an optional table with named keys as argument 
+to include __new properties__ that the derived class will implement.
+The new class will inherit his mother class __properties__ as well as its __methods__.
 
 ```lua
 Window = class { width = 100, height = 100, x = 10, y = 10}
@@ -183,7 +189,7 @@ print(appFrame.x,appFrame.y) --> 10, 10
 ```
 
 A derived class can __redefine any method__ implemented in its base class (or mother class).
-Therefore, the derived class still has access to his mother class methods and properties via a 
+Therefore, the derived class *still* has access to his mother class methods and properties via a 
 reserved key named `super`.<br/>
 
 ```lua
@@ -231,7 +237,9 @@ print(appFrame.x,appFrame.y) --> 400, 300
 
 ##Chained initialisation
 In a single inheritance tree,  the `__init` constructor can be chained from one class to 
-another. This is called *initception*.<br/>
+another.<br/>
+
+This is called *initception*.<br/>
 And, yes, *it is a joke.*
 
 ```lua
@@ -302,12 +310,10 @@ end
 
 ##Mixins
 
-As of [v0.5.0](https://github.com/Yonaba/30log/blob/master/version_history.md#050-06132013), __30log__ provides a basic support
-for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can be use to implement a 
-functionnality into differents classes without having any special relationship between them, such as 
-inheritance.<br/>
-__30log__ implements the concept of __mixin__ as an object (actually a *simple lua table*) containing a 
-**set of methods**. To include a mixin in a class, use the reserved key named `with`.
+__30log__ provides a basic support for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can 
+be used to implement a functionality into different classes, even if they do not have any special relationship.<br/>
+__30log__ assumes a `mixin` to be a table containing a **set of methods** (function).<br/>
+To include a mixin in a class, use the reserved key named `include`.
 
 ```lua
 -- A mixin
@@ -321,8 +327,8 @@ Window = class {width = 480, height = 250}
 Button = class {width = 100, height = 50, onClick = false}
 
 -- Include the "Geometry" mixin inside the two classes
-Window:with(Geometry)
-Button:with(Geometry)
+Window:include(Geometry)
+Button:include(Geometry)
 
 -- Let's define objects from those classes
 local aWindow = Window()
@@ -332,27 +338,34 @@ local aButton = Button()
 print(aWindow:getArea()) --> 480, 250
 print(aButton:getArea()) --> 100, 50
 
-aButton:resize(225,75)
-print(aButton.width, aButton.height) --> 255, 75
+aWindow:resize(225,75)
+print(aWindow.width, aWindow.height) --> 255, 75
 ````
 
-__Note:__ When including a mixin into a class, **only methods** (functions, actually) will be imported into the 
-class.
+Note that, when including a mixin into a class, **only methods** (functions, actually) will be imported into the 
+class. Also, objects cannot include mixins.
+
+```lua
+aWindow = Window()
+aWindow:include(Geometry) -- produces an error
+````
 
 ##Printing classes and objects
-As of [v0.4.0](https://github.com/Yonaba/30log/blob/master/version_history.md#040-02132013), any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__ will return a special string, mostly meant for debugging purposes.
+Any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__
+will return the name of the class as a string. This feature is mostly meant for debugging purposes.
 
 ```lua
 -- Let's illustrate this, with an unnamed __Cat__ class:
 
 -- A Cat Class
 local Cat = class()
-print(Cat) --> "class (Unnamed): <table: 00550AD0>"
+print(Cat) --> "class (?): <table: 00550AD0>"
 
 local kitten = Cat()
-print(kitten) --> "object (of Unnamed): <table: 00550C10>"
+print(kitten) --> "object (of ?): <table: 00550C10>"
 ````
 
+The question mark symbol `?` means here the printed class is unnamed (or the object derives from an unnamed class).
 
 ```lua
 -- Let's define a named __Cat__ class now:
@@ -369,7 +382,7 @@ print(kitten) --> "object (of Cat): <table: 00411880>"
 ##Class Commons
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common 
 API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
-which provides compatibility between *30log* and *Class-commons*.
+which provides compatibility between *30log* and *Class-commons*. <br/>
 See here: [30logclasscommons](http://github.com/Yonaba/30logclasscommons).
 
 ##Specification
@@ -384,16 +397,15 @@ lua tsc -f specs/*
 ###Source
 
 ###30logclean
-__30log__ was initially designed for minimalistic purposes. But then commit after commit, I came  with a source code
-that was obviously surpassing 30 lines. I opted to stick to the "30-lines" rule. And, as a trade-off, the original source is not 
-much elegant, yet 100 % functional.<br/>
-For those who might be interested, though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
+__30log__ was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code
+that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br/>
+For those who might be interested though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
 properly formatted and well indented for your perusal.
 
 ###30logglobal
 
-The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), excepts that it sets a global function named `class`.
-This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
+The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), 
+excepts that it sets a global function named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
 ##Benchmark
 
