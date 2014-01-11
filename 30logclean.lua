@@ -10,7 +10,7 @@ local class
 
 local function deep_copy(t, dest, aType)
   
-  local t or {}
+  local t = t or {}
   local r = dest or {}
   
   for k,v in pairs(t) do
@@ -49,7 +49,7 @@ end
 
 local function extends(self,extra_params)
   local heir = {}
-  classes[heir] = tostring(heir)
+  _classes[heir] = tostring(heir)
   deep_copy(extra_params, deep_copy(self, heir))
   heir.__index = heir
   heir.super = self
