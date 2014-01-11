@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
 
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It features __named classes__, __single inheritance__ and basic support for __mixins__.<br/>
+It features __named (and unnamed) classes__, __single inheritance__ and a basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
 __30log__ is [Lua 5.1](http://www.lua.org/versions.html#5.1), [Lua 5.2](http://www.lua.org/versions.html#5.2) compatible.
 

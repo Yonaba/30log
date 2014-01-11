@@ -7,9 +7,9 @@ source = {
 description = {
    summary = "30 lines library for object orientation",
    detailed = [[
-    30log, in extenso "30 Lines Of Goodness" is a 30-lines minified framework
-    for object-orientation in Lua. It features class creation, 
-		instantiation, single inheritance and basic support for mixins.
+    30log, in extenso "30 Lines Of Goodness" is a minified library
+    for object-orientation in Lua. It features named (and unnamed) classes,
+    single inheritance and a basic support for mixins in 30 lines of code.
    ]],
    homepage = "http://yonaba.github.io/30log",
    license = "MIT <http://www.opensource.org/licenses/mit-license.php>"
