@@ -1,6 +1,6 @@
 local Class = require '30log'
 
-context('Class()', function()
+context('Class', function()
   
   context('When Class is called with no args passed', function()
     test('it returns a new class (regular Lua table)',function()
@@ -43,7 +43,7 @@ context('Class()', function()
   context('tostring', function()
     test('classes can be stringified', function()
       local myClass = Class()
-      assert_equal(tostring(myClass):match('(.+):%s<.+>$'), 'class (Unnamed)')
+      assert_equal(tostring(myClass):match('(.+):%s<.+>$'), 'class (?)')
     end)
   end)
   

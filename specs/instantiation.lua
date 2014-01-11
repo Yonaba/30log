@@ -27,6 +27,14 @@ context('Instances (Objects)',function()
       win:setSize(10)
       assert_equal(win.size,10)
     end)    
+  
+    test('Objects cannot call new()', function()
+      local win = Window()
+      local function should_err() local win_new = win:new() end
+      local function should_err2() local win_new = win() end
+      assert_error(should_err)
+      assert_error(should_err2)
+    end)
   end)
 
   context('Providing an __init() method to classes',function()
@@ -69,6 +77,7 @@ context('Instances (Objects)',function()
     end)
     
   end)
+
   context('.__init can also be a table of named args for static instantiation',function()
     local Window
     
@@ -94,7 +103,7 @@ context('Instances (Objects)',function()
   
     test('objects from unnammed classes can be stringified', function()
       local myClass = Class()
-      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of Unnamed)')
+      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of ?)')
     end)
 
     test('objects from named classes can be stringified', function()
