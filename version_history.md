@@ -3,7 +3,7 @@
 ##0.8.0 (01/11/2014)
 * Mixins are now included with `include`, not `with`
 * Objects (instances) cannot call `new`
-* Shortened class/instances __tostring output (`class (?)` instead of `class (Unnamed)`
+* Shortened class/instances `__tostring` output (`class (?)` instead of `class (Unnamed)`)
 * Bugfixes for `30logclean` (Thanks [zorfmorf](https://github.com/zorfmorf))
 * Updated specification tests and README
 
