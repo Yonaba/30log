@@ -87,6 +87,8 @@ This feature can be quite useful when debugging your code. See the section
 
 ###Instances
 
+####Creating instances
+
 You can easily create new __instances__ (objects) from a class using the __default instantiation method__ 
 named `new()`:
 
@@ -138,6 +140,24 @@ appFrame = Window:new(50,60,800,600)
    -- or appFrame = Window(50,60,800,600)
 print(appFrame.x,appFrame.y) --> 10, 10
 print(appFrame.width,appFrame.height) --> 100, 100
+````
+
+####Under the hood
+*30log* classes are metatables of their own instances. This implies that one can inspect the mother/son 
+relationship between a class and its instance via Lua's standard function [getmetatable](http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable).
+
+```lua
+local aClass = class()
+local someInstance = aClass()
+print(getmetatable(someInstance) == aClass) --> true
+````
+
+Also, classes are metatables of their derived classes.
+
+```lua
+local aClass = class()
+local someDerivedClass = aClass:extends()
+print(getmetatable(someDerivedClass) == aClass) --> true
 ````
 
 ###Methods
