@@ -141,6 +141,9 @@ To name a class, you will have to set the desired name as a string value to the 
 <h3>
 <a name="instances" class="anchor" href="#instances"><span class="octicon octicon-link"></span></a>Instances</h3>
 
+<h4>
+<a name="creating-instances" class="anchor" href="#creating-instances"><span class="octicon octicon-link"></span></a>Creating instances</h4>
+
 <p>You can easily create new <strong>instances</strong> (objects) from a class using the <strong>default instantiation method</strong> 
 named <code>new()</code>:</p>
 
@@ -187,6 +190,24 @@ upon instantiation, no matter what the values passed-in at instantiation would b
    <span class="c1">-- or appFrame = Window(50,60,800,600)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 10, 10</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 100, 100</span>
+</pre></div>
+
+<h4>
+<a name="under-the-hood" class="anchor" href="#under-the-hood"><span class="octicon octicon-link"></span></a>Under the hood</h4>
+
+<p><em>30log</em> classes are metatables of their own instances. This implies that one can inspect the mother/son 
+relationship between a class and its instance via Lua's standard function <a href="http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable">getmetatable</a>.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">someInstance</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">getmetatable</span><span class="p">(</span><span class="n">someInstance</span><span class="p">)</span> <span class="o">==</span> <span class="n">aClass</span><span class="p">)</span> <span class="c1">--&gt; true</span>
+</pre></div>
+
+<p>Also, classes are metatables of their derived classes.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">someDerivedClass</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">getmetatable</span><span class="p">(</span><span class="n">someDerivedClass</span><span class="p">)</span> <span class="o">==</span> <span class="n">aClass</span><span class="p">)</span> <span class="c1">--&gt; true</span>
 </pre></div>
 
 <h3>
