@@ -33,8 +33,8 @@ git clone git://github.com/Yonaba/30log.git
 
 ###Archive
 
-* __Zip__: [0.8.0](https://github.com/Yonaba/30log/archive/30log-0.8.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.8.0](https://github.com/Yonaba/30log/archive/30log-0.8.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Zip__: [0.9.0](https://github.com/Yonaba/30log/archive/30log-0.9.0.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __Tar.gz__: [0.9.0](https://github.com/Yonaba/30log/archive/30log-0.9.0.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
 
 ###LuaRocks
 
