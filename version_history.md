@@ -1,5 +1,9 @@
 #Version history#
 
+##0.9.0 (02/07/2014)
+* Added `class.is` and `instance.is` to inspect inheritance relationship between two objects.
+* Removed spaces in class/instance tostring output.
+
 ##0.8.0 (01/11/2014)
 * Mixins are now included with `include`, not `with`
 * Objects (instances) cannot call `new`

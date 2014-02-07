@@ -194,6 +194,7 @@ aFrame = appFrame()     -- Also creates an error
 ````
 
 ###Inheritance
+
 A class can __inherit__ from any other class using a reserved method named `extends`.
 Similarly to `class`, this method also takes an optional table with named keys as argument 
 to include __new properties__ that the derived class will implement.
@@ -254,6 +255,42 @@ print(appFrame.x,appFrame.y) --> 0, 100
 appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) --> 400, 300
 ```
+
+###Inspecting inheritance
+
+`class.is` can check if a given class derives from another class.
+
+```lua
+local aClass = class()
+local aDerivedClass = aClass:extends()
+print(aDerivedClass:is(aClass)) --> true
+````
+
+It also returns *true* when the given class is not necessarily the immediate ancestor of the calling class.
+
+```lua
+local aClass = class()
+local aDerivedClass = aClass:extends():extends():extends() -- 3-level depth inheritance
+print(aDerivedClass:is(aClass)) --> true
+````
+
+Similarly `instance.is` can check if a given instance derives from a given class.
+
+```lua
+local aClass = class()
+local anObject = aClass()
+print(anObject:is(aClass)) --> true
+````
+
+It also returns *true* when the given class is not the immediate ancestor.
+
+```lua
+local aClass = class()
+local aDerivedClass = aClass:extends():extends():extends() -- 3-level depth inheritance
+local anObject = aDerivedClass()
+print(anObject:is(aDerivedClass)) --> true
+print(anObject:is(aClass)) --> true
+````
 
 ##Chained initialisation
 In a single inheritance tree,  the `__init` constructor can be chained from one class to 
@@ -379,10 +416,10 @@ will return the name of the class as a string. This feature is mostly meant for 
 
 -- A Cat Class
 local Cat = class()
-print(Cat) --> "class (?): <table: 00550AD0>"
+print(Cat) --> "class(?):<table:00550AD0>"
 
 local kitten = Cat()
-print(kitten) --> "object (of ?): <table: 00550C10>"
+print(kitten) --> "object(of ?):<table:00550C10>"
 ````
 
 The question mark symbol `?` means here the printed class is unnamed (or the object derives from an unnamed class).
@@ -393,10 +430,10 @@ The question mark symbol `?` means here the printed class is unnamed (or the obj
 -- A Cat Class
 local Cat = class()
 Cat.__name = 'Cat'
-print(Cat) --> "class (Cat): <table: 00411858>"
+print(Cat) --> "class(Cat):<table:00411858>"
 
 local kitten = Cat()
-print(kitten) --> "object (of Cat): <table: 00411880>"
+print(kitten) --> "object(of Cat):<table:00411880>"
 ````
 
 ##Class Commons
