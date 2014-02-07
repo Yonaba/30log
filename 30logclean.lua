@@ -61,13 +61,13 @@ baseMt = {
   __tostring = function(self,...)
     if _instances[self] then
       return 
-        ('object (of %s): <%s>')
+        ('object(of %s):<%s>')
           :format((rawget(getmetatable(self),'__name') or '?'), _instances[self])
     end
     
     return
       _classes[self] and 
-      ('class (%s): <%s>')
+      ('class(%s):<%s>')
         :format((rawget(self,'__name') or '?'),_classes[self]) or 
       self      
   end
@@ -86,7 +86,16 @@ class = function(attr)
   c.__index = c
   c.__call = baseMt.__call
   c.__tostring = baseMt.__tostring
-  return setmetatable(c,baseMt)
+  
+  c.is = function(self, kind)
+    local super
+    while true do 
+      super = getmetatable(super or self)
+      if super == kind or super == nil then break end
+    end
+    return kind and (super == kind)
+  end
+  return setmetatable(c, baseMt)
 end
 
 return class
