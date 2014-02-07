@@ -43,7 +43,7 @@ context('Class', function()
   context('tostring', function()
     test('classes can be stringified', function()
       local myClass = Class()
-      assert_equal(tostring(myClass):match('(.+):%s<.+>$'), 'class (?)')
+      assert_equal(tostring(myClass):match('(.+):<.+>$'), 'class(?)')
     end)
   end)
   
@@ -51,7 +51,7 @@ context('Class', function()
     test('classes can be named implementing the special attribute __name', function()
       local myClass = Class()
       myClass.__name = 'aClass'
-      assert_equal(tostring(myClass):match('(.+):%s<.+>$'), 'class (aClass)')
+      assert_equal(tostring(myClass):match('(.+):<.+>$'), 'class(aClass)')
     end)
   end)  
   

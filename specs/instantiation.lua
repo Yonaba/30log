@@ -103,13 +103,13 @@ context('Instances (Objects)',function()
   
     test('objects from unnammed classes can be stringified', function()
       local myClass = Class()
-      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of ?)')
+      assert_equal(tostring(myClass()):match('(.+):<.+>$'), 'object(of ?)')
     end)
 
     test('objects from named classes can be stringified', function()
       local myClass = Class()
       myClass.__name = 'aClass'
-      assert_equal(tostring(myClass()):match('(.+):%s<.+>$'), 'object (of aClass)')
+      assert_equal(tostring(myClass()):match('(.+):<.+>$'), 'object(of aClass)')
     end)    
     
   end)
