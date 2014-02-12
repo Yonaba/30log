@@ -79,10 +79,10 @@ It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> 
 
 <ul>
 <li>
-<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.8.0.zip">0.8.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.9.0.zip">0.9.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 <li>
-<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.8.0.tar.gz">0.8.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
+<strong>Tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-0.9.0.tar.gz">0.9.0</a> ( <em>latest stable, recommended</em> ) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
 </li>
 </ul><h3>
 <a name="luarocks" class="anchor" href="#luarocks"><span class="octicon octicon-link"></span></a>LuaRocks</h3>
@@ -305,6 +305,39 @@ reserved key named <code>super</code>.<br></p>
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
 </pre></div>
 
+<h3>
+<a name="inspecting-inheritance" class="anchor" href="#inspecting-inheritance"><span class="octicon octicon-link"></span></a>Inspecting inheritance</h3>
+
+<p><code>class.is</code> can check if a given class derives from another class.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">aDerivedClass</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aDerivedClass</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">aClass</span><span class="p">))</span> <span class="c1">--&gt; true</span>
+</pre></div>
+
+<p>It also returns <em>true</em> when the given class is not necessarily the immediate ancestor of the calling class.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">aDerivedClass</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">:</span><span class="n">extends</span><span class="p">():</span><span class="n">extends</span><span class="p">():</span><span class="n">extends</span><span class="p">()</span> <span class="c1">-- 3-level depth inheritance</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aDerivedClass</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">aClass</span><span class="p">))</span> <span class="c1">--&gt; true</span>
+</pre></div>
+
+<p>Similarly <code>instance.is</code> can check if a given instance derives from a given class.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">anObject</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">anObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">aClass</span><span class="p">))</span> <span class="c1">--&gt; true</span>
+</pre></div>
+
+<p>It also returns <em>true</em> when the given class is not the immediate ancestor.</p>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">aClass</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">aDerivedClass</span> <span class="o">=</span> <span class="n">aClass</span><span class="p">:</span><span class="n">extends</span><span class="p">():</span><span class="n">extends</span><span class="p">():</span><span class="n">extends</span><span class="p">()</span> <span class="c1">-- 3-level depth inheritance</span>
+<span class="kd">local</span> <span class="n">anObject</span> <span class="o">=</span> <span class="n">aDerivedClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">anObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">aDerivedClass</span><span class="p">))</span> <span class="c1">--&gt; true</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">anObject</span><span class="p">:</span><span class="n">is</span><span class="p">(</span><span class="n">aClass</span><span class="p">))</span> <span class="c1">--&gt; true</span>
+</pre></div>
+
 <h2>
 <a name="chained-initialisation" class="anchor" href="#chained-initialisation"><span class="octicon octicon-link"></span></a>Chained initialisation</h2>
 
@@ -428,10 +461,10 @@ will return the name of the class as a string. This feature is mostly meant for 
 
 <span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (?): &lt;table: 00550AD0&gt;"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class(?):&lt;table:00550AD0&gt;"</span>
 
 <span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of ?): &lt;table: 00550C10&gt;"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object(of ?):&lt;table:00550C10&gt;"</span>
 </pre></div>
 
 <p>The question mark symbol <code>?</code> means here the printed class is unnamed (or the object derives from an unnamed class).</p>
@@ -441,10 +474,10 @@ will return the name of the class as a string. This feature is mostly meant for 
 <span class="c1">-- A Cat Class</span>
 <span class="kd">local</span> <span class="n">Cat</span> <span class="o">=</span> <span class="n">class</span><span class="p">()</span>
 <span class="n">Cat</span><span class="p">.</span><span class="n">__name</span> <span class="o">=</span> <span class="s1">'</span><span class="s">Cat'</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class (Cat): &lt;table: 00411858&gt;"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Cat</span><span class="p">)</span> <span class="c1">--&gt; "class(Cat):&lt;table:00411858&gt;"</span>
 
 <span class="kd">local</span> <span class="n">kitten</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object (of Cat): &lt;table: 00411880&gt;"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kitten</span><span class="p">)</span> <span class="c1">--&gt; "object(of Cat):&lt;table:00411880&gt;"</span>
 </pre></div>
 
 <h2>
