@@ -1,4 +1,5 @@
-local assert, pairs, type, tostring, baseMt, _instances, _classes =  assert, pairs, type, tostring, {}, {}, {}
+local assert, pairs, type, tostring, setmetatable = assert, pairs, type, tostring, setmetatable
+local baseMt, _instances, _classes = {}, setmetatable({},{__mode='k'}), setmetatable({},{__mode='k'})
 local function deep_copy(t, dest, aType)
   local t, r = t or {}, dest or {}
   for k,v in pairs(t) do
@@ -10,8 +11,7 @@ end
 local function instantiate(self,...)
   assert(_classes[self],'new() should be called from a class.')
   local instance = deep_copy(self) ; _instances[instance] = tostring(instance); setmetatable(instance,self)
-  if self.__init then if type(self.__init) == 'table' then deep_copy(self.__init, instance) else self.__init(instance, ...) end; end;
-  return instance
+  if self.__init then if type(self.__init) == 'table' then deep_copy(self.__init, instance) else self.__init(instance, ...) end; end; return instance
 end
 local function extends(self,extra_params)
   local heir = {}; _classes[heir] = tostring(heir); deep_copy(extra_params, deep_copy(self, heir));
@@ -25,6 +25,6 @@ class = function(attr)
   local c = deep_copy(attr) ; _classes[c] = tostring(c);
   c.include = function(self,include) assert(_classes[self], 'Mixins can only be used on classes.'); return deep_copy(include, self, 'function') end
   c.new, c.extends, c.__index, c.__call, c.__tostring = instantiate, extends, c, baseMt.__call, baseMt.__tostring;
-  c.is = function(self, kind) local super; while true do super = getmetatable(super or self) ; if super == kind or super == nil then break end ; end; 
+  c.is = function(self, kind) local super; while true do super = getmetatable(super or self) ; if super == kind or super == nil then break end ; end;
   return kind and (super == kind) end; return setmetatable(c,baseMt)
 end; return class

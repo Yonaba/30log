@@ -1,11 +1,12 @@
-local assert = assert
-local pairs = pairs
-local type = type
-local tostring = tostring
+local assert       = assert
+local pairs        = pairs
+local type         = type
+local tostring     = tostring
+local setmetatable = setmetatable
 
-local baseMt = {}
-local _instances = {}
-local _classes =  {}
+local baseMt     = {}
+local _instances = setmetatable({},{__mode='k'})
+local _classes   = setmetatable({},{__mode='k'})
 local class
 
 local function deep_copy(t, dest, aType)
