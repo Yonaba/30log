@@ -1,5 +1,8 @@
 #Version history#
 
+##0.9.1 (03/02/2014)
+* Internal objects/classes registers made tables with weak keys.
+
 ##0.9.0 (02/07/2014)
 * Added `class.is` and `instance.is` to inspect inheritance relationship between two objects.
 * Removed spaces in class/instance tostring output.
