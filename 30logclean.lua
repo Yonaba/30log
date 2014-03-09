@@ -47,7 +47,8 @@ end
 
 local function extends(self,extra_params)
   local heir = {}
-  _classes[heir] = tostring(heir)
+  _classes[heir] = {tostring(heir), children={}}
+  _classes[self].children[#_classes[self].children] = heir
   deep_copy(extra_params, deep_copy(self, heir))
   heir.__index = heir
   heir.super = self
@@ -69,14 +70,21 @@ baseMt = {
     return
       _classes[self] and 
       ('class(%s):<%s>')
-        :format((rawget(self,'__name') or '?'),_classes[self]) or 
+        :format((rawget(self,'__name') or '?'),_classes[self][1]) or 
       self      
+  end,
+
+  __newindex = function (self, key, value)
+    rawset(self, key, value)
+    for i=1, #_classes[self].children do
+      _classes[self].children[i][key] = value
+    end
   end
 }
 
 class = function(attr)
   local c = deep_copy(attr)
-  _classes[c] = tostring(c)
+  _classes[c] = {tostring(c), children = {}}
   c.include = function(self,include)
     assert(_classes[self], 'Mixins can only be used on classes.')
     return deep_copy(include, self, 'function')
