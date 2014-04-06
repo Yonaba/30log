@@ -40,6 +40,26 @@ context('Class', function()
     end)    
   end)
  
+  context('Metamethods', function()
+    
+    test('can be implemented into classes', function()
+      local myClass = Class()
+      myClass.__add = function(a, b) return a.value + b.value end
+      myClass.__sub = function(a, b) return a.value - b.value end
+      myClass.__mul = function(a, b) return a.value * b.value end
+      myClass.__div = function(a, b) return a.value / b.value end
+      
+      local a, b = myClass(), myClass()
+      a.value, b.value = 20, 10
+
+      assert_equal(a + b,  30)
+      assert_equal(a - b,  10)
+      assert_equal(a * b, 200)
+      assert_equal(a / b,   2)
+    end)
+    
+  end)
+  
   context('tostring', function()
     test('classes can be stringified', function()
       local myClass = Class()

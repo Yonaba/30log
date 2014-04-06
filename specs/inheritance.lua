@@ -1,6 +1,6 @@
 local Class = require '30log'
 
-context('Derivation (Inheritance)',function()
+context('Derivation (Inheritance)', function()
   local Window
     
   before(function()
@@ -63,6 +63,27 @@ context('Derivation (Inheritance)',function()
       assert_equal(Frame.height,15)  
     end)
     
+    test('shares its superclass metamethods', function()
+      Window.__eq = function(a, b) return a.width == b.width and a.height == b.height end
+      Window.__le = function(a, b) return a.width * a.height <= b.width * b.height  end
+      Window.__lt = function(a, b) return a.width * a.height < b.width * b.height end
+      
+      local Frame = Window:extends()
+      local frameA, frameB = Frame(), Frame()
+      frameA:setSize(200, 200)
+      frameB:setSize(200, 200)
+      
+      assert_true(frameA == frameB)
+      assert_true(frameA <= frameB)
+      
+      frameB:setSize(200, 199)      
+      assert_true(frameB <= frameA)
+      assert_false(frameA <= frameB)
+      
+      assert_true(frameB < frameA)
+      assert_false(frameA < frameB)
+    end)
+    
     test('can reimplement its superclass methods',function()
       local Frame = Window:extends()
       function Frame:setSize(size) self.width, self.height = size,size end
@@ -79,7 +100,7 @@ context('Derivation (Inheritance)',function()
       assert_equal(Frame.height,55) 
     end)     
     
-    test('its members should also differ from the superclass members if overriden', function()
+    test('Its members should also differ from the superclass members if overriden', function()
       local class = Class {__name = 'class', x = 10, z = 'a', f = function() end}
       local subclass = class:extends {__name = 'subclass', z = 'b', k = {}, f = function() end}
       assert_equal(subclass.__name, 'subclass')
@@ -91,6 +112,7 @@ context('Derivation (Inheritance)',function()
       assert_not_equal(subclass.f, class.f)
       assert_equal(getmetatable(subclass), class)
     end)
+  
   end)
   
   context('In a single inheritance model', function()
@@ -136,4 +158,4 @@ context('Derivation (Inheritance)',function()
     
   end)
   
- end)
+end)
