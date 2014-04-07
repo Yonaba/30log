@@ -6,7 +6,7 @@
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It features __named (and unnamed) classes__, __single inheritance__ and a basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
-__30log__ is [Lua 5.1](http://www.lua.org/versions.html#5.1), [Lua 5.2](http://www.lua.org/versions.html#5.2) compatible.
+__30log__ is [Lua 5.1](http://www.lua.org/versions.html#5.1) and [Lua 5.2](http://www.lua.org/versions.html#5.2) compatible.
 
 ##Contents
 * [Download](https://github.com/Yonaba/30log/#download)
@@ -160,7 +160,7 @@ local someDerivedClass = aClass:extends()
 print(getmetatable(someDerivedClass) == aClass) --> true
 ````
 
-###Methods
+###Methods and metamethods
 Objects can call their class __methods__.
 
 ```lua
@@ -185,13 +185,38 @@ appFrame:resize(800,600)
 print(appFrame.width,appFrame.height) --> 800, 600
 ```
 
-Though, objects cannot be used to instantiate new objects.
+Objects cannot be used to instantiate new objects though.
 
 ```lua
 appFrame = Window:new()
 aFrame = appFrame:new() -- Creates an error
 aFrame = appFrame()     -- Also creates an error
 ````
+
+Classes supports metamethods as well as methods. Those metamethods can be inherited.
+In the following example, we will use the `+` operator to increase the window size.
+
+```lua
+Window.__add = function(w, size) 
+  w.width = w.width + size
+  w.height = w.height + size
+  return w
+end
+
+window = Window()                                -- creates a new Window instance
+window:resize(600,300)                           -- resizes the new window
+print(window.width, window.height) --> 600, 300
+window = window + 100                            -- increases the window dimensions
+print(window.width, window.height) --> 700, 400
+
+Frame = Window:extends()                         -- creates a Frame class deriving from Window class
+frame = Frame()                                  -- creates a new Frame instance
+frame:resize(400,300)                            -- Resizes the new frame
+print(frame.width, frame.height) --> 400, 300
+frame = frame + 50                               -- increases the frame dimensions
+print(frame.width, frame.height) --> 450, 350
+````
+
 
 ###Inheritance
 
