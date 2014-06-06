@@ -1,3 +1,4 @@
+require 'luacov'
 local Class = require '30log'
 
 context('Instances (Objects)',function()

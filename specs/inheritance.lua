@@ -1,3 +1,4 @@
+require 'luacov'
 local Class = require '30log'
 
 context('Derivation (Inheritance)', function()
