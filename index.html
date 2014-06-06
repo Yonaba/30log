@@ -42,11 +42,13 @@
         <h1>
 <a name="30log" class="anchor" href="#30log"><span class="octicon octicon-link"></span></a>30log</h1>
 
-<p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a></p>
+<p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a>
+<a href="https://coveralls.io/r/Yonaba/30log?branch=master"><img src="https://coveralls.io/repos/Yonaba/30log/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="LICENSE"><img src="http://img.shields.io/badge/Licence-MIT-brightgreen.svg" alt="License"></a></p>
 
 <p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
 It features <strong>named (and unnamed) classes</strong>, <strong>single inheritance</strong> and a basic support for <strong>mixins</strong>.<br>
-It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> is <a href="http://www.lua.org/versions.html#5.1">Lua 5.1</a>, <a href="http://www.lua.org/versions.html#5.2">Lua 5.2</a> compatible.</p>
+It makes <strong>30 lines</strong>. No less, no more.<br><strong>30log</strong> is <a href="http://www.lua.org/versions.html#5.1">Lua 5.1</a> and <a href="http://www.lua.org/versions.html#5.2">Lua 5.2</a> compatible.</p>
 
 <h2>
 <a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h2>
@@ -211,7 +213,7 @@ relationship between a class and its instance via Lua's standard function <a hre
 </pre></div>
 
 <h3>
-<a name="methods" class="anchor" href="#methods"><span class="octicon octicon-link"></span></a>Methods</h3>
+<a name="methods-and-metamethods" class="anchor" href="#methods-and-metamethods"><span class="octicon octicon-link"></span></a>Methods and metamethods</h3>
 
 <p>Objects can call their class <strong>methods</strong>.</p>
 
@@ -236,11 +238,34 @@ relationship between a class and its instance via Lua's standard function <a hre
 <span class="nb">print</span><span class="p">(</span><span class="n">appFrame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">appFrame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 800, 600</span>
 </pre></div>
 
-<p>Though, objects cannot be used to instantiate new objects.</p>
+<p>Objects cannot be used to instantiate new objects though.</p>
 
 <div class="highlight highlight-lua"><pre><span class="n">appFrame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
 <span class="n">aFrame</span> <span class="o">=</span> <span class="n">appFrame</span><span class="p">:</span><span class="n">new</span><span class="p">()</span> <span class="c1">-- Creates an error</span>
 <span class="n">aFrame</span> <span class="o">=</span> <span class="n">appFrame</span><span class="p">()</span>     <span class="c1">-- Also creates an error</span>
+</pre></div>
+
+<p>Classes supports metamethods as well as methods. Those metamethods can be inherited.
+In the following example, we will use the <code>+</code> operator to increase the window size.</p>
+
+<div class="highlight highlight-lua"><pre><span class="n">Window</span><span class="p">.</span><span class="n">__add</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> 
+  <span class="n">w</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">w</span><span class="p">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">size</span>
+  <span class="n">w</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">w</span><span class="p">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">size</span>
+  <span class="k">return</span> <span class="n">w</span>
+<span class="k">end</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">Window</span><span class="p">()</span>                                <span class="c1">-- creates a new Window instance</span>
+<span class="n">window</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>                           <span class="c1">-- resizes the new window</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">window</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">window</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 600, 300</span>
+<span class="n">window</span> <span class="o">=</span> <span class="n">window</span> <span class="o">+</span> <span class="mi">100</span>                            <span class="c1">-- increases the window dimensions</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">window</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">window</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 700, 400</span>
+
+<span class="n">Frame</span> <span class="o">=</span> <span class="n">Window</span><span class="p">:</span><span class="n">extends</span><span class="p">()</span>                         <span class="c1">-- creates a Frame class deriving from Window class</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">()</span>                                  <span class="c1">-- creates a new Frame instance</span>
+<span class="n">frame</span><span class="p">:</span><span class="n">resize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>                            <span class="c1">-- Resizes the new frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">frame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 400, 300</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">frame</span> <span class="o">+</span> <span class="mi">50</span>                               <span class="c1">-- increases the frame dimensions</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">frame</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="c1">--&gt; 450, 350</span>
 </pre></div>
 
 <h3>
