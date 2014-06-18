@@ -38,6 +38,26 @@ context('Derivation (Inheritance)', function()
     end)    
     
   end)
+
+  context('A superclass should update child methods after derivation',function()
+    local Dialog
+    before(function()
+      Dialog = Window:extends()
+      Dialog.__name = 'Dialog'
+
+      function Window:resize(width, height)
+        self.width, self.height = width, height
+      end
+    end)
+
+    test('share its superclass methods even after derivation',function()
+      assert_equal(type(Dialog.resize),'function')
+      local dialog = Dialog()
+      dialog:resize(200, 200)
+      assert_equal(dialog.width,200)
+      assert_equal(dialog.height,200)
+    end)
+  end)
   
   context('A derived class',function()
   
