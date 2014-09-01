@@ -72,6 +72,16 @@ addTest('Accessing instance attribute through setter', function()
   instance:setAttribute(1)
 end)
 
+klass:property("property", "getAttribute", "setAttribute")
+
+addTest('Accessing instance property getter', function()
+  return instance.property
+end)
+
+addTest('Accessing instance property setter', function()
+  instance.property = 1
+end)
+
 local derivedKlass
 addTest('Extending from a class', function()
   derivedKlass = klass:extends()
@@ -90,6 +100,14 @@ end)
 
 addTest('Calling inherited setter method (1-lvl depth)', function()
   derivedInstance:setAttribute(1)
+end)
+
+addTest('Accessing derived instance property getter (1-lvl depth)', function()
+  return derivedInstance.property
+end)
+
+addTest('Accessing derived instance property setter (1-lvl depth)', function()
+  derivedInstance.property = 1
 end)
 
 -- Running all tests

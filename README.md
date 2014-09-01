@@ -52,7 +52,7 @@ luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
 
 ##Installation
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua) inside your project folder,
-call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single local function, 
+call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single local function,
 keeping safe the global environment.<br/>
 
 ##Quicktour
@@ -66,7 +66,7 @@ Window.x, Window.y = 10, 10
 Window.width, Window.height = 100,100
 ```
 
-You can also make it shorter, packing the default properties and their values within a 
+You can also make it shorter, packing the default properties and their values within a
 table and then pass it as a single argument to the `class` function :
 
 ```lua
@@ -84,14 +84,14 @@ Window = class ()
 Window.__name = 'Window'
 ```
 
-This feature can be quite useful when debugging your code. See the section 
+This feature can be quite useful when debugging your code. See the section
 [printing classes](https://github.com/Yonaba/30log/#printing-classes-and-objects) for more details.
 
 ###Instances
 
 ####Creating instances
 
-You can easily create new __instances__ (objects) from a class using the __default instantiation method__ 
+You can easily create new __instances__ (objects) from a class using the __default instantiation method__
 named `new()`:
 
 ```lua
@@ -108,11 +108,11 @@ print(appFrame.x,appFrame.y) --> 10, 10
 print(appFrame.width,appFrame.height) --> 100, 100
 ```
 
-From the two examples above, you might have noticed that once an object is created from a class, it 
-already shares the properties of his mother class. That's the very basis of `inheritance`. 
+From the two examples above, you might have noticed that once an object is created from a class, it
+already shares the properties of his mother class. That's the very basis of `inheritance`.
 So, by default, the attributes of the newly created object will copy their values from its mother class.<br/>
 <br/>
-Yet, you can init new objects from a class with custom values for properties. To accomplish that, 
+Yet, you can init new objects from a class with custom values for properties. To accomplish that,
 you will have to implement your own __class constructor__. Typically, it is a method (a function) that will be
 called whenever the new() method is used from the class to derive a new object, and then define custom attributes and values for this object.<br/>
 By default, __30log__ uses the reserved key `__init` as a __class constructor__.
@@ -132,7 +132,7 @@ print(appFrame.width,appFrame.height) --> 800, 600
 
 `__init` can also be a __table with named keys__. </br>
 In that case though, the values of each single object's properties will be taken from this table
-upon instantiation, no matter what the values passed-in at instantiation would be. 
+upon instantiation, no matter what the values passed-in at instantiation would be.
 
 ```lua
 Window = class()
@@ -145,7 +145,7 @@ print(appFrame.width,appFrame.height) --> 100, 100
 ````
 
 ####Under the hood
-*30log* classes are metatables of their own instances. This implies that one can inspect the mother/son 
+*30log* classes are metatables of their own instances. This implies that one can inspect the mother/son
 relationship between a class and its instance via Lua's standard function [getmetatable](http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable).
 
 ```lua
@@ -199,7 +199,7 @@ Classes supports metamethods as well as methods. Those metamethods can be inheri
 In the following example, we will use the `+` operator to increase the window size.
 
 ```lua
-Window.__add = function(w, size) 
+Window.__add = function(w, size)
   w.width = w.width + size
   w.height = w.height + size
   return w
@@ -223,7 +223,7 @@ print(frame.width, frame.height) --> 450, 350
 ###Inheritance
 
 A class can __inherit__ from any other class using a reserved method named `extends`.
-Similarly to `class`, this method also takes an optional table with named keys as argument 
+Similarly to `class`, this method also takes an optional table with named keys as argument
 to include __new properties__ that the derived class will implement.
 The new class will inherit his mother class __properties__ as well as its __methods__.
 
@@ -237,7 +237,7 @@ print(appFrame.x,appFrame.y) --> 10, 10
 ```
 
 A derived class can __redefine any method__ implemented in its base class (or mother class).
-Therefore, the derived class *still* has access to his mother class methods and properties via a 
+Therefore, the derived class *still* has access to his mother class methods and properties via a
 reserved key named `super`.<br/>
 
 ```lua
@@ -320,7 +320,7 @@ print(anObject:is(aClass)) --> true
 ````
 
 ##Chained initialisation
-In a single inheritance tree,  the `__init` constructor can be chained from one class to 
+In a single inheritance tree,  the `__init` constructor can be chained from one class to
 another.<br/>
 
 This is called *initception*.<br/>
@@ -394,7 +394,7 @@ end
 
 ##Mixins
 
-__30log__ provides a basic support for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can 
+__30log__ provides a basic support for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can
 be used to implement a functionality into different classes, even if they do not have any special relationship.<br/>
 __30log__ assumes a `mixin` to be a table containing a **set of methods** (function).<br/>
 To include a mixin in a class, use the reserved key named `include`.
@@ -426,13 +426,95 @@ aWindow:resize(225,75)
 print(aWindow.width, aWindow.height) --> 255, 75
 ````
 
-Note that, when including a mixin into a class, **only methods** (functions, actually) will be imported into the 
+Note that, when including a mixin into a class, **only methods** (functions, actually) will be imported into the
 class. Also, objects cannot include mixins.
 
 ```lua
 aWindow = Window()
 aWindow:include(Geometry) -- produces an error
 ````
+
+##Properties
+
+It's possible to define properties as pair of getter/setter method as a form of synctatic sugar for using them.<br/>
+To define a property, use the reserved key name `property`.
+
+```lua
+-- Defining properties
+Window = class { _width = 200, _height = 200, max_width = 640, max_height = 480}
+function Window:setWidth(width)
+    self._width = math.min(width, self.max_width)
+end
+function Window:setHeight(height)
+    self._height = math.min(height, self.max_height)
+end
+function Window:getWidth() return self._width end
+function Window:getHeight() return self._height end
+Window:property("width", "getWidth", "setWidth")
+Window:property("height", "getHeight", "setHeight")
+
+someWindow = Window()
+
+print(someWindow.width, someWindow.height) --> 200, 200
+someWindow.width = 512
+print(someWindow.width, someWindow.height) --> 512, 200
+someWindow.height = 1280
+print(someWindow.width, someWindow.height) --> 512, 480
+```
+
+It's also possible to redefine getters/setters in subclasses
+
+```lua
+-- Redefining getters/setters in subclasses
+DialogWindow = Window:extends { min_width = 80, min_height = 60}
+function DialogWindow:setWidth(width)
+    self._width = math.max(math.min(width, self.max_width), self.min_width)
+end
+function DialogWindow:setHeight(height)
+    self._height = math.max(math.min(height, self.max_height), self.min_height)
+end
+
+otherWindow = DialogWindow()
+
+print(otherWindow.width, otherWindow.height) --> 200, 200
+otherWindow.width = 12
+print(otherWindow.width, otherWindow.height) --> 80, 200
+otherWindow.width = 1280
+print(otherWindow.width, otherWindow.height) --> 640, 200
+
+-- Defining anonymous getters/setters and read/write-only properties
+```
+
+You can also declare getters/setters using anonymous methods
+
+```lua
+-- Defining anonymous getters/setters and read/write-only properties
+
+Canvas = class()
+
+function Canvas:__init(parent_window)
+    self.parent = parent_window
+    self._random_seed = 0
+end
+
+Canvas:property("width", function() return self.parent.width end, nil)
+Canvas:property("height", function() return self.parent.height end, nil)
+Canvas:property("random_seed", nil, function(value) self._random_seed = value or 0 end)
+
+drawingWindow = Window()
+theCanvas = Canvas(drawingWindow)
+
+print(theCanvas.width, theCanvas.height) --> 200, 200
+drawingWindow.height = 400
+print(theCanvas.width, theCanvas.height) --> 200, 400
+
+theCanvas.width = 250 --> Error: example_code.lua:xxx: The width property is not writeable.
+theCanvas.height = 50 --> Error: example_code.lua:xxx: The height property is not writeable.
+
+theCanvas.random_seed = nil --> Sets _random_seed to 0
+theCanvas.random_seed = 42 --> Sets _random_seed to 42
+print(theCanvas.random_seed) --> Error: example_code.lua:xxx: The random_seed property is not readable.
+```
 
 ##Printing classes and objects
 Any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__
@@ -464,14 +546,14 @@ print(kitten) --> "object(of Cat):<table:00411880>"
 ````
 
 ##Class Commons
-[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common 
-API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
+[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common
+API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005)
 which provides compatibility between *30log* and *Class-commons*. <br/>
 See here: [30logclasscommons](http://github.com/Yonaba/30logclasscommons).
 
 ##Specification
 
-You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following 
+You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following
 command from the root foolder:
 
 ```
@@ -483,12 +565,12 @@ lua tsc -f specs/*
 ###30logclean
 __30log__ was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code
 that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br/>
-For those who might be interested though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
+For those who might be interested though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code,
 properly formatted and well indented for your perusal.
 
 ###30logglobal
 
-The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), 
+The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua),
 excepts that it sets a global function named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
 ##Benchmark
