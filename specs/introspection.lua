@@ -1,69 +1,96 @@
-require 'luacov'
-local Class = require '30log'
+local class = require '30log'
 
 context('Introspection', function()
   
-  context('class:is(aClass)', function()
-    test('returns true if class derives straight from aClass',function()
-      local class = Class()
-      local subclass = class:extends()
-      assert_true(subclass:is(class))
+  context('class.isClass(class, superclass)', function()
+	
+		local superclass, aclass, notaclass
+		
+		before(function() 
+			superclass = class()
+			aclass = superclass:extend()
+			notaclass = {}
+		end)
+	
+    test('returns true if "class" is a class',function()
+			assert_true(class.isClass(aclass))
+			assert_false(class.isClass(notaclass))
     end)
-    
-    test('checks if class derives from some class deriving from aClass',function()
-      local class = Class()
-      local subclass1 = class:extends()
-      local subclass2 = subclass1:extends()
-      local subclass3 = subclass2:extends()
-      
-      assert_true(subclass3:is(subclass2))
-      assert_true(subclass3:is(subclass1))
-      assert_true(subclass3:is(class))
-      assert_true(subclass2:is(subclass1))      
-      assert_true(subclass2:is(class))
-      assert_true(subclass1:is(class))
+		
+    test('and false if it is not',function()
+			assert_false(class.isClass(notaclass))
+    end)		
+		
+    test('returns true if "class" is a subclass of "superclass"',function()
+			assert_true(class.isClass(aclass, superclass))
+			assert_false(class.isClass(superclass, aclass))
+    end)
+		
+    test('and false if it is not',function()
+			assert_false(class.isClass(superclass, aclass))
+    end)		
+		
+		test("class.super returns the direct superclass too",function()
+			assert_equal(aclass.super, superclass)
+		end)
 
-      assert_false(subclass2:is(subclass3))
-      assert_false(subclass1:is(subclass3))
-      assert_false(subclass1:is(subclass2))
-      assert_false(class:is(subclass3))
-      assert_false(class:is(subclass2))
-      assert_false(class:is(subclass1))
-    end)
-  end)
+	end)
 
-  context('obj:is(aClass)', function()
-    test('returns true if obj is an instance of aClass',function()
-      local class = Class()
-      local obj = class()
-      assert_true(obj:is(class))      
+  context('class.isInstance(instance, class)', function()
+	
+		local aclass, instance, notaninstance
+		
+		before(function() 
+			aclass = class()
+			instance = aclass()
+			notaninstance = {}
+		end)
+	
+    test('returns true if it is an instance',function()
+			assert_true(class.isInstance(instance))
+			assert_false(class.isInstance(notaninstance))
     end)
-    
-    test('checks if obj is an instance of some class deriving from aClass',function()
-      local class = Class()
-      local subclass1 = class:extends()
-      local subclass2 = subclass1:extends()
-      local subclass3 = subclass2:extends()
-      local obj3, obj2, obj1, obj = subclass3(), subclass2(), subclass1(), class()
-      
-      assert_true(obj3:is(subclass3))
-      assert_true(obj3:is(subclass2))
-      assert_true(obj3:is(subclass1))
-      assert_true(obj3:is(class))
-      assert_true(obj2:is(subclass2))
-      assert_true(obj2:is(subclass1))
-      assert_true(obj2:is(class))      
-      assert_true(obj1:is(subclass1))
-      assert_true(obj1:is(class))
-      assert_true(obj:is(class))
-      
-      assert_false(obj2:is(subclass3))
-      assert_false(obj1:is(subclass3))
-      assert_false(obj1:is(subclass2))
-      assert_false(obj:is(subclass3))
-      assert_false(obj:is(subclass2))
-      assert_false(obj:is(subclass1))
+		
+    test('and false if it is not',function()
+			assert_false(class.isInstance(notaninstance))
     end)
-  end)
-  
+		
+    test('returns true if "class" is the class of "instance"',function()
+			assert_true(class.isInstance(instance, aclass))
+    end)
+		
+    test('and false if it is not',function()
+			assert_false(class.isInstance(aclass, instance))
+    end)		
+
+		test("instance.class returns the class of an instance too",function()
+			assert_equal(instance.class, aclass)
+		end)
+
+	end)
+	
+	context('extends()', function()
+		
+		local A, AA, AAA
+		
+		before(function()
+			A = class()
+			AA = A:extend()
+			AAA = AA:extend()
+		end)
+		
+		test('returns true if a passed-in class inherits from a class', function()
+			assert_true(AA:extends(A))
+			assert_true(AAA:extends(A))
+			assert_true(AAA:extends(AA))
+		end)
+	
+		test('and false if not', function()
+			assert_false(A:extends(AA))
+			assert_false(A:extends(AAA))
+			assert_false(AA:extends(AAA))
+		end)
+		
+	end)
+	
 end)

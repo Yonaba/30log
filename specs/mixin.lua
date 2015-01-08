@@ -1,50 +1,58 @@
-require 'luacov'
-local Class = require '30log'
+local class = require '30log'
 
-context('Mixins', function()
+context('mixins', function()
 
-  test('are set of functions that can be imported into a class', function()
-    local mixin = { 
-      foo = function() end,
-      bar = function() end,
-      baz = function() end
-    }
-    
-    local theClass = Class()
-    
-    assert_nil(theClass.foo)
-    assert_nil(theClass.bar)
-    assert_nil(theClass.baz)
-    
-    theClass:include(mixin)
-    
-    assert_equal(type(theClass.foo), 'function')
-    assert_equal(type(theClass.bar), 'function')
-    assert_equal(type(theClass.baz), 'function')  
-  
+	local aclass, amixin, asubclass
+	
+	before(function()
+    mixin_foo = {foo = function() end}
+    mixin_bar = {bar = function() end}
+    mixin_baz = {baz = function() end}
+		mixin_mix = {f = function() end, g = true}
+		aclass = class()
+		asubclass = aclass:extend()
+	end)
+	
+  test('are included using include()', function()
+    aclass:include(mixin_foo)
+    assert_type(aclass.foo, 'function')
   end)
-  
-  test('can be chained', function()
-    local mixinA = {foo = function() end}
-    local mixinB = {bar = function() end}
-    local mixinC = {baz = function() end}
-    
-    local theClass = Class()      
-    theClass:include(mixinA):include(mixinB):include(mixinC)
-    
-    assert_equal(type(theClass.foo), 'function')
-    assert_equal(type(theClass.bar), 'function')
-    assert_equal(type(theClass.baz), 'function')  
-  
-  end)    
-  
-  test('objects can use methods from mixins as class methods', function()
-    local mixin = {foo = function(self) return self end}
-    local theClass = Class()      
-    theClass:include(mixin)
-    local instance = theClass()
-    assert_equal(instance:foo(), instance)  
+	
+  test('it only includes functions found in the mixin', function()
+    aclass:include(mixin_mix)
+    assert_type(aclass.f, 'function')
+    assert_nil(aclass.g)
+  end)	
+	
+  test('include() supports chaining', function()
+    aclass:include(mixin_bar):include(mixin_baz)
+    assert_type(aclass.bar, 'function')
+    assert_type(aclass.baz, 'function')
   end)
+
+	context('includes()', function()
+	
+		test('returns true if a class includes a given mixin', function()
+			aclass:include(mixin_foo)
+			assert_true(aclass:includes(mixin_foo))
+		end)
+	
+		test('and also true if a superclass includes the given mixin', function()
+			asubclass:include(mixin_foo)
+			assert_true(asubclass:includes(mixin_foo))
+		end)
+		
+		test('because this subclass includes access to the mixin functionnalities', function()
+			asubclass:include(mixin_foo)
+			assert_type(asubclass.foo, 'function')
+		end)
+		
+		test('it returns false if the class does not include the given mixin', function()
+			assert_false(aclass:includes({}))
+			assert_false(asubclass:includes({}))
+		end)
+		
+	end)
   
 end)
   

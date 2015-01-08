@@ -1,79 +1,53 @@
-require 'luacov'
-local Class = require '30log'
+local class = require '30log'
 
-context('Class', function()
+context('class()', function()
   
-  context('When Class is called with no args passed', function()
-    test('it returns a new class (regular Lua table)',function()
-      assert_equal(type(Class()),'table')
+  context('calling class() with no arguments', function()
+		local aclass
+		
+		before(function() aclass = class() end)
+		
+		test('returns a new class)',function()
+      assert_type(aclass,'table')
+			assert_true(class.isClass(aclass))
     end)
+		
+		test('this class is unnamed',function()
+      assert_nil(aclass.name)
+    end)
+		
   end)
 
-  context('Attributes', function()
-    local myClass, myClass2
-    
-    before(function()
-      myClass = Class()
-      myClass.name = 'myClass'      
-      myClass2 = Class {name = 'myClass'}
+  context('calling class(name)', function()
+		local aclass
+		local aclass_name = 'aclass'
+		
+		before(function() aclass = class(aclass_name) end)
+		
+		test('returns a new class ',function()
+      assert_type(aclass,'table')
+			assert_true(class.isClass(aclass))			
     end)
-    
-    test('can be added to classes',function()
-      assert_equal(myClass.name,'myClass')
+		
+		test('this class has the given name set',function()
+      assert_equal(aclass.name, aclass_name)
     end)
-    
-    test('can be passed in a table to Class()',function()
-      assert_equal(myClass2.name,'myClass')
-    end)      
+		
+  end)	
+	
+  context('calling class(name, params)', function()
+		
+		local Point
+		local params = {x = 0, y = 0}
+		before(function() Point = class('Point', params) end)
+		
+		test('returns a class with attributes already set', function()
+      assert_type(Point, 'table')
+			assert_true(class.isClass(Point))			
+			assert_equal(Point.x, params.x)
+			assert_equal(Point.y, params.y)
+    end)
+		
   end)
-  
-  context('Methods', function()
-    local myClass
-    
-    before(function()
-      myClass = Class()
-      myClass.name = 'myClass'
-      function myClass:introduce() return self.name end
-    end)
-  
-    test('can be added to classes',function()
-      assert_equal(myClass:introduce(),'myClass')
-    end)    
-  end)
- 
-  context('Metamethods', function()
-    
-    test('can be implemented into classes', function()
-      local myClass = Class()
-      myClass.__add = function(a, b) return a.value + b.value end
-      myClass.__sub = function(a, b) return a.value - b.value end
-      myClass.__mul = function(a, b) return a.value * b.value end
-      myClass.__div = function(a, b) return a.value / b.value end
-      
-      local a, b = myClass(), myClass()
-      a.value, b.value = 20, 10
-
-      assert_equal(a + b,  30)
-      assert_equal(a - b,  10)
-      assert_equal(a * b, 200)
-      assert_equal(a / b,   2)
-    end)
-    
-  end)
-  
-  context('tostring', function()
-    test('classes can be stringified', function()
-      local myClass = Class()
-      assert_equal(tostring(myClass):match('(.+):<.+>$'), 'class(?)')
-    end)
-  end)
-  
-  context('named classes', function()
-    test('classes can be named implementing the special attribute __name', function()
-      local myClass = Class()
-      myClass.__name = 'aClass'
-      assert_equal(tostring(myClass):match('(.+):<.+>$'), 'class(aClass)')
-    end)
-  end)  
-  
+	
 end)
