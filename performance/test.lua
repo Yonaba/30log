@@ -14,21 +14,23 @@ local function addTest(description, f)
 end
 
 local function benchmark(code, times)
-  local final_memory, final_time
-  local init_memory = collectgarbage('count')
+  local final_time
   local init_time = os.clock()
   for i = 1, (times or 1) do code() end
   final_time = os.clock()
-  collectgarbage()
-  final_memory = collectgarbage('count')
-  return (final_time-init_time),(final_memory-init_memory)
+  return (final_time-init_time)*1000
+end
+
+local function prettify(name,len)
+	local n = #name < len and len - #name or 0
+	return (name .. ('.'):rep(n))
 end
 
 local function runAll(tests, eachTestTimes)
   for i, test in ipairs(tests) do
-    local time, memUsed = benchmark(test.f, eachTestTimes)
-    print(('%02d. %09s (%dx): %.3fs %04d kiB')
-      :format(i, test.name, eachTestTimes, time, memUsed))
+    local time = benchmark(test.f, eachTestTimes)
+    print(('%02d. %50s (%d x): %04d ms')
+      :format(i, prettify(test.name,50), eachTestTimes, time))
   end
 end
 
@@ -74,21 +76,21 @@ end)
 
 local derivedKlass
 addTest('Extending from a class', function()
-  derivedKlass = klass:extends()
+  derivedKlass = klass:extend()
 end)
 
-local derivedKlass = klass:extends()
+local derivedKlass = klass:extend():extend():extend()
 local derivedInstance = derivedKlass()
 
-addTest('Indexing inherited attribute (1-lvl depth)', function()
+addTest('Indexing inherited attribute (3-lvl depth)', function()
   local attr = derivedInstance.attribute
 end)
 
-addTest('Calling inherited method (1-lvl depth)', function()
+addTest('Calling inherited method (3-lvl depth)', function()
   local attr = derivedInstance:getAttribute()
 end)
 
-addTest('Calling inherited setter method (1-lvl depth)', function()
+addTest('Calling inherited setter method (3-lvl depth)', function()
   derivedInstance:setAttribute(1)
 end)
 
