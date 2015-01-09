@@ -482,9 +482,8 @@ Button:<span class="pl-s3">include</span>(Geometry)
 
 <p>It is possible to check if a class includes a particular mixin using <code>class:includes()</code>.</p>
 
-<pre lang="lua`"><code>print(Window:includes(Geometry)) -- true
-print(Button:includes(Geometry)) -- true
-</code></pre>
+<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(Window:<span class="pl-s3">includes</span>(Geometry)) <span class="pl-c">-- true</span>
+<span class="pl-s3">print</span>(Button:<span class="pl-s3">includes</span>(Geometry)) <span class="pl-c">-- true</span></pre></div>
 
 <p><strong><a href="#TOC">[⬆]</a></strong></p>
 
@@ -530,7 +529,8 @@ excepts that it sets a global named <code>class</code>. This is convenient for L
 
 <p>Performance tests featuring classes creation, instantiation and such have been included. You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.</p>
 
-<div class="highlight highlight-lua"><pre>lua performance<span class="pl-k">/</span>test.<span class="pl-vo">lua</span> <span class="pl-c1">30</span>log</pre></div>
+<pre><code>lua performance/test.lua 30log
+</code></pre>
 
 <p>Find <a href="https://github.com/Yonaba/30log/tree/master/performance/results.md">here an example of output</a> for the latest version of <em>30log</em>.</p>
 
