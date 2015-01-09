@@ -18,17 +18,11 @@ __30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mi
 * [Quicktour](#quicktour)
 	* [Declaring classes](#declaring)
 	* [Creating instances](#instances)
-		* [The `class:new()` method](http://github.com/Yonaba/30log/#class:new)
-		* [The `class()` call way](http://github.com/Yonaba/30log/#class())
-		* [`class:init(...)`](http://github.com/Yonaba/30log/#class:init)
-		* [Some other features of instances](http://github.com/Yonaba/30log/#someother)
 	* [Methods and metamethods](#methods)
 	* [Inheritance](#inheritance)
 	* [Introspection](#introspection)
-		* [`class.isClass(class, super)`](http://github.com/Yonaba/30log/#class.isClass)
-		* [`class.isInstance(instance, class)`](http://github.com/Yonaba/30log/#class.isInstance)
-		* [`class:extends()`](http://github.com/Yonaba/30log/#class:extends)
 	* [Mixins](#mixins)
+* [Singleton pattern](#singleton)
 * [Class-Commons](#classcommons)
 * [Specification](#spec)
 * [About the source](#aboutsource)
@@ -448,6 +442,12 @@ It is possible to check if a class includes a particular mixin using `class:incl
 print(Window:includes(Geometry)) -- true
 print(Button:includes(Geometry)) -- true
 ````
+
+**[[⬆]](#TOC)**
+
+# <a name='singleton'>Singleton pattern</a>
+
+The [singleton pattern](http://en.wikipedia.org/wiki/Singleton_pattern) can be reproduced with *30log*. See the implemention given for reference in the file [singleton.lua](singleton.lua).
 
 **[[⬆]](#TOC)**
 
