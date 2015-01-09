@@ -19,6 +19,7 @@ build = {
   modules = {
     ["30log"] = "30log.lua",
     ["30logclean"] = "30logclean.lua",
-    ["30logglobal"] = "30logglobal.lua"
+    ["30logglobal"] = "30logglobal.lua",
+    ["singleton"] = "singleton.lua"
   }
 }
