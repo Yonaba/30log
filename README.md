@@ -8,258 +8,321 @@
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It features __named (and unnamed) classes__, __single inheritance__ and a basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
-__30log__ is [Lua 5.1](http://www.lua.org/versions.html#5.1) and [Lua 5.2](http://www.lua.org/versions.html#5.2) compatible.
+__30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mind, but is compatible with [Lua 5.2](http://www.lua.org/versions.html#5.2).
 
-##Contents
-* [Download](https://github.com/Yonaba/30log/#download)
-* [Installation](https://github.com/Yonaba/30log/#installation)
-* [Quicktour](https://github.com/Yonaba/30log/#quicktour)
-* [Chained initialisation](https://github.com/Yonaba/30log/#chained-initialisation)
-* [Mixins](https://github.com/Yonaba/30log/#mixins)
-* [Printing classes and objects](https://github.com/Yonaba/30log/#printing-classes-and-objects)
-* [Class Commons support](https://github.com/Yonaba/30log/#class-commons)
-* [Specification](https://github.com/Yonaba/30log/#specification)
-* [Source](https://github.com/Yonaba/30log/#source)
-* [Benchmark](https://github.com/Yonaba/30log/#benchmark)
-* [Contributors](https://github.com/Yonaba/30log/#contributors)
 
-##Download
+# <a name='TOC'>Table of Contents</a>
 
-You can download __30log__ via:
+* [Download](http://github.com/Yonaba/30log/#download)
+* [Adding *30log* to your code](http://github.com/Yonaba/30log/#add30log)
+* [Quicktour](http://github.com/Yonaba/30log/#quicktour)
+	* [Declaring classes](http://github.com/Yonaba/30log/#declaring)
+	* [Creating instances](http://github.com/Yonaba/30log/#instances)
+		* [The `class:new()` method](http://github.com/Yonaba/30log/#class:new)
+		* [The `class()` call way](http://github.com/Yonaba/30log/#class())
+		* [`class:init(...)`](http://github.com/Yonaba/30log/#class:init)
+		* [Some other features of instances](http://github.com/Yonaba/30log/#someother)
+	* [Methods and metamethods](http://github.com/Yonaba/30log/#methods)
+	* [Inheritance](http://github.com/Yonaba/30log/#inheritance)
+	* [Introspection](http://github.com/Yonaba/30log/#introspection)
+		* [`class.isClass(class, super)`](http://github.com/Yonaba/30log/#class.isClass)
+		* [`class.isInstance(instance, class)`](http://github.com/Yonaba/30log/#class.isInstance)
+		* [`class:extends()`](http://github.com/Yonaba/30log/#class:extends)
+	* [Mixins](http://github.com/Yonaba/30log/#mixins)
+* [Class-Commons](http://github.com/Yonaba/30log/#classcommons)
+* [Specification](http://github.com/Yonaba/30log/#spec)
+* [About the source](http://github.com/Yonaba/30log/#aboutsource)
+* [Contributors](http://github.com/Yonaba/30log/#contrib)
+* [License](http://github.com/Yonaba/30log/#license)
 
-###Bash
 
-```bash
+# <a name='download'>Download</a>
+
+#### Bash
+
+```
 git clone git://github.com/Yonaba/30log.git
-````
+```
 
-###Archive
+#### Archive
 
-* __Zip__: [0.9.1](https://github.com/Yonaba/30log/archive/30log-0.9.1.zip) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
-* __Tar.gz__: [0.9.1](https://github.com/Yonaba/30log/archive/30log-0.9.1.tar.gz) ( *latest stable, recommended* ) | [older versions](https://github.com/Yonaba/30log/tags)
+* __zip__: [1.0.0](https://github.com/Yonaba/30log/archive/30log-1.0.0.zip) (*latest stable, recommended*) | [older versions](https://github.com/Yonaba/30log/tags)
+* __tar.gz__: [1.0.0](https://github.com/Yonaba/30log/archive/30log-1.0.0.tar.gz) (*latest stable, recommended*) | [older versions](https://github.com/Yonaba/30log/tags)
 
-###LuaRocks
+
+#### LuaRocks
 
 ```
 luarocks install 30log
-````
+```
 
-###MoonRocks
+####MoonRocks
 
-```bash
-luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
-````
+```
+moonrocks install 30log
+```
 
-##Installation
+**[[⬆]](#TOC)**
+
+# <a name='add30log'>Adding 30log to your code</a>
+
 Copy the file [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua) inside your project folder,
-call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a single local function, 
-keeping safe the global environment.<br/>
+call it using [require](http://pgl.yoyo.org/luai/i/require) function. It will return a local table, keeping safe the global environment.<br/>
 
-##Quicktour
-###Creating a class
-Creating a new class is fairly simple. Just call the returned function, then add some properties to this class :
+**[[⬆]](#TOC)**
+
+# <a name='quicktour'>A quicktour of the library</a>
+
+## <a name='declaring'>Declaring classes</a>
+
+Let us create a `Window` class.
 
 ```lua
-class = require '30log'
-Window = class ()
-Window.x, Window.y = 10, 10
+class = require "30log"
+Window = class("Window")
+````
+
+That's it. The first argument is the name of the class (defined as string).
+Later, we can query that name by indexing the `.name` key. This argument is __optional__.
+
+```lua
+print(Window.name) -- "Window"
+````
+
+Custom attributes can be added to any class. Here, we can define a "width" and "height" attributes and assign them values.
+
+```lua
 Window.width, Window.height = 100,100
 ```
 
-You can also make it shorter, packing the default properties and their values within a 
-table and then pass it as a single argument to the `class` function :
+But we could have also have the same result by passing a table with named keys as a `params` argument when declaring the `Window` class. This argument is also __optional__.
 
 ```lua
-class = require '30log'
-Window = class { width = 100, height = 100, x = 10, y = 10}
+Window = class("Window", {width = 150, height = 100})
+print(Window.width) -- 150
+print(Window.height) -- 100
 ```
 
-###Named classes
-Classes can be named.<br/>
-To name a class, you will have to set the desired name as a string value to the reserved key `__name` :
+When a class has a `.name` attribute, it is considered to be a __named class__. In that case, passing that class to `tostring` or any function that triggers its `__tostring` metamethod returns the following:
 
 ```lua
-class = require '30log'
-Window = class ()
-Window.__name = 'Window'
-```
+print(Window) -- "class 'Window' (table: 0x0002cdc0)"
+````
 
-This feature can be quite useful when debugging your code. See the section 
-[printing classes](https://github.com/Yonaba/30log/#printing-classes-and-objects) for more details.
-
-###Instances
-
-####Creating instances
-
-You can easily create new __instances__ (objects) from a class using the __default instantiation method__ 
-named `new()`:
+In case the class has no name, it is considered to be an __unnamed class__. In that case, when passing it to a function like `print` or `tostring`, the output is slightly different.
 
 ```lua
-appFrame = Window:new()
-print(appFrame.x,appFrame.y) --> 10, 10
-print(appFrame.width,appFrame.height) --> 100, 100
-```
+Window = class(nil, {width = 150, height = 100}) -- no name argument specified
+print(Window.name) -- nil
+print(Window.width) -- 150
+print(Window.height) -- 100
+print(Window) -- "class '?' (table: 0x0002cdb8)"
+````
 
-There is a shorter version though. You can call new class itself with parens, __just like a function__ :
-
-```lua
-appFrame = Window()
-print(appFrame.x,appFrame.y) --> 10, 10
-print(appFrame.width,appFrame.height) --> 100, 100
-```
-
-From the two examples above, you might have noticed that once an object is created from a class, it 
-already shares the properties of his mother class. That's the very basis of `inheritance`. 
-So, by default, the attributes of the newly created object will copy their values from its mother class.<br/>
-<br/>
-Yet, you can init new objects from a class with custom values for properties. To accomplish that, 
-you will have to implement your own __class constructor__. Typically, it is a method (a function) that will be
-called whenever the new() method is used from the class to derive a new object, and then define custom attributes and values for this object.<br/>
-By default, __30log__ uses the reserved key `__init` as a __class constructor__.
+The ability to turn classes to string is mostly meant for debugging purposes. One can change this behavior by modifying the `__tostring` function of any class metatable.
 
 ```lua
-Window = class { width = 100, height = 100, x = 10, y = 10}
-function Window:__init(x,y,width,height)
-  self.x,self.y = x,y
+Window = class('Window')
+getmetatable(Window).__tostring = function(t)
+  return "I am class "..(t.name or "unnamed")
+end
+print(Window) -- "I am class Window"
+````
+
+**[[⬆]](#TOC)**
+
+## <a name='instances'>Creating instances</a>
+
+### <a name='class:new'>The `class:new()` method</a>
+
+An instance of class is created using the class method `new()`:
+
+```lua
+appWindow = Window:new()
+````
+
+Once created, an instance can access its class attributes. 
+
+```lua
+print(appWindow.width,appWindow.height) -- 100, 100
+````
+
+But this instance has its own copy of those attributes. Changing them will affect neither the class itself, nor any other instance.
+
+```lua
+-- assigning new values to the instance attributes
+appWindow.width, appWindow.height = 720, 480
+print(appWindow.width,appWindow.height) -- 720, 480
+
+-- Class attributes are left untouched
+print(Window.width, Window.height) -- 100, 100
+````
+
+**[[⬆]](#TOC)**
+
+### <a name='class()'>The `class()` call way</a>
+
+An instance can also be created calling the class itself as a function. It is just a syntactic sugar.
+
+```lua
+appWindow = Window() -- same as Window:new()
+print(appWindow.width,appWindow.height) -- 100, 100
+````
+
+**[[⬆]](#TOC)**
+
+### <a name='class:init'>`class:init(...)`</a>
+
+From the two examples above, you might have noticed that once an instance is created from a class, it already shares the properties of his mother class.
+
+Yet, instances can be initialized when creating them from a class. In this way, they already have their attributes set with custom values right after being created.
+
+It just requires to implement a  __class constructor__. Typically, it is a method (a function) that will be called right after `class:new()` method. The class constructor will take as a first argument the `instance` and customize it.<br/>
+__30log__ uses the reserved key `init` for __class constructors__.
+
+```lua
+Window = class("Window")
+function Window:init(width,height)
   self.width,self.height = width,height
 end
 
-appFrame = Window:new(50,60,800,600)
-   -- same as: appFrame = Window(50,60,800,600)
-print(appFrame.x,appFrame.y) --> 50, 60
-print(appFrame.width,appFrame.height) --> 800, 600
+appWindow = Window:new(800,600) -- or appFrame = Window(800,600)
+print(appWindow.width,appWindow.height) -- 800, 600
 ```
 
-`__init` can also be a __table with named keys__. </br>
-In that case though, the values of each single object's properties will be taken from this table
-upon instantiation, no matter what the values passed-in at instantiation would be. 
+`init` can also be defined as a table with named keys, instead of a function. In that case, any new instance created will get a raw copy of the keys and values found in this table.
 
 ```lua
-Window = class()
-Window.__init = { width = 100, height = 100, x = 10, y = 10}
+Window = class("Window")
+Window.init = { width = 500, height = 500}
 
-appFrame = Window:new(50,60,800,600)
-   -- or appFrame = Window(50,60,800,600)
-print(appFrame.x,appFrame.y) --> 10, 10
-print(appFrame.width,appFrame.height) --> 100, 100
+appWindow = Window()
+print(appFrame.width,appFrame.height) --> 500, 500
 ````
 
-####Under the hood
-*30log* classes are metatables of their own instances. This implies that one can inspect the mother/son 
-relationship between a class and its instance via Lua's standard function [getmetatable](http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable).
+**[[⬆]](#TOC)**
+
+### <a name='someother'>some other features of instances`</a>
+
+Passing an instance to `print` or `tostring` returns a string representing the instance itself. As for classes, this behavior is meant for debugging. And it can be customized from the user code.
+
+```lua
+-- example with a named class
+Window = class("Window")
+appWindow = Window()
+print(appWindow) -- "instance of 'Window' (table: 0x0002cf70)"
+
+-- example with an unnamed class
+Window = class()
+appWindow = Window()
+print(appWindow) -- "instance of '?' (table: 0x0002cf70)"
+````
+
+Any instance has an attribute `.class` which points to its class.
+
+```lua
+Window = class("Window")
+appWindow = Window()
+print(appWindow.class) -- "class 'Window' (table: 0x0002cdf8)"
+````
+
+Also, *30log* classes are metatables of their own instances. This implies that one can inspect the relationship between a class and its instances via Lua's standard function [getmetatable](http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable).
 
 ```lua
 local aClass = class()
 local someInstance = aClass()
-print(getmetatable(someInstance) == aClass) --> true
+print(getmetatable(someInstance) == aClass) -- true
 ````
 
-Also, classes are metatables of their derived classes.
+**[[⬆]](#TOC)**
+
+## <a name='methods'>Methods and metamethods</a>
+ 
+Instances have access their class __methods__.
 
 ```lua
-local aClass = class()
-local someDerivedClass = aClass:extends()
-print(getmetatable(someDerivedClass) == aClass) --> true
-````
+Window = class("Window", {width = 100, height = 100})
 
-###Methods and metamethods
-Objects can call their class __methods__.
-
-```lua
-Window = class { width = 100, height = 100, w = 10, y = 10}
-function Window:__init(x,y,width,height)
-  self.x,self.y = x,y
+function Window:init(width,height)
   self.width,self.height = width,height
 end
 
-function Window:set(x,y)
-  self.x, self.y = x, y
+function Window:cap(maxWidth, maxHeight)
+  self.width = math.max(self.width, maxWidth)
+  self.height = math.max(self.height, maxHeight)
 end
 
-function Window:resize(width, height)
-  self.width, self.height = width, height
-end
-
-appFrame = Window()
-appFrame:set(50,60)
-print(appFrame.x,appFrame.y) --> 50, 60
-appFrame:resize(800,600)
-print(appFrame.width,appFrame.height) --> 800, 600
+appWindow = Window(200, 200)
+appWindow:cap(Window.width, Window.height)
+print(appWindow.width,appWindow.height) -- 100,100
 ```
 
-Objects cannot be used to instantiate new objects though.
+Instances cannot be used to instantiate new objects though. They are not meant for this.
 
 ```lua
-appFrame = Window:new()
-aFrame = appFrame:new() -- Creates an error
-aFrame = appFrame()     -- Also creates an error
+appWindow = Window:new()
+aWindow = appWindow:new() -- Creates an error
+aWindow = appWindow()     -- Also creates an error
 ````
 
-Classes supports metamethods as well as methods. Those metamethods can be inherited.
-In the following example, we will use the `+` operator to increase the window size.
+Classes support metamethods as well as methods. Those metamethods are inherited by subclasses.
 
 ```lua
-Window.__add = function(w, size) 
-  w.width = w.width + size
-  w.height = w.height + size
-  return w
+function Window:__add(size) 
+  self.width = self.width + size
+  self.height = self.height + size
+  return self
 end
 
-window = Window()                                -- creates a new Window instance
-window:resize(600,300)                           -- resizes the new window
-print(window.width, window.height) --> 600, 300
-window = window + 100                            -- increases the window dimensions
-print(window.width, window.height) --> 700, 400
-
-Frame = Window:extends()                         -- creates a Frame class deriving from Window class
-frame = Frame()                                  -- creates a new Frame instance
-frame:resize(400,300)                            -- Resizes the new frame
-print(frame.width, frame.height) --> 400, 300
-frame = frame + 50                               -- increases the frame dimensions
-print(frame.width, frame.height) --> 450, 350
+local window = Window(600,300)      -- creates a new Window instance
+print(window.width, window.height)  -- 600, 300
+window = window + 100               -- increases dimensions
+print(window.width, window.height)  -- 700, 400
 ````
 
+**[[⬆]](#TOC)**
 
-###Inheritance
+## <a name='inheritance'>Inheritance</a>
 
-A class can __inherit__ from any other class using a reserved method named `extends`.
-Similarly to `class`, this method also takes an optional table with named keys as argument 
-to include __new properties__ that the derived class will implement.
-The new class will inherit his mother class __properties__ as well as its __methods__.
+A subclass can be derived from a class from any other class using a reserved method named `extend`. Similarly to `class`, this method also takes an __optional__ argument `name` and an __optional__ table with named keys `params` as arguments.
+
+The new subclass will inherit his superclass __attributes__ and __methods__.
 
 ```lua
-Window = class { width = 100, height = 100, x = 10, y = 10}
-Frame = Window:extends { color = 'black' }
-print(Frame.x, Frame.y) --> 10, 10
+Window = class ("Window",{ width = 100, height = 100})
+Frame = Window:extend("Frame", { color = "black" })
 
 appFrame = Frame()
-print(appFrame.x,appFrame.y) --> 10, 10
+print(appFrame.width, appFrame.height, appFrame.color) -- 100,100,"black"
 ```
 
-A derived class can __redefine any method__ implemented in its base class (or mother class).
-Therefore, the derived class *still* has access to his mother class methods and properties via a 
-reserved key named `super`.<br/>
+Any subclass has a `.super` attribute which points to its superclass.
 
 ```lua
--- Let's use this feature to build a class constructor for our `Frame` class.
+print(Frame.super) -- "class 'Window' (table: 0x0002ceb8)"
+````
 
--- The base class "Window"
-Window = class { width = 100, height = 100, x = 10, y = 10}
-function Window:__init(x,y,width,height)
-  self.x,self.y = x,y
-  self.width,self.height = width,height
+A subclass can __redefine any method__ implemented in its superclass without affecting the superclass method itself.
+Also, the subclass *still* has access to his mother class methods and properties via a the `super` key.
+
+```lua
+-- A base class "Window"
+Window = class ("Window", {x = 10, y = 10, width = 100, height = 100})
+
+function Window:init(x, y, width, height)
+  Window.set(self, x, y, width, height)
 end
 
--- A method
-function Window:set(x,y)
-  self.x, self.y = x, y
+function Window:set(x, y, w, h)
+  self.x, self.y, self.width, self.height = x, y, w, h
 end
 
--- A derived class named "Frame"
-Frame = Window:extends { color = 'black' }
-function Frame:__init(x,y,width,height,color)
+-- a "Frame" subclass
+Frame = Window:extend({color = 'black'})
+function Frame:init(x, y, width, height, color)
   -- Calling the superclass constructor
-  Frame.super.__init(self,x,y,width,height)
+  Frame.super.init(self, x, y, width, height)
+  
   -- Setting the extra class member
   self.color = color
 end
@@ -272,243 +335,172 @@ end
 
 -- An appFrame from "Frame" class
 appFrame = Frame(100,100,800,600,'red')
-print(appFrame.x,appFrame.y) --> 100, 100
+print(appFrame.x,appFrame.y) -- 100, 100
 
 -- Calls the new set() method
 appFrame:set(400,400)
-print(appFrame.x,appFrame.y) --> 0, 100
+print(appFrame.x,appFrame.y) -- 0, 100
 
 -- Calls the old set() method in the mother class "Windows"
 appFrame.super.set(appFrame,400,300)
-print(appFrame.x,appFrame.y) --> 400, 300
+print(appFrame.x,appFrame.y) -- 400, 300
 ```
 
-###Inspecting inheritance
+Also, classes are metatables of their subclasses.
 
-`class.is` can check if a given class derives from another class.
+```lua
+local aClass = class("aClass")
+local someDerivedClass = aClass:extend()
+print(getmetatable(someDerivedClass)) -- "class 'aClass' (table: 0x0002cee8)"
+````
+
+**[[⬆]](#TOC)**
+
+## <a name='introspection'>Introspection</a>
+
+### <a name='class.isClass'>`class.isClass(class, super)`</a>
+
+`class.isClass` returns true if the only argument given, `class`, is a *30log* class.
 
 ```lua
 local aClass = class()
-local aDerivedClass = aClass:extends()
-print(aDerivedClass:is(aClass)) --> true
+local notaClass = {}
+print(class.isClass(aClass)) -- true
+print(class.isClass(notaClass)) -- false
 ````
 
-It also returns *true* when the given class is not necessarily the immediate ancestor of the calling class.
+If a second argument `super` is passed, it returns true if and only if `class` is an immediate subclass of `super`.
+
+```lua
+local superclass = class()
+local subclass = superclass:extend()
+print(class.isClass(subclass, superclass)) -- true 
+````
+
+**[[⬆]](#TOC)**
+
+### <a name='class.isInstance'>`class.isInstance(instance, class)`</a>
+
+`class.isInstance` returns true if the only argument given, `instance`, is an instance of a *30log* class.
 
 ```lua
 local aClass = class()
-local aDerivedClass = aClass:extends():extends():extends() -- 3-level depth inheritance
-print(aDerivedClass:is(aClass)) --> true
+local instance = aClass()
+local noinstance = {}
+print(class.isInstance(instance)) -- true
+print(class.isInstance(noinstance)) -- false
 ````
 
-Similarly `instance.is` can check if a given instance derives from a given class.
+If a second argument `class` is passed, it returns true if and only if `instance` is an instance of `class`.
 
 ```lua
 local aClass = class()
-local anObject = aClass()
-print(anObject:is(aClass)) --> true
+local instance = aClass()
+print(class.isInstance(instance, aClass)) -- true 
 ````
 
-It also returns *true* when the given class is not the immediate ancestor.
+**[[⬆]](#TOC)**
+
+### <a name='class:extends'>`class:extends()`</a>
+
+`class:extends()` returns true if a class derives from a superclass, even if the superclass is not an immediate ancestor.
 
 ```lua
-local aClass = class()
-local aDerivedClass = aClass:extends():extends():extends() -- 3-level depth inheritance
-local anObject = aDerivedClass()
-print(anObject:is(aDerivedClass)) --> true
-print(anObject:is(aClass)) --> true
+local superclass = class()
+local subclass = superclass:extend():extend():extend()
+print(subclass:extends(superclass)) -- true
 ````
 
-##Chained initialisation
-In a single inheritance tree,  the `__init` constructor can be chained from one class to 
-another.<br/>
+**[[⬆]](#TOC)**
 
-This is called *initception*.<br/>
-And, yes, *it is a joke.*
+## <a name='mixins'>Mixins</a>
 
-```lua
--- A mother class 'A'
-local A = Class()
-function A.__init(instance,a)
-  instance.a = a
-end
+__30log__ provides a basic support for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can be used to share the same functionality among different classes even if they are unrelated.
 
--- Class 'B', deriving from class 'A'
-local B = A:extends()
-function B.__init(instance, a, b)
-  B.super.__init(instance, a)
-  instance.b = b
-end
-
--- Class 'C', deriving from class 'B'
-local C = B:extends()
-function C.__init(instance, a, b, c)
-  C.super.__init(instance,a, b)
-  instance.c = c
-end
-
--- Class 'D', deriving from class 'C'
-local D = C:extends()
-function D.__init(instance, a, b, c, d)
-  D.super.__init(instance,a, b, c)
-  instance.d = d
-end
-
--- Creating an instance of class 'D'
-local objD = D(1,2,3,4)
-for k,v in pairs(objD) do print(k,v) end
-
--- Output:
---> a  1
---> d  4
---> c  3
---> b  2
-```
-
-The previous syntax can also be simplified, as follows:
-
-```lua
-local A = Class()
-function A:__init(a)
-  self.a = a
-end
-
-local B = A:extends()
-function B:__init(a, b)
-  B.super.__init(self, a)
-  self.b = b
-end
-
-local C = B:extends()
-function C:__init(a, b, c)
-  C.super.__init(self, a, b)
-  self.c = c
-end
-
-local D = C:extends()
-function D:__init(a, b, c, d)
-  D.super.__init(self, a, b, c)
-  self.d = d
-end
-````
-
-##Mixins
-
-__30log__ provides a basic support for [mixins](http://en.wikipedia.org/wiki/Mixin). This is a powerful concept that can 
-be used to implement a functionality into different classes, even if they do not have any special relationship.<br/>
-__30log__ assumes a `mixin` to be a table containing a **set of methods** (function).<br/>
-To include a mixin in a class, use the reserved key named `include`.
+__30log__ assumes a `mixin` to be a table containing a **set of methods** (functions). A mixin is included in a class using `class:include()` method: 
 
 ```lua
 -- A mixin
 Geometry = {
-  getArea = function(self) return self.width, self.height end,
-  resize = function(self, width, height) self.width, self.height = width, height end
+  getArea = function(self) return self.width * self.height end,
 }
 
--- Let's define two unrelated classes
-Window = class {width = 480, height = 250}
-Button = class {width = 100, height = 50, onClick = false}
+-- Let us define two unrelared classes
+Window = class ("Window", {width = 480, height = 250})
+Button = class ("Button", {width = 100, height = 50, onClick = false})
 
--- Include the "Geometry" mixin inside the two classes
+-- Include the "Geometry" mixin
 Window:include(Geometry)
 Button:include(Geometry)
 
--- Let's define objects from those classes
+-- Let us define instances from those classes
 local aWindow = Window()
 local aButton = Button()
 
--- Objects can use functionalities brought by the mixin.
-print(aWindow:getArea()) --> 480, 250
-print(aButton:getArea()) --> 100, 50
-
-aWindow:resize(225,75)
-print(aWindow.width, aWindow.height) --> 255, 75
+-- Instances can use functionalities brought by the mixin.
+print(aWindow:getArea()) -- 120000
+print(aButton:getArea()) -- 5000
 ````
 
-Note that, when including a mixin into a class, **only methods** (functions, actually) will be imported into the 
-class. Also, objects cannot include mixins.
+It is possible to check if a class includes a particular mixin using `class:includes()`.
 
-```lua
-aWindow = Window()
-aWindow:include(Geometry) -- produces an error
+```lua`
+print(Window:includes(Geometry)) -- true
+print(Button:includes(Geometry)) -- true
 ````
 
-##Printing classes and objects
-Any attempt to [print](http://pgl.yoyo.org/luai/i/print) or [tostring](http://pgl.yoyo.org/luai/i/tostring) a __class__ or an __instance__
-will return the name of the class as a string. This feature is mostly meant for debugging purposes.
+**[[⬆]](#TOC)**
 
-```lua
--- Let's illustrate this, with an unnamed __Cat__ class:
+# <a name='classcommons'>Class-Commons</a>
 
--- A Cat Class
-local Cat = class()
-print(Cat) --> "class(?):<table:00550AD0>"
-
-local kitten = Cat()
-print(kitten) --> "object(of ?):<table:00550C10>"
-````
-
-The question mark symbol `?` means here the printed class is unnamed (or the object derives from an unnamed class).
-
-```lua
--- Let's define a named __Cat__ class now:
-
--- A Cat Class
-local Cat = class()
-Cat.__name = 'Cat'
-print(Cat) --> "class(Cat):<table:00411858>"
-
-local kitten = Cat()
-print(kitten) --> "object(of Cat):<table:00411880>"
-````
-
-##Class Commons
-[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common 
-API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
+[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
 which provides compatibility between *30log* and *Class-commons*. <br/>
 See here: [30logclasscommons](http://github.com/Yonaba/30logclasscommons).
 
-##Specification
+**[[⬆]](#TOC)**
 
-You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following 
-command from the root foolder:
+# <a name='spec'>Specification</a>
+
+You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following command from Lua from the root foolder:
 
 ```
 lua tsc -f specs/*
 ```
 
-###Source
+**[[⬆]](#TOC)**
 
-###30logclean
-__30log__ was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code
-that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br/>
-For those who might be interested though, the file [30logclean.lua](https://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, 
-properly formatted and well indented for your perusal.
+# <a name='aboutsource'>About the source</a>
 
-###30logglobal
+####30logclean.lua
+*30log* was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule that defines the name of this library, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br/>
+For those who might be interested though, the file [30logclean.lua](http://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, properly formatted and well indented for your perusal.
 
-The file [30logglobal.lua](https://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](https://github.com/Yonaba/30log/blob/master/30log.lua), 
-excepts that it sets a global function named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
+####30logglobal.lua
+The file [30logglobal.lua](http://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](http://github.com/Yonaba/30log/blob/master/30log.lua), 
+excepts that it sets a global named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
-##Benchmark
-
-Performance tests featuring classes creation, instantiation and such have been included.
-You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
+####Benchmark
+Performance tests featuring classes creation, instantiation and such have been included. You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
 
 ```lua
-lua performance/tests.lua 30log
+lua performance/test.lua 30log
 ````
 
-Find [here an example of output](https://github.com/Yonaba/30log/tree/master/performance/results.md).
+Find [here an example of output](https://github.com/Yonaba/30log/tree/master/performance/results.md) for the latest version of *30log*.
 
-##Contributors
+**[[⬆]](#TOC)**
+
+# <a name='contrib'>Contributors</a>
+
 * [TsT2005](https://github.com/tst2005), for the original Class-commons support.
 
 
-##License
+**[[⬆]](#TOC)**
+
+# <a name='license'>License</a>
+
 This work is under [MIT-LICENSE](http://www.opensource.org/licenses/mit-license.php)<br/>
-Copyright (c) 2012-2014 Roland Yonaba
+Copyright (c) 2012-2015 Roland Yonaba
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the
@@ -530,3 +522,5 @@ Copyright (c) 2012-2014 Roland Yonaba
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Yonaba/30log/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+**[[⬆]](#TOC)**
