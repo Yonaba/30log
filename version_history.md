@@ -1,5 +1,26 @@
 #Version history#
 
+##1.0.0 (01/09/2015)
+
+### New features
+* `require "30log"` now returns a callable table
+* Added `class.isClass` 
+* Added `class.isInstance`
+* Adding mixins can be chained
+* `subclass.super` returns the `superclass` of `subclass`
+* `instance.class` returns the `class` of `instance`
+
+### Breaking changes
+* Changed `class` prototype to `class(name, params)`
+* Renamed `class:__init()` to `class:init()`
+* Renamed `class.__name` to `class.name`
+* Renamed `class:extends()` to `class:extend`
+* Renamed `class:is()` to `class:extends`
+* Renamed `class:has()` to `class:includes`
+* Changed `class:extend` prototype to `class:extend(name, params)`
+* Changed `tostring(class)` and `tostring(instance)` output.
+
+
 ##0.9.1 (03/02/2014)
 * Internal objects/classes registers made tables with weak keys.
 
