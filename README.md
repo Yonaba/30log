@@ -52,15 +52,15 @@ git clone git://github.com/Yonaba/30log.git
 
 #### LuaRocks
 
-```
+````
 luarocks install 30log
-```
+````
 
 ####MoonRocks
 
-```
+````
 moonrocks install 30log
-```
+````
 
 **[[⬆]](#TOC)**
 
@@ -93,7 +93,7 @@ Custom attributes can be added to any class. Here, we can define a "width" and "
 
 ```lua
 Window.width, Window.height = 100,100
-```
+````
 
 But we could have also have the same result by passing a table with named keys as a `params` argument when declaring the `Window` class. This argument is also __optional__.
 
@@ -101,7 +101,7 @@ But we could have also have the same result by passing a table with named keys a
 Window = class("Window", {width = 150, height = 100})
 print(Window.width) -- 150
 print(Window.height) -- 100
-```
+````
 
 When a class has a `.name` attribute, it is considered to be a __named class__. In that case, passing that class to `tostring` or any function that triggers its `__tostring` metamethod returns the following:
 
@@ -188,7 +188,7 @@ end
 
 appWindow = Window:new(800,600) -- or appFrame = Window(800,600)
 print(appWindow.width,appWindow.height) -- 800, 600
-```
+````
 
 `init` can also be defined as a table with named keys, instead of a function. In that case, any new instance created will get a raw copy of the keys and values found in this table.
 
@@ -255,7 +255,7 @@ end
 appWindow = Window(200, 200)
 appWindow:cap(Window.width, Window.height)
 print(appWindow.width,appWindow.height) -- 100,100
-```
+````
 
 Instances cannot be used to instantiate new objects though. They are not meant for this.
 
@@ -294,7 +294,7 @@ Frame = Window:extend("Frame", { color = "black" })
 
 appFrame = Frame()
 print(appFrame.width, appFrame.height, appFrame.color) -- 100,100,"black"
-```
+````
 
 Any subclass has a `.super` attribute which points to its superclass.
 
@@ -344,7 +344,7 @@ print(appFrame.x,appFrame.y) -- 0, 100
 -- Calls the old set() method in the mother class "Windows"
 appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) -- 400, 300
-```
+````
 
 Also, classes are metatables of their subclasses.
 
@@ -444,7 +444,7 @@ print(aButton:getArea()) -- 5000
 
 It is possible to check if a class includes a particular mixin using `class:includes()`.
 
-```lua`
+```lua
 print(Window:includes(Geometry)) -- true
 print(Button:includes(Geometry)) -- true
 ````
@@ -482,7 +482,7 @@ excepts that it sets a global named `class`. This is convenient for Lua-based fr
 ####Benchmark
 Performance tests featuring classes creation, instantiation and such have been included. You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
 
-```lua
+````
 lua performance/test.lua 30log
 ````
 
