@@ -19,11 +19,11 @@ context('class()', function()
 	context('tostring(class) returns a string representing a class', function()
 		
 		test('it works for named classes', function() 
-			assert_not_nil(tostring(named_class):match("^class 'class' %(table: %x+%)$"))
+			assert_type(tostring(named_class),'string')
 		end)
 		
 		test('and also for unnamed classes', function()
-			assert_not_nil(tostring(unnamed_class):match("^class '%?' %(table: %x+%)$"))	
+			assert_type(tostring(unnamed_class),'string')
 		end)
 
 	end)
