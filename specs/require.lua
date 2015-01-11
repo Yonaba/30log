@@ -1,3 +1,4 @@
+require 'luacov'
 context('require("30log")', function()
 
 	local class

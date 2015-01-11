@@ -1,3 +1,4 @@
+require 'luacov'
 local class = require '30log'
 
 context('Introspection', function()
