@@ -21,7 +21,7 @@ before_install:
 script: "tsc -f specs/*"
   
 after_success:
-  - luacov-coveralls -c specs/.luacov
+  - luacov-coveralls -c .luacov
 
 notifications:
   email:
