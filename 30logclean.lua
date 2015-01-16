@@ -57,7 +57,7 @@ local function extend(self, name, extra_params)
 end
 
 baseMt = {
-  __call = function (self,...) return self:new(...) end
+  __call = function (self,...) return self:new(...) end,
   __tostring = function(self,...)
     if _instances[self] then
       return 
