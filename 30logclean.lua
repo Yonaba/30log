@@ -86,9 +86,14 @@ local class = {
       return isinstance and (instance.class == ofclass)
     end
     return isinstance 
-  end
+  end,
+  clone = function(name, class)
+    local superclass = class.super
+    local copy = superclass and superclass:extend(name) or _class(name)
+    return deep_copy(class, copy)
+  end,
 }
-  
+
 _class = function(name, attr)
   local c = deep_copy(attr)
   c.mixins = setmetatable({},{__mode='k'})
