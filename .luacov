@@ -35,8 +35,14 @@ return {
     'tsc',
     'telescope',
     'loader',
-		'30logclean',
-		'30logglobal'
+    '30logclean',
+    '30logglobal',
+		'luacov$',
+		'luacov/reporter$',
+		'luacov/defaults$',
+		'luacov/runner$',
+		'luacov/stats$',
+		'luacov/tick$',		
   },
 
   -- configuration for luacov-coveralls reporter
