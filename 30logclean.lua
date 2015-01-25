@@ -7,20 +7,24 @@ local setmetatable = setmetatable
 local baseMt     = {}
 local _instances = setmetatable({},{__mode='k'})
 local _classes   = setmetatable({},{__mode='k'})
-local _class
+local _class, class
 
 local function assert_class(class, method) 
   assert(_classes[class], ('Wrong method call. Expected class:%s.'):format(method)) 
 end
 
-local function deep_copy(t, dest, aType)
+local function deep_copy(t, dest, aType, n)
   t = t or {}; local r = dest or {}
   for k,v in pairs(t) do
     if aType and type(v)==aType then 
       r[k] = v 
     elseif not aType then
-      if type(v) == 'table' and k ~= "__index" then 
-        r[k] = deep_copy(v) 
+      if type(v) == 'table' and k ~= "__index" then
+				if _instances[v] or _classes[v] then
+					r[k] = class.clone(n, v)
+				else
+					r[k] = deep_copy(v, nil, aType, n)
+				end
       else 
         r[k] = v 
       end
@@ -49,7 +53,7 @@ local function extend(self, name, extra_params)
   assert_class(self, 'extend(...)')
   local heir = {}
   _classes[heir] = tostring(heir)
-  deep_copy(extra_params, deep_copy(self, heir))
+  deep_copy(extra_params, deep_copy(self, heir,nil, name), nil, name)
   heir.name = extra_params and extra_params.name or name
   heir.__index = heir
   heir.super = self
@@ -72,7 +76,7 @@ end}
 _classes[baseMt] = tostring(baseMt)
 setmetatable(baseMt, {__tostring = baseMt.__tostring})
 
-local class = {
+class = {
   isClass = function(class, ofsuper)
     local isclass = not not _classes[class]
     if ofsuper then
@@ -87,15 +91,20 @@ local class = {
     end
     return isinstance 
   end,
-  clone = function(name, class)
-    local superclass = class.super
-    local copy = superclass and superclass:extend(name) or _class(name)
-    return deep_copy(class, copy)
+  clone = function(name, tbl)
+		assert(_classes[tbl] or _instances[tbl], 'Wrong argument #2. Expected a class or an instance')
+		if _classes[tbl] then
+			local super = tbl.super
+			local copy = super and super:extend(name, tbl) or _class(name, tbl)
+			for mixin in pairs(tbl.mixins) do copy:include(mixin) end
+			return copy
+		end
+    return deep_copy(tbl, tbl.class:new(), nil, name)
   end,
 }
 
 _class = function(name, attr)
-  local c = deep_copy(attr)
+  local c = deep_copy(attr,nil,nil,name)
   c.mixins = setmetatable({},{__mode='k'})
   _classes[c] = tostring(c)
   c.name       = name
