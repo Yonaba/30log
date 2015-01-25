@@ -139,7 +139,7 @@ _class = function(name, attr)
 end
 
 class._DESCRIPTION = '30 lines library for object orientation in Lua'
-class._VERSION     = '30log v1.0.0'
+class._VERSION     = '30log v1.1.0'
 class._URL         = 'http://github.com/Yonaba/30log'
 class._LICENSE     = 'MIT LICENSE <http://www.opensource.org/licenses/mit-license.php>'
 
