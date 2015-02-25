@@ -35,14 +35,16 @@ local function instantiate(self,...)
   _instances[instance] = tostring(instance)
   setmetatable(instance,self)
   
+  local initReturns = {}
+  local unpack = unpack or table.unpack
   if self.init then
     if type(self.init) == 'table' then 
       deep_copy(self.init, instance)
     else 
-      self.init(instance, ...) 
+      initReturns = {self.init(instance, ...)}
     end
   end
-  return instance
+  return instance, unpack(initReturns)
 end
 
 local function extend(self, name, extra_params)
