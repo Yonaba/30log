@@ -234,7 +234,7 @@ print(getmetatable(someInstance) == aClass) -- true
 
 ## <a name='methods'>Methods and metamethods</a>
  
-Instances have access their class __methods__.
+Instances have access to their class __methods__.
 
 ```lua
 Window = class("Window", {width = 100, height = 100})
@@ -280,9 +280,9 @@ print(window.width, window.height)  -- 700, 400
 
 ## <a name='inheritance'>Inheritance</a>
 
-A subclass can be derived from a class from any other class using a reserved method named `extend`. Similarly to `class`, this method also takes an __optional__ argument `name` and an __optional__ table with named keys `params` as arguments.
+A subclass can be derived from any other class using a reserved method named `extend`. Similarly to `class`, this method also takes an __optional__ argument `name` and an __optional__ table with named keys `params` as arguments.
 
-The new subclass will inherit his superclass __attributes__ and __methods__.
+The new subclass will inherit its superclass __attributes__ and __methods__.
 
 ```lua
 Window = class ("Window",{ width = 100, height = 100})
@@ -337,7 +337,7 @@ print(appFrame.x,appFrame.y) -- 100, 100
 appFrame:set(400,400)
 print(appFrame.x,appFrame.y) -- 0, 100
 
--- Calls the old set() method in the mother class "Windows"
+-- Calls the old set() method in the mother class "Window"
 appFrame.super.set(appFrame,400,300)
 print(appFrame.x,appFrame.y) -- 400, 300
 ````
@@ -421,7 +421,7 @@ Geometry = {
   getArea = function(self) return self.width * self.height end,
 }
 
--- Let us define two unrelared classes
+-- Let us define two unrelated classes
 Window = class ("Window", {width = 480, height = 250})
 Button = class ("Button", {width = 100, height = 50, onClick = false})
 
