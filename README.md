@@ -244,8 +244,8 @@ function Window:init(width,height)
 end
 
 function Window:cap(maxWidth, maxHeight)
-  self.width = math.max(self.width, maxWidth)
-  self.height = math.max(self.height, maxHeight)
+  self.width = math.min(self.width, maxWidth)
+  self.height = math.min(self.height, maxHeight)
 end
 
 appWindow = Window(200, 200)
