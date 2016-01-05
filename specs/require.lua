@@ -17,22 +17,6 @@ context('require("30log")', function()
 
 		test('a function named "isInstance"', function()
 			assert_type(class.isInstance, 'function')
-		end)
-		
-		test('a string attribute "_DESCRIPTION"', function()
-			assert_type(class._DESCRIPTION, 'string')
-		end)
-		
-		test('an attribute "_VERSION"', function()
-			assert_not_nil(class._VERSION:match('^30log v[%d%.]+$'))
-		end)		
-		
-		test('a string attribute "_URL"', function()
-			assert_equal(class._URL, 'http://github.com/Yonaba/30log')
-		end)
-
-		test('a string attribute "_LICENSE"', function()
-			assert_type(class._LICENSE, 'string')
 		end)			
 		
 	end)
