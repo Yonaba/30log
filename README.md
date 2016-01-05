@@ -481,15 +481,6 @@ For those who might be interested though, the file [30logclean.lua](http://githu
 The file [30logglobal.lua](http://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](http://github.com/Yonaba/30log/blob/master/30log.lua), 
 excepts that it sets a global named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
-####Benchmark
-Performance tests featuring classes creation, instantiation and such have been included. You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.
-
-````
-lua performance/test.lua 30log
-````
-
-Find [here an example of output](https://github.com/Yonaba/30log/tree/master/performance/results.md) for the latest version of *30log*.
-
 **[[⬆]](#TOC)**
 
 # <a name='contrib'>Contributors</a>
