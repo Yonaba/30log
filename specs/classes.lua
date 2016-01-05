@@ -106,11 +106,11 @@ context('attributes can be defined', function()
 		assert_equal(aclass.value, 0)
 	end)
 	
-	test('passed-in attributes set the class name if not provided', function()
+	test('passed-in attributes can be used to set the class name', function()
 		assert_equal(aclass2.name, 'aclass2')
 	end)
 	
-	test('but cannot override the name argument', function()
+	test('but they will not override the name argument if supplied', function()
 		assert_equal(aclass.name, 'aclass')
 	end)
 		
