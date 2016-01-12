@@ -5,12 +5,13 @@
 
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
 [![Coverage Status](https://coveralls.io/repos/Yonaba/30log/badge.png?branch=master)](https://coveralls.io/r/Yonaba/30log?branch=master)
+[![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 
 __30log__, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It features __named (and unnamed) classes__, __single inheritance__ and a basic support for __mixins__.<br/>
 It makes __30 lines__. No less, no more.<br/>
-__30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mind, but is compatible with [Lua 5.2](http://www.lua.org/versions.html#5.2) and [Lua 5.3](http://www.lua.org/versions.html#5.3).
+__30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mind, but is compatible with [Lua 5.2](http://www.lua.org/versions.html#5.2), [Lua 5.3](http://www.lua.org/versions.html#5.3) and [LuaJIT](http://luajit.org/luajit.html).
 
 
 # <a name='TOC'>Table of Contents</a>
