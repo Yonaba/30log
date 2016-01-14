@@ -16,7 +16,7 @@ __30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mi
 
 ## Download
 
-#### Achive
+#### Archive
 
 Current release is [1.0.0](https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
