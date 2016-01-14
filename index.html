@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>30log by Yonaba</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/main.js"></script>
     <!--[if lt IE 9]>
@@ -42,541 +42,90 @@
         <h1>
 <a id="30log" class="anchor" href="#30log" aria-hidden="true"><span class="octicon octicon-link"></span></a>30log</h1>
 
+<p><a href="https://gitter.im/Yonaba/30log?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/Yonaba/30log"></a></p>
+
 <p><a href="https://travis-ci.org/Yonaba/30log"><img src="https://travis-ci.org/Yonaba/30log.png" alt="Build Status"></a>
 <a href="https://coveralls.io/r/Yonaba/30log?branch=master"><img src="https://coveralls.io/repos/Yonaba/30log/badge.png?branch=master" alt="Coverage Status"></a>
+<a href=""><img src="https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg" alt="Lua"></a>
 <a href="LICENSE"><img src="http://img.shields.io/badge/Licence-MIT-brightgreen.svg" alt="License"></a></p>
 
-<p><strong>30log</strong>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
-It features <strong>named (and unnamed) classes</strong>, <strong>single inheritance</strong> and a basic support for <strong>mixins</strong>.<br>
-It makes <strong>30 lines</strong>. No less, no more.<br>
-<strong>30log</strong> was written with <a href="http://www.lua.org/versions.html#5.1">Lua 5.1</a> in mind, but is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2</a>.</p>
+<p><em>30log</em>, in extenso <em>30 Lines Of Goodness</em> is a minified framework for <a href="http://lua-users.org/wiki/ObjectOrientedProgramming">object-orientation</a> in Lua.
+It provides  <em>named</em> and <em>unnamed classes</em>, <em>single inheritance</em>, <em>metamethods</em> and a basic support for <em>mixins</em>.<br>
+In <em>30 lines</em>. No less, no more.<br>
+<strong>30log</strong> was written with <a href="http://www.lua.org/versions.html#5.1">Lua 5.1</a> in mind, but is compatible with <a href="http://www.lua.org/versions.html#5.2">Lua 5.2</a>, <a href="http://www.lua.org/versions.html#5.3">Lua 5.3</a> and <a href="http://luajit.org/luajit.html">LuaJIT</a>.</p>
 
-<h1>
-<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="TOC">Table of Contents</a>
-</h1>
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
 
-<ul>
-<li><a href="#download">Download</a></li>
-<li><a href="#add30log">Adding <em>30log</em> to your code</a></li>
-<li>
-<a href="#quicktour">Quicktour</a>
+<h4>
+<a id="archive" class="anchor" href="#archive" aria-hidden="true"><span class="octicon octicon-link"></span></a>Archive</h4>
 
-<ul>
-<li><a href="#declaring">Declaring classes</a></li>
-<li>
-<a href="#instances">Creating instances</a>
-
-<ul>
-<li><a href="http://github.com/Yonaba/30log/#class:new">The <code>class:new()</code> method</a></li>
-<li><a href="http://github.com/Yonaba/30log/#class()">The <code>class()</code> call way</a></li>
-<li><a href="http://github.com/Yonaba/30log/#class:init"><code>class:init(...)</code></a></li>
-<li><a href="http://github.com/Yonaba/30log/#someother">Some other features of instances</a></li>
-</ul>
-</li>
-<li><a href="#methods">Methods and metamethods</a></li>
-<li><a href="#inheritance">Inheritance</a></li>
-<li>
-<a href="#introspection">Introspection</a>
-
-<ul>
-<li><a href="http://github.com/Yonaba/30log/#class.isClass"><code>class.isClass(class, super)</code></a></li>
-<li><a href="http://github.com/Yonaba/30log/#class.isInstance"><code>class.isInstance(instance, class)</code></a></li>
-<li><a href="http://github.com/Yonaba/30log/#class:extends"><code>class:extends()</code></a></li>
-</ul>
-</li>
-<li><a href="#mixins">Mixins</a></li>
-</ul>
-</li>
-<li><a href="#classcommons">Class-Commons</a></li>
-<li><a href="#spec">Specification</a></li>
-<li><a href="#aboutsource">About the source</a></li>
-<li><a href="#contrib">Contributors</a></li>
-<li><a href="#license">License</a></li>
-</ul>
-
-<h1>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="download">Download</a>
-</h1>
+<p>Current release is <a href="https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1">1.0.0</a>. See other <a href="https://github.com/Yonaba/30log/releases">releases</a>.</p>
 
 <h4>
 <a id="bash" class="anchor" href="#bash" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bash</h4>
+
+<p>This will clone the repository, as-is, and deliver the cutting edge release. Might be unstable.</p>
 
 <pre><code>git clone git://github.com/Yonaba/30log.git
 </code></pre>
 
 <h4>
-<a id="archive" class="anchor" href="#archive" aria-hidden="true"><span class="octicon octicon-link"></span></a>Archive</h4>
-
-<ul>
-<li>
-<strong>zip</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-1.0.0.zip">1.0.0</a> (<em>latest stable, recommended</em>) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
-</li>
-<li>
-<strong>tar.gz</strong>: <a href="https://github.com/Yonaba/30log/archive/30log-1.0.0.tar.gz">1.0.0</a> (<em>latest stable, recommended</em>) | <a href="https://github.com/Yonaba/30log/tags">older versions</a>
-</li>
-</ul>
-
-<h4>
 <a id="luarocks" class="anchor" href="#luarocks" aria-hidden="true"><span class="octicon octicon-link"></span></a>LuaRocks</h4>
+
+<p>This will download and install the latest stable release from <a href="https://luarocks.org/">Luarocks</a> servers.</p>
 
 <pre><code>luarocks install 30log
 </code></pre>
 
-<h4>
-<a id="moonrocks" class="anchor" href="#moonrocks" aria-hidden="true"><span class="octicon octicon-link"></span></a>MoonRocks</h4>
+<h2>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
-<pre><code>moonrocks install 30log
-</code></pre>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="adding-30log-to-your-code" class="anchor" href="#adding-30log-to-your-code" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="add30log">Adding 30log to your code</a>
-</h1>
-
-<p>Copy the file <a href="https://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a> inside your project folder,
-call it using <a href="http://pgl.yoyo.org/luai/i/require">require</a> function. It will return a local table, keeping safe the global environment.<br></p>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="a-quicktour-of-the-library" class="anchor" href="#a-quicktour-of-the-library" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="quicktour">A quicktour of the library</a>
-</h1>
+<p>Find the project page at yonaba.github.io/30log.<br>
+A full documentation is available on the <a href="https://github.com/Yonaba/30log/wiki">wiki</a>.</p>
 
 <h2>
-<a id="declaring-classes" class="anchor" href="#declaring-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="declaring">Declaring classes</a>
-</h2>
-
-<p>Let us create a <code>Window</code> class.</p>
-
-<div class="highlight highlight-lua"><pre>class <span class="pl-k">=</span> <span class="pl-s3">require</span> <span class="pl-s1"><span class="pl-pds">"</span>30log<span class="pl-pds">"</span></span>
-Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>)</pre></div>
-
-<p>That's it. The first argument is the name of the class (defined as string).
-Later, we can query that name by indexing the <code>.name</code> key. This argument is <strong>optional</strong>.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(Window.<span class="pl-vo">name</span>) <span class="pl-c">-- "Window"</span></pre></div>
-
-<p>Custom attributes can be added to any class. Here, we can define a "width" and "height" attributes and assign them values.</p>
-
-<div class="highlight highlight-lua"><pre>Window.<span class="pl-vo">width</span>, Window.<span class="pl-vo">height</span> <span class="pl-k">=</span> <span class="pl-c1">100</span>,<span class="pl-c1">100</span></pre></div>
-
-<p>But we could have also have the same result by passing a table with named keys as a <code>params</code> argument when declaring the <code>Window</code> class. This argument is also <strong>optional</strong>.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>, {width <span class="pl-k">=</span> <span class="pl-c1">150</span>, height <span class="pl-k">=</span> <span class="pl-c1">100</span>})
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">width</span>) <span class="pl-c">-- 150</span>
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">height</span>) <span class="pl-c">-- 100</span></pre></div>
-
-<p>When a class has a <code>.name</code> attribute, it is considered to be a <strong>named class</strong>. In that case, passing that class to <code>tostring</code> or any function that triggers its <code>__tostring</code> metamethod returns the following:</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(Window) <span class="pl-c">-- "class 'Window' (table: 0x0002cdc0)"</span></pre></div>
-
-<p>In case the class has no name, it is considered to be an <strong>unnamed class</strong>. In that case, when passing it to a function like <code>print</code> or <code>tostring</code>, the output is slightly different.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-c1">nil</span>, {width <span class="pl-k">=</span> <span class="pl-c1">150</span>, height <span class="pl-k">=</span> <span class="pl-c1">100</span>}) <span class="pl-c">-- no name argument specified</span>
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">name</span>) <span class="pl-c">-- nil</span>
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">width</span>) <span class="pl-c">-- 150</span>
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">height</span>) <span class="pl-c">-- 100</span>
-<span class="pl-s3">print</span>(Window) <span class="pl-c">-- "class '?' (table: 0x0002cdb8)"</span></pre></div>
-
-<p>The ability to turn classes to string is mostly meant for debugging purposes. One can change this behavior by modifying the <code>__tostring</code> function of any class metatable.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">'</span>Window<span class="pl-pds">'</span></span>)
-<span class="pl-s3">getmetatable</span>(Window).<span class="pl-vo">__tostring</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-vpf">t</span>)
-  <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-pds">"</span>I am class <span class="pl-pds">"</span></span><span class="pl-k">..</span>(t.<span class="pl-vo">name</span> <span class="pl-k">or</span> <span class="pl-s1"><span class="pl-pds">"</span>unnamed<span class="pl-pds">"</span></span>)
-<span class="pl-k">end</span>
-<span class="pl-s3">print</span>(Window) <span class="pl-c">-- "I am class Window"</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h2>
-<a id="creating-instances" class="anchor" href="#creating-instances" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="instances">Creating instances</a>
-</h2>
-
-<h3>
-<a id="the-classnew-method" class="anchor" href="#the-classnew-method" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class:new">The <code>class:new()</code> method</a>
-</h3>
-
-<p>An instance of class is created using the class method <code>new()</code>:</p>
-
-<div class="highlight highlight-lua"><pre>appWindow <span class="pl-k">=</span> Window:<span class="pl-s3">new</span>()</pre></div>
-
-<p>Once created, an instance can access its class attributes. </p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(appWindow.<span class="pl-vo">width</span>,appWindow.<span class="pl-vo">height</span>) <span class="pl-c">-- 100, 100</span></pre></div>
-
-<p>But this instance has its own copy of those attributes. Changing them will affect neither the class itself, nor any other instance.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-c">-- assigning new values to the instance attributes</span>
-appWindow.<span class="pl-vo">width</span>, appWindow.<span class="pl-vo">height</span> <span class="pl-k">=</span> <span class="pl-c1">720</span>, <span class="pl-c1">480</span>
-<span class="pl-s3">print</span>(appWindow.<span class="pl-vo">width</span>,appWindow.<span class="pl-vo">height</span>) <span class="pl-c">-- 720, 480</span>
-
-<span class="pl-c">-- Class attributes are left untouched</span>
-<span class="pl-s3">print</span>(Window.<span class="pl-vo">width</span>, Window.<span class="pl-vo">height</span>) <span class="pl-c">-- 100, 100</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h3>
-<a id="the-class-call-way" class="anchor" href="#the-class-call-way" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class()">The <code>class()</code> call way</a>
-</h3>
-
-<p>An instance can also be created calling the class itself as a function. It is just a syntactic sugar.</p>
-
-<div class="highlight highlight-lua"><pre>appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>() <span class="pl-c">-- same as Window:new()</span>
-<span class="pl-s3">print</span>(appWindow.<span class="pl-vo">width</span>,appWindow.<span class="pl-vo">height</span>) <span class="pl-c">-- 100, 100</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h3>
-<a id="classinit" class="anchor" href="#classinit" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class:init"><code>class:init(...)</code></a>
-</h3>
-
-<p>From the two examples above, you might have noticed that once an instance is created from a class, it already shares the properties of his mother class.</p>
-
-<p>Yet, instances can be initialized when creating them from a class. In this way, they already have their attributes set with custom values right after being created.</p>
-
-<p>It just requires to implement a  <strong>class constructor</strong>. Typically, it is a method (a function) that will be called right after <code>class:new()</code> method. The class constructor will take as a first argument the <code>instance</code> and customize it.<br>
-<strong>30log</strong> uses the reserved key <code>init</code> for <strong>class constructors</strong>.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>)
-<span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">init</span>(<span class="pl-vpf">width,height</span>)
-  <span class="pl-v">self</span>.<span class="pl-vo">width</span>,<span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">=</span> width,height
-<span class="pl-k">end</span>
-
-appWindow <span class="pl-k">=</span> Window:<span class="pl-s3">new</span>(<span class="pl-c1">800</span>,<span class="pl-c1">600</span>) <span class="pl-c">-- or appFrame = Window(800,600)</span>
-<span class="pl-s3">print</span>(appWindow.<span class="pl-vo">width</span>,appWindow.<span class="pl-vo">height</span>) <span class="pl-c">-- 800, 600</span></pre></div>
-
-<p><code>init</code> can also be defined as a table with named keys, instead of a function. In that case, any new instance created will get a raw copy of the keys and values found in this table.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>)
-Window.<span class="pl-vo">init</span> <span class="pl-k">=</span> { width <span class="pl-k">=</span> <span class="pl-c1">500</span>, height <span class="pl-k">=</span> <span class="pl-c1">500</span>}
-
-appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>()
-<span class="pl-s3">print</span>(appFrame.<span class="pl-vo">width</span>,appFrame.<span class="pl-vo">height</span>) <span class="pl-c">--&gt; 500, 500</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h3>
-<a id="some-other-features-of-instances" class="anchor" href="#some-other-features-of-instances" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="someother">some other features of instances`</a>
-</h3>
-
-<p>Passing an instance to <code>print</code> or <code>tostring</code> returns a string representing the instance itself. As for classes, this behavior is meant for debugging. And it can be customized from the user code.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-c">-- example with a named class</span>
-Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>)
-appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>()
-<span class="pl-s3">print</span>(appWindow) <span class="pl-c">-- "instance of 'Window' (table: 0x0002cf70)"</span>
-
-<span class="pl-c">-- example with an unnamed class</span>
-Window <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>()
-<span class="pl-s3">print</span>(appWindow) <span class="pl-c">-- "instance of '?' (table: 0x0002cf70)"</span></pre></div>
-
-<p>Any instance has an attribute <code>.class</code> which points to its class.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>)
-appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>()
-<span class="pl-s3">print</span>(appWindow.<span class="pl-vo">class</span>) <span class="pl-c">-- "class 'Window' (table: 0x0002cdf8)"</span></pre></div>
-
-<p>Also, <em>30log</em> classes are metatables of their own instances. This implies that one can inspect the relationship between a class and its instances via Lua's standard function <a href="http://www.lua.org/manual/5.2/manual.html#pdf-getmetatable">getmetatable</a>.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> aClass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> someInstance <span class="pl-k">=</span> <span class="pl-s3">aClass</span>()
-<span class="pl-s3">print</span>(<span class="pl-s3">getmetatable</span>(someInstance) <span class="pl-k">==</span> aClass) <span class="pl-c">-- true</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h2>
-<a id="methods-and-metamethods" class="anchor" href="#methods-and-metamethods" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="methods">Methods and metamethods</a>
-</h2>
-
-<p>Instances have access their class <strong>methods</strong>.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>, {width <span class="pl-k">=</span> <span class="pl-c1">100</span>, height <span class="pl-k">=</span> <span class="pl-c1">100</span>})
-
-<span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">init</span>(<span class="pl-vpf">width,height</span>)
-  <span class="pl-v">self</span>.<span class="pl-vo">width</span>,<span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">=</span> width,height
-<span class="pl-k">end</span>
-
-<span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">cap</span>(<span class="pl-vpf">maxWidth, maxHeight</span>)
-  <span class="pl-v">self</span>.<span class="pl-vo">width</span> <span class="pl-k">=</span> <span class="pl-s3">math.max</span>(<span class="pl-v">self</span>.<span class="pl-vo">width</span>, maxWidth)
-  <span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">=</span> <span class="pl-s3">math.max</span>(<span class="pl-v">self</span>.<span class="pl-vo">height</span>, maxHeight)
-<span class="pl-k">end</span>
-
-appWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>(<span class="pl-c1">200</span>, <span class="pl-c1">200</span>)
-appWindow:<span class="pl-s3">cap</span>(Window.<span class="pl-vo">width</span>, Window.<span class="pl-vo">height</span>)
-<span class="pl-s3">print</span>(appWindow.<span class="pl-vo">width</span>,appWindow.<span class="pl-vo">height</span>) <span class="pl-c">-- 100,100</span></pre></div>
-
-<p>Instances cannot be used to instantiate new objects though. They are not meant for this.</p>
-
-<div class="highlight highlight-lua"><pre>appWindow <span class="pl-k">=</span> Window:<span class="pl-s3">new</span>()
-aWindow <span class="pl-k">=</span> appWindow:<span class="pl-s3">new</span>() <span class="pl-c">-- Creates an error</span>
-aWindow <span class="pl-k">=</span> <span class="pl-s3">appWindow</span>()     <span class="pl-c">-- Also creates an error</span></pre></div>
-
-<p>Classes support metamethods as well as methods. Those metamethods are inherited by subclasses.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">__add</span>(<span class="pl-vpf">size</span>) 
-  <span class="pl-v">self</span>.<span class="pl-vo">width</span> <span class="pl-k">=</span> <span class="pl-v">self</span>.<span class="pl-vo">width</span> <span class="pl-k">+</span> size
-  <span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">=</span> <span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">+</span> size
-  <span class="pl-k">return</span> <span class="pl-v">self</span>
-<span class="pl-k">end</span>
-
-<span class="pl-k">local</span> window <span class="pl-k">=</span> <span class="pl-s3">Window</span>(<span class="pl-c1">600</span>,<span class="pl-c1">300</span>)      <span class="pl-c">-- creates a new Window instance</span>
-<span class="pl-s3">print</span>(window.<span class="pl-vo">width</span>, window.<span class="pl-vo">height</span>)  <span class="pl-c">-- 600, 300</span>
-window <span class="pl-k">=</span> window <span class="pl-k">+</span> <span class="pl-c1">100</span>               <span class="pl-c">-- increases dimensions</span>
-<span class="pl-s3">print</span>(window.<span class="pl-vo">width</span>, window.<span class="pl-vo">height</span>)  <span class="pl-c">-- 700, 400</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h2>
-<a id="inheritance" class="anchor" href="#inheritance" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="inheritance">Inheritance</a>
-</h2>
-
-<p>A subclass can be derived from a class from any other class using a reserved method named <code>extend</code>. Similarly to <code>class</code>, this method also takes an <strong>optional</strong> argument <code>name</code> and an <strong>optional</strong> table with named keys <code>params</code> as arguments.</p>
-
-<p>The new subclass will inherit his superclass <strong>attributes</strong> and <strong>methods</strong>.</p>
-
-<div class="highlight highlight-lua"><pre>Window <span class="pl-k">=</span> <span class="pl-s3">class</span> (<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>,{ width <span class="pl-k">=</span> <span class="pl-c1">100</span>, height <span class="pl-k">=</span> <span class="pl-c1">100</span>})
-Frame <span class="pl-k">=</span> Window:<span class="pl-s3">extend</span>(<span class="pl-s1"><span class="pl-pds">"</span>Frame<span class="pl-pds">"</span></span>, { color <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>black<span class="pl-pds">"</span></span> })
-
-appFrame <span class="pl-k">=</span> <span class="pl-s3">Frame</span>()
-<span class="pl-s3">print</span>(appFrame.<span class="pl-vo">width</span>, appFrame.<span class="pl-vo">height</span>, appFrame.<span class="pl-vo">color</span>) <span class="pl-c">-- 100,100,"black"</span></pre></div>
-
-<p>Any subclass has a <code>.super</code> attribute which points to its superclass.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(Frame.<span class="pl-vo">super</span>) <span class="pl-c">-- "class 'Window' (table: 0x0002ceb8)"</span></pre></div>
-
-<p>A subclass can <strong>redefine any method</strong> implemented in its superclass without affecting the superclass method itself.
-Also, the subclass <em>still</em> has access to his mother class methods and properties via a the <code>super</code> key.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-c">-- A base class "Window"</span>
-Window <span class="pl-k">=</span> <span class="pl-s3">class</span> (<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>, {x <span class="pl-k">=</span> <span class="pl-c1">10</span>, y <span class="pl-k">=</span> <span class="pl-c1">10</span>, width <span class="pl-k">=</span> <span class="pl-c1">100</span>, height <span class="pl-k">=</span> <span class="pl-c1">100</span>})
-
-<span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">init</span>(<span class="pl-vpf">x, y, width, height</span>)
-  Window.<span class="pl-s3">set</span>(<span class="pl-v">self</span>, x, y, width, height)
-<span class="pl-k">end</span>
-
-<span class="pl-k">function</span> <span class="pl-en">Window:</span><span class="pl-en">set</span>(<span class="pl-vpf">x, y, w, h</span>)
-  <span class="pl-v">self</span>.<span class="pl-vo">x</span>, <span class="pl-v">self</span>.<span class="pl-vo">y</span>, <span class="pl-v">self</span>.<span class="pl-vo">width</span>, <span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">=</span> x, y, w, h
-<span class="pl-k">end</span>
-
-<span class="pl-c">-- a "Frame" subclass</span>
-Frame <span class="pl-k">=</span> Window:<span class="pl-s3">extend</span>({color <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">'</span>black<span class="pl-pds">'</span></span>})
-<span class="pl-k">function</span> <span class="pl-en">Frame:</span><span class="pl-en">init</span>(<span class="pl-vpf">x, y, width, height, color</span>)
-  <span class="pl-c">-- Calling the superclass constructor</span>
-  Frame.<span class="pl-vo">super</span>.<span class="pl-s3">init</span>(<span class="pl-v">self</span>, x, y, width, height)
-
-  <span class="pl-c">-- Setting the extra class member</span>
-  <span class="pl-v">self</span>.<span class="pl-vo">color</span> <span class="pl-k">=</span> color
-<span class="pl-k">end</span>
-
-<span class="pl-c">-- Redefining the set() method</span>
-<span class="pl-k">function</span> <span class="pl-en">Frame:</span><span class="pl-en">set</span>(<span class="pl-vpf">x,y</span>)
-  <span class="pl-v">self</span>.<span class="pl-vo">x</span> <span class="pl-k">=</span> x <span class="pl-k">-</span> <span class="pl-v">self</span>.<span class="pl-vo">width</span><span class="pl-k">/</span><span class="pl-c1">2</span>
-  <span class="pl-v">self</span>.<span class="pl-vo">y</span> <span class="pl-k">=</span> y <span class="pl-k">-</span> <span class="pl-v">self</span>.<span class="pl-vo">height</span><span class="pl-k">/</span><span class="pl-c1">2</span>
-<span class="pl-k">end</span>
-
-<span class="pl-c">-- An appFrame from "Frame" class</span>
-appFrame <span class="pl-k">=</span> <span class="pl-s3">Frame</span>(<span class="pl-c1">100</span>,<span class="pl-c1">100</span>,<span class="pl-c1">800</span>,<span class="pl-c1">600</span>,<span class="pl-s1"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>)
-<span class="pl-s3">print</span>(appFrame.<span class="pl-vo">x</span>,appFrame.<span class="pl-vo">y</span>) <span class="pl-c">-- 100, 100</span>
-
-<span class="pl-c">-- Calls the new set() method</span>
-appFrame:<span class="pl-s3">set</span>(<span class="pl-c1">400</span>,<span class="pl-c1">400</span>)
-<span class="pl-s3">print</span>(appFrame.<span class="pl-vo">x</span>,appFrame.<span class="pl-vo">y</span>) <span class="pl-c">-- 0, 100</span>
-
-<span class="pl-c">-- Calls the old set() method in the mother class "Windows"</span>
-appFrame.<span class="pl-vo">super</span>.<span class="pl-s3">set</span>(appFrame,<span class="pl-c1">400</span>,<span class="pl-c1">300</span>)
-<span class="pl-s3">print</span>(appFrame.<span class="pl-vo">x</span>,appFrame.<span class="pl-vo">y</span>) <span class="pl-c">-- 400, 300</span></pre></div>
-
-<p>Also, classes are metatables of their subclasses.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> aClass <span class="pl-k">=</span> <span class="pl-s3">class</span>(<span class="pl-s1"><span class="pl-pds">"</span>aClass<span class="pl-pds">"</span></span>)
-<span class="pl-k">local</span> someDerivedClass <span class="pl-k">=</span> aClass:<span class="pl-s3">extend</span>()
-<span class="pl-s3">print</span>(<span class="pl-s3">getmetatable</span>(someDerivedClass)) <span class="pl-c">-- "class 'aClass' (table: 0x0002cee8)"</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h2>
-<a id="introspection" class="anchor" href="#introspection" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="introspection">Introspection</a>
-</h2>
-
-<h3>
-<a id="classisclassclass-super" class="anchor" href="#classisclassclass-super" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class.isClass"><code>class.isClass(class, super)</code></a>
-</h3>
-
-<p><code>class.isClass</code> returns true if the only argument given, <code>class</code>, is a <em>30log</em> class.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> aClass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> notaClass <span class="pl-k">=</span> {}
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isClass</span>(aClass)) <span class="pl-c">-- true</span>
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isClass</span>(notaClass)) <span class="pl-c">-- false</span></pre></div>
-
-<p>If a second argument <code>super</code> is passed, it returns true if and only if <code>class</code> is an immediate subclass of <code>super</code>.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> superclass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> subclass <span class="pl-k">=</span> superclass:<span class="pl-s3">extend</span>()
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isClass</span>(subclass, superclass)) <span class="pl-c">-- true </span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h3>
-<a id="classisinstanceinstance-class" class="anchor" href="#classisinstanceinstance-class" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class.isInstance"><code>class.isInstance(instance, class)</code></a>
-</h3>
-
-<p><code>class.isInstance</code> returns true if the only argument given, <code>instance</code>, is an instance of a <em>30log</em> class.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> aClass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> instance <span class="pl-k">=</span> <span class="pl-s3">aClass</span>()
-<span class="pl-k">local</span> noinstance <span class="pl-k">=</span> {}
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isInstance</span>(instance)) <span class="pl-c">-- true</span>
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isInstance</span>(noinstance)) <span class="pl-c">-- false</span></pre></div>
-
-<p>If a second argument <code>class</code> is passed, it returns true if and only if <code>instance</code> is an instance of <code>class</code>.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> aClass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> instance <span class="pl-k">=</span> <span class="pl-s3">aClass</span>()
-<span class="pl-s3">print</span>(class.<span class="pl-s3">isInstance</span>(instance, aClass)) <span class="pl-c">-- true </span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h3>
-<a id="classextends" class="anchor" href="#classextends" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="class:extends"><code>class:extends()</code></a>
-</h3>
-
-<p><code>class:extends()</code> returns true if a class derives from a superclass, even if the superclass is not an immediate ancestor.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-k">local</span> superclass <span class="pl-k">=</span> <span class="pl-s3">class</span>()
-<span class="pl-k">local</span> subclass <span class="pl-k">=</span> superclass:<span class="pl-s3">extend</span>():<span class="pl-s3">extend</span>():<span class="pl-s3">extend</span>()
-<span class="pl-s3">print</span>(subclass:<span class="pl-s3">extends</span>(superclass)) <span class="pl-c">-- true</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h2>
-<a id="mixins" class="anchor" href="#mixins" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="mixins">Mixins</a>
-</h2>
-
-<p><strong>30log</strong> provides a basic support for <a href="http://en.wikipedia.org/wiki/Mixin">mixins</a>. This is a powerful concept that can be used to share the same functionality among different classes even if they are unrelated.</p>
-
-<p><strong>30log</strong> assumes a <code>mixin</code> to be a table containing a <strong>set of methods</strong> (functions). A mixin is included in a class using <code>class:include()</code> method: </p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-c">-- A mixin</span>
-Geometry <span class="pl-k">=</span> {
-  getArea <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-vpf">self</span>) <span class="pl-k">return</span> <span class="pl-v">self</span>.<span class="pl-vo">width</span> <span class="pl-k">*</span> <span class="pl-v">self</span>.<span class="pl-vo">height</span> <span class="pl-k">end</span>,
-}
-
-<span class="pl-c">-- Let us define two unrelared classes</span>
-Window <span class="pl-k">=</span> <span class="pl-s3">class</span> (<span class="pl-s1"><span class="pl-pds">"</span>Window<span class="pl-pds">"</span></span>, {width <span class="pl-k">=</span> <span class="pl-c1">480</span>, height <span class="pl-k">=</span> <span class="pl-c1">250</span>})
-Button <span class="pl-k">=</span> <span class="pl-s3">class</span> (<span class="pl-s1"><span class="pl-pds">"</span>Button<span class="pl-pds">"</span></span>, {width <span class="pl-k">=</span> <span class="pl-c1">100</span>, height <span class="pl-k">=</span> <span class="pl-c1">50</span>, onClick <span class="pl-k">=</span> <span class="pl-c1">false</span>})
-
-<span class="pl-c">-- Include the "Geometry" mixin</span>
-Window:<span class="pl-s3">include</span>(Geometry)
-Button:<span class="pl-s3">include</span>(Geometry)
-
-<span class="pl-c">-- Let us define instances from those classes</span>
-<span class="pl-k">local</span> aWindow <span class="pl-k">=</span> <span class="pl-s3">Window</span>()
-<span class="pl-k">local</span> aButton <span class="pl-k">=</span> <span class="pl-s3">Button</span>()
-
-<span class="pl-c">-- Instances can use functionalities brought by the mixin.</span>
-<span class="pl-s3">print</span>(aWindow:<span class="pl-s3">getArea</span>()) <span class="pl-c">-- 120000</span>
-<span class="pl-s3">print</span>(aButton:<span class="pl-s3">getArea</span>()) <span class="pl-c">-- 5000</span></pre></div>
-
-<p>It is possible to check if a class includes a particular mixin using <code>class:includes()</code>.</p>
-
-<div class="highlight highlight-lua"><pre><span class="pl-s3">print</span>(Window:<span class="pl-s3">includes</span>(Geometry)) <span class="pl-c">-- true</span>
-<span class="pl-s3">print</span>(Button:<span class="pl-s3">includes</span>(Geometry)) <span class="pl-c">-- true</span></pre></div>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="class-commons" class="anchor" href="#class-commons" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="classcommons">Class-Commons</a>
-</h1>
+<a id="class-commons-support" class="anchor" href="#class-commons-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Class-Commons support</h2>
 
 <p><a href="https://github.com/bartbes/Class-Commons">Class-Commons</a> is an interface that provides a common API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by <a href="https://github.com/tst2005">TsT</a> 
 which provides compatibility between <em>30log</em> and <em>Class-commons</em>. <br>
 See here: <a href="http://github.com/Yonaba/30logclasscommons">30logclasscommons</a>.</p>
 
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="specification" class="anchor" href="#specification" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="spec">Specification</a>
-</h1>
+<h2>
+<a id="specification" class="anchor" href="#specification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specification</h2>
 
 <p>You can run the included specs with <a href="https://github.com/norman/telescope">Telescope</a> using the following command from Lua from the root foolder:</p>
 
 <pre><code>lua tsc -f specs/*
 </code></pre>
 
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="about-the-source" class="anchor" href="#about-the-source" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="aboutsource">About the source</a>
-</h1>
+<h2>
+<a id="about-the-source" class="anchor" href="#about-the-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>About the source</h2>
 
 <h4>
-<a id="30logcleanlua" class="anchor" href="#30logcleanlua" aria-hidden="true"><span class="octicon octicon-link"></span></a>30logclean.lua</h4>
+<a id="30log-cleanlua" class="anchor" href="#30log-cleanlua" aria-hidden="true"><span class="octicon octicon-link"></span></a>30log-clean.lua</h4>
 
 <p><em>30log</em> was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule that defines the name of this library, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br>
 For those who might be interested though, the file <a href="http://github.com/Yonaba/30log/blob/master/30logclean.lua">30logclean.lua</a> contains the full source code, properly formatted and well indented for your perusal.</p>
 
 <h4>
-<a id="30loggloballua" class="anchor" href="#30loggloballua" aria-hidden="true"><span class="octicon octicon-link"></span></a>30logglobal.lua</h4>
+<a id="30log-globallua" class="anchor" href="#30log-globallua" aria-hidden="true"><span class="octicon octicon-link"></span></a>30log-global.lua</h4>
 
 <p>The file <a href="http://github.com/Yonaba/30log/blob/master/30logglobal.lua">30logglobal.lua</a> features the exact same source as the original <a href="http://github.com/Yonaba/30log/blob/master/30log.lua">30log.lua</a>, 
 excepts that it sets a global named <code>class</code>. This is convenient for Lua-based frameworks such as <a href="http://twolivesleft.com/Codea/">Codea</a>.</p>
 
-<h4>
-<a id="benchmark" class="anchor" href="#benchmark" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benchmark</h4>
-
-<p>Performance tests featuring classes creation, instantiation and such have been included. You can run these tests with the following command with Lua from the root folder, passing to the test script the actual implementation to be tested.</p>
-
-<pre><code>lua performance/test.lua 30log
-</code></pre>
-
-<p>Find <a href="https://github.com/Yonaba/30log/tree/master/performance/results.md">here an example of output</a> for the latest version of <em>30log</em>.</p>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
-
-<h1>
-<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="contrib">Contributors</a>
-</h1>
+<h2>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors</h2>
 
 <ul>
 <li>
-<a href="https://github.com/tst2005">TsT2005</a>, for the original Class-commons support.</li>
+<a href="https://github.com/tst2005">TsT2005</a>, for the original <a href="https://github.com/bartbes/Class-Commons">Class-commons</a> support.</li>
 </ul>
 
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<h1>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="license">License</a>
-</h1>
-
-<p>This work is under <a href="http://www.opensource.org/licenses/mit-license.php">MIT-LICENSE</a><br>
-Copyright (c) 2012-2015 Roland Yonaba</p>
-
-<pre><code>Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-</code></pre>
-
-<p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/Yonaba/30log/trend.png" alt="Bitdeli Badge"></a></p>
-
-<p><strong><a href="#TOC">[⬆]</a></strong></p>
+<p>This work is <a href="https://raw.githubusercontent.com/Yonaba/30log/master/LICENSE">MIT-Licensed</a>.</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/Yonaba">Yonaba</a></p>
