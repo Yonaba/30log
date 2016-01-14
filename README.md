@@ -14,21 +14,23 @@ In *30 lines*. No less, no more.
 __30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mind, but is compatible with [Lua 5.2](http://www.lua.org/versions.html#5.2), [Lua 5.3](http://www.lua.org/versions.html#5.3) and [LuaJIT](http://luajit.org/luajit.html).
 
 
-## Download and Installing
+## Download
+
+#### Achive
+
+Current release is [1.0.0](https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
 #### Bash
+
+This will clone the repository, as-is, and deliver the cutting edge release. Might be unstable.
 
 ```
 git clone git://github.com/Yonaba/30log.git
 ```
 
-#### Archive
-
-* __zip__: [1.0.0](https://github.com/Yonaba/30log/archive/30log-1.0.0.zip) (*latest stable, recommended*) | [older versions](https://github.com/Yonaba/30log/tags)
-* __tar.gz__: [1.0.0](https://github.com/Yonaba/30log/archive/30log-1.0.0.tar.gz) (*latest stable, recommended*) | [older versions](https://github.com/Yonaba/30log/tags)
-
-
 #### LuaRocks
+
+This will download and install the latest stable release from [Luarocks](https://luarocks.org/) servers.
 
 ````
 luarocks install 30log
