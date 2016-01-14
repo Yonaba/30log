@@ -1,5 +1,5 @@
 require 'luacov'
-local SingletonClass = require 'singleton'
+local SingletonClass = require '30log-singleton'
 local class = require '30log'
 
 context('30log is distributed with a default singleton class implementation', function()

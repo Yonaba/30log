@@ -27,10 +27,10 @@ context('require("30log")', function()
 	
 end)
 
-context('require("30logglobal")', function()
+context('require("30log-global")', function()
 	
 	before(function()
-		require '30logglobal'
+		require '30log-global'
 	end)
 	
 	test('set a global "class"', function()
