@@ -16,14 +16,10 @@ end
 local function deep_copy(t, dest, aType) 
 	t = t or {}; local r = dest or {}
   for k,v in pairs(t) do
-    if aType and type(v)==aType then 
-			r[k] = v 
-		elseif not aType then
-      if type(v) == 'table' and k ~= "__index" then 
-				r[k] = deep_copy(v) 
-			else 
-				r[k] = v 
-			end
+		if aType~=nil and type(v)==aType then
+			r[k] = type(v) == 'table' and deep_copy(v) or v 
+		elseif aType==nil then
+			r[k] = type(v) == 'table' and k~= '__index' and deep_copy(v) or v
     end
   end
 	return r
@@ -33,6 +29,8 @@ local function instantiate(self,...)
   assert_class(self, 'new(...) or class(...)')
 	local instance = {class = self}
 	_instances[instance] = tostring(instance)
+	deep_copy(self, instance, 'table')
+	instance.mixins = nil
 	setmetatable(instance,self)
   if self.init then 
 		if type(self.init) == 'table' then 

@@ -3,7 +3,7 @@ context('require("30log")', function()
 
 	local class
 	
-	before(function() class = require '30log' end)
+	before(function() class = require '30log-clean' end)
 	
 	test('should return a table',function()
 		assert_type(class, 'table')

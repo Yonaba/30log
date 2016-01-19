@@ -99,24 +99,27 @@ context('attributes',function()
 	local aclass, instance
 	
 	before(function() 
-		aclass = class('aclass', {attr = 'attr', value = 0})
+		aclass = class('aclass', {attr = 'attr', value = 0, tab = {}})
 		instance = aclass()
 	end)
 	
-	test('instances have access to their class attributes', function()
+	test('instances takes by default their class attributes values', function()
 		assert_equal(instance.attr, 'attr')
 		assert_equal(instance.value, 0)
 	end)
 	
-	test('but they can override their class attributes', function()
+	test('these attributes are independant copies', function()
 		instance.attr, instance.value = 'instance_attr', 1
+		instance.tab.v = 1
 		assert_equal(instance.attr, 'instance_attr')
 		assert_equal(instance.value, 1)
+		assert_equal(instance.tab.v, 1)		
 	end)
 	
-	test('without affecting the class attributes', function()
+	test('modyfying them will not affect the class attributes', function()
 		assert_equal(aclass.attr, 'attr')
 		assert_equal(aclass.value, 0)	
+		assert_nil(aclass.tab.v)		
 	end)
 
 end)
