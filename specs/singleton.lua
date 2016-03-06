@@ -1,4 +1,5 @@
 require 'luacov'
+
 local SingletonClass = require '30log-singleton'
 local class = require '30log'
 
