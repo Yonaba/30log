@@ -34,7 +34,8 @@ context('30log is distributed with a default singleton class implementation', fu
 		end)
 		
 		test('which returns a private local instance of the SingletonClass', function()
-			assert_true(class.isInstance(singletonInstance, SingletonClass))
+			assert_true(singletonInstance:instanceOf(SingletonClass))
+			assert_equal(singletonInstance.class, SingletonClass)
 		end)		
 		
 	end)
