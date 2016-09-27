@@ -10,15 +10,15 @@
 
 *30log*, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It provides  *named* and *unnamed classes*, *single inheritance*, *metamethods* and a basic support for _mixins_.  
-In *30 lines*. No less, no more.  
-__30log__ was written with [Lua 5.1](http://www.lua.org/versions.html#5.1) in mind, but is compatible with [Lua 5.2](http://www.lua.org/versions.html#5.2), [Lua 5.3](http://www.lua.org/versions.html#5.3) and [LuaJIT](http://luajit.org/luajit.html).
+In *30 lines*.<br/>
+Well, [somehow](http://github.com/Yonaba/30log#30log-cleanlua).
 
 
 ## Download
 
 #### Archive
 
-Current release is [1.0.0](https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
+Current release is [1.1.0](https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
 #### Bash
 
@@ -43,7 +43,7 @@ A full documentation is available on the [wiki](https://github.com/Yonaba/30log/
 
 ## Class-Commons support
 
-[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface that provides a common API for a wide range of object orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
+[Class-Commons](https://github.com/bartbes/Class-Commons) is an interface which provides a common API for a wide range of Object Orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
 which provides compatibility between *30log* and *Class-commons*. <br/>
 See here: [30logclasscommons](http://github.com/Yonaba/30logclasscommons).
 
@@ -61,11 +61,11 @@ lua tsc -f specs/*
 ####30log-clean.lua
 
 *30log* was initially designed for minimalistic purposes. But then commit after commit, I came up with a source code that was obviously surpassing 30 lines. As I wanted to stick to the "30-lines" rule that defines the name of this library, I had to use an ugly syntax which not much elegant, yet 100 % functional.<br/>
-For those who might be interested though, the file [30logclean.lua](http://github.com/Yonaba/30log/blob/master/30logclean.lua) contains the full source code, properly formatted and well indented for your perusal.
+For those who might be interested though, the file [30log-clean.lua](http://github.com/Yonaba/30log/blob/master/30log-clean.lua) contains the full source code, properly formatted and well indented for your perusal.
 
 ####30log-global.lua
 
-The file [30logglobal.lua](http://github.com/Yonaba/30log/blob/master/30logglobal.lua) features the exact same source as the original [30log.lua](http://github.com/Yonaba/30log/blob/master/30log.lua), 
+The file [30log-global.lua](http://github.com/Yonaba/30log/blob/master/30log-global.lua) features the exact same source as the original [30log.lua](http://github.com/Yonaba/30log/blob/master/30log.lua), 
 excepts that it sets a global named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
 
