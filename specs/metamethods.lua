@@ -2,9 +2,6 @@ require 'luacov'
 local class = require('30log')
 local has_lua_5_2_support = (rawlen and type(rawlen) == 'function')
 local has_lua_5_3_support = (string.unpack and type(string.unpack) == 'function')
-if has_lua_5_3_support then
-	unpack = string.unpack
-end
 
 local Point3D, sPoint3D
 local garbage, p1, p2
@@ -240,7 +237,14 @@ if has_lua_5_2_support then
 						return k, v
 					end
 				end
-				Point3D.__ipairs = Point3D.__pairs
+				Point3D.__ipairs = function(a)
+					local fields = {a.x, a.y, a.z}
+					local k, v
+					return function()
+						k, v = next(fields, k)
+						return k, v
+					end
+				end
 			
 				sPoint3D = Point3D:extend('sPoint3D')
 				sPoint3D.__metatable = "sPoint3D class metatable"
@@ -259,14 +263,20 @@ if has_lua_5_2_support then
 					assert_equal(#p2, 3)
 				end)
 				
-				test('__pairs and __ipairs are supported', function()
-					local _pairs, _ipairs = {}, {}
-					for k,v in pairs(p1) do _pairs[k] = v end
-					assert_true(same(_pairs, {x = 1, y = 3, z = 5}))
-					
-					for k,v in ipairs(p2) do _ipairs[k] = v end
-					assert_true(same(_ipairs, {x = 2, y = 4, z = 6}))				
-				end)			
+				test('__pairs is supported', function()
+					local _pairs = {x = 1, y = 3, z = 5}
+					local _ipairs = _pairs
+					for k, v in pairs(p1) do
+						assert_equal(_pairs[k], v)
+					end
+				end)
+
+				test('__ipairs is supported', function()
+					local _ipairs = {2, 4, 6}
+					for k, v in ipairs(p2) do
+						assert_equal(_ipairs[k], v)
+					end
+				end)				
 						
 			end)
 			
@@ -282,14 +292,20 @@ if has_lua_5_2_support then
 					assert_equal(#p2, 3)
 				end)
 				
-				test('__pairs and __ipairs are supported', function()
-					local _pairs, _ipairs = {}, {}
-					for k,v in pairs(p1) do _pairs[k] = v end
-					assert_true(same(_pairs, {x = 1, y = 3, z = 5}))
-					
-					for k,v in ipairs(p2) do _ipairs[k] = v end
-					assert_true(same(_ipairs, {x = 2, y = 4, z = 6}))				
-				end)			
+				test('__pairs is supported', function()
+					local _pairs = {x = 1, y = 3, z = 5}
+					local _ipairs = _pairs
+					for k,v in pairs(p1) do
+						assert_equal(_pairs[k], v)
+					end
+				end)
+				
+				test('__ipairs is supported', function()
+					local _ipairs = {2, 4, 6}
+					for k, v in ipairs(p2) do
+						assert_equal(_ipairs[k], v)
+					end
+				end)				
 						
 			end)
 
