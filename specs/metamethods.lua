@@ -2,6 +2,9 @@ require 'luacov'
 local class = require('30log')
 local has_lua_5_2_support = (rawlen and type(rawlen) == 'function')
 local has_lua_5_3_support = (string.unpack and type(string.unpack) == 'function')
+if has_lua_5_3_support then
+	unpack = string.unpack
+end
 
 local Point3D, sPoint3D
 local garbage, p1, p2
