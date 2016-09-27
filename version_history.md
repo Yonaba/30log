@@ -1,5 +1,22 @@
 #Version history#
 
+##1.1.0 (09/26/2016)
+### New features
+* Added `class:subclasses()` returns the list of all classes which extend from `class`
+* Added `class:instances()`, returns the list of all instances of `class`
+* Added `class:classOf()`, checks if `class` is a superclass of arg
+* Added `class:subclassOf()`, checks if `class` is a subclass of arg
+* Added `instance:instanceOf()`, checks if `instance` is an instance of arg
+* Added `class:without()` to remove a mixin from a class
+* Added `class:with()`, includes a mixin to a class
+
+### Breaking changes
+* Changed implementation of `class.isClass`, now only checks if arg is a class
+* Changed implementation of `class.isInstance`, now only checks if arg is an instance
+* Removed `class:include()`
+* An instance of `class` is considered to be the instance of any superclass of `class`
+* A class is considered to be the subclass of any of its direct superclass's superclasses
+
 ##1.0.0 (01/09/2015)
 
 ### New features
