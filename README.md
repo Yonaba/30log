@@ -18,7 +18,7 @@ Well, [somehow](http://github.com/Yonaba/30log#30log-cleanlua).
 
 #### Archive
 
-Current release is [1.1.0](https://github.com/Yonaba/30log/releases/tag/30log-1.0.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
+Current release is [1.1.0](https://github.com/Yonaba/30log/releases/tag/30log-1.1.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
 #### Bash
 
