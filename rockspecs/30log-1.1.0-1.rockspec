@@ -20,6 +20,6 @@ build = {
     ["30log"] = "30log.lua",
     ["30log-clean"] = "30log-clean.lua",
     ["30log-global"] = "30log-global.lua",
-    ["singleton"] = "singleton.lua"
+    ["30log-singleton"] = "30log-singleton.lua"
   }
 }
