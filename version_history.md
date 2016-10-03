@@ -1,5 +1,8 @@
 #Version history#
 
+##1.2.0 (03/10/2016)
+Added `class:cast()`, changes the class of an instance
+
 ##1.1.0 (09/26/2016)
 ### New features
 * Added `class:subclasses()` returns the list of all classes which extend from `class`
@@ -17,7 +20,7 @@
 * An instance of `class` is considered to be the instance of any superclass of `class`
 * A class is considered to be the subclass of any of its direct superclass's superclasses
 
-##1.0.0 (01/09/2015)
+##1.0.0 (01/09/2015) 
 
 ### New features
 * `require "30log"` now returns a callable table
