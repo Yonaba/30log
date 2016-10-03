@@ -9,8 +9,7 @@
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 
 *30log*, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
-It provides  *named* and *unnamed classes*, *single inheritance*, *metamethods* and a basic support for _mixins_.  
-In *30 lines*.<br/>
+It provides  *named* and *unnamed classes*, *single inheritance*, *metamethods* and a basic support for _mixins_. In *30 lines*.<br/>
 Well, [somehow](http://github.com/Yonaba/30log#30log-cleanlua).
 
 
@@ -18,7 +17,7 @@ Well, [somehow](http://github.com/Yonaba/30log#30log-cleanlua).
 
 #### Archive
 
-Current release is [1.1.0](https://github.com/Yonaba/30log/releases/tag/30log-1.1.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
+Current release is [1.2.0](https://github.com/Yonaba/30log/releases/tag/30log-1.2.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
 #### Bash
 

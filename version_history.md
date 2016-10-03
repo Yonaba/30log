@@ -1,7 +1,7 @@
 #Version history#
 
 ##1.2.0 (03/10/2016)
-Added `class:cast()`, changes the class of an instance
+* Added `class:cast()`, changes the class of an instance
 
 ##1.1.0 (09/26/2016)
 ### New features
