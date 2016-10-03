@@ -59,6 +59,10 @@ context('a class should have the following methods', function()
 		assert_type(aclass.instanceOf, 'function')
 	end)
 	
+	test('a method named "cast"', function() 
+		assert_type(aclass.cast, 'function')
+	end)	
+	
 	test('a method named "subclasses"', function() 
 		assert_type(aclass.subclasses, 'function')
 	end)

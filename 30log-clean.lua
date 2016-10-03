@@ -154,6 +154,14 @@ _class = function(name, attr)
 		return ((self.class == fromclass) or (self.class:subclassOf(fromclass)))
 	end
 	
+	c.cast = function(self, toclass)
+		assert_call_from_instance(self, 'instanceOf(class)')
+		assert(class.isClass(toclass), 'Wrong argument given to method "cast()". Expected a class.')
+		setmetatable(self, toclass)
+		self.class = toclass
+		return self
+	end
+	
 	c.with = function(self,...)
 		assert_call_from_class(self, 'with(mixin)')
 		for _, mixin in ipairs({...}) do
