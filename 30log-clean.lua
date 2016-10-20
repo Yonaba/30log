@@ -18,6 +18,10 @@ local function assert_call_from_instance(instance, method)
 	assert(_instances[instance], ('Wrong method call. Expected instance:%s.'):format(method))
 end
 
+local function bind(f, v) 
+	return function(...) return f(v, ...) end 
+end
+
 local default_filter = function() return true end
 	
 local function deep_copy(t, dest, aType)
@@ -26,18 +30,18 @@ local function deep_copy(t, dest, aType)
 	for k,v in pairs(t) do
 		if aType ~= nil and type(v) == aType then
 			r[k] = (type(v) == 'table')
-			       and ((_classes[v] or _instances[v]) and v or deep_copy(v))
-				   or v
+							and ((_classes[v] or _instances[v]) and v or deep_copy(v))
+							or v
 		elseif aType == nil then
 			r[k] = (type(v) == 'table') 
 			        and k~= '__index' and ((_classes[v] or _instances[v]) and v or deep_copy(v)) 
-					or v
+							or v
 		end
 	end
 	return r
 end
 
-local function instantiate(self,...)
+local function instantiate(call_init, self, ...)
 	assert_call_from_class(self, 'new(...) or class(...)')
 	local instance = {class = self}
 	_instances[instance] = tostring(instance)
@@ -47,7 +51,7 @@ local function instantiate(self,...)
 	instance.__subclasses = nil
 	instance.__instances = nil
 	setmetatable(instance,self)
-	if self.init then
+	if call_init and self.init then
 		if type(self.init) == 'table' then
 			deep_copy(self.init, instance)
 		else
@@ -99,7 +103,8 @@ _class = function(name, attr)
 	c.name = name or c.name
 	c.__tostring = baseMt.__tostring
 	c.__call = baseMt.__call
-	c.new = instantiate
+	c.new = bind(instantiate, true)
+	c.create = bind(instantiate, false)
 	c.extend = extend
 	c.__index = c
 	
@@ -193,13 +198,12 @@ _class = function(name, attr)
 			self.mixins[mixin] = nil
 		end
 		return self
-	end	
-
+	end
 	return setmetatable(c, baseMt)
 end
 
 class._DESCRIPTION = '30 lines library for object orientation in Lua'
-class._VERSION     = '30log v1.2.0'
+class._VERSION     = '30log v1.3.0'
 class._URL         = 'http://github.com/Yonaba/30log'
 class._LICENSE     = 'MIT LICENSE <http://www.opensource.org/licenses/mit-license.php>'
 
