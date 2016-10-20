@@ -17,7 +17,7 @@ Well, [somehow](http://github.com/Yonaba/30log#30log-cleanlua).
 
 #### Archive
 
-Current release is [1.2.0](https://github.com/Yonaba/30log/releases/tag/30log-1.2.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
+Current release is [1.3.0](https://github.com/Yonaba/30log/releases/tag/30log-1.3.0-1). See other [releases](https://github.com/Yonaba/30log/releases).
 
 #### Bash
 
@@ -35,19 +35,19 @@ This will download and install the latest stable release from [Luarocks](https:/
 luarocks install 30log
 ````
 
-## Documentation
+## Wiki
 
-Find the project page at [yonaba.github.io/30log](gttp://yonaba.github.io/30log).  
-A full documentation is available on the [wiki](https://github.com/Yonaba/30log/wiki).
+A full documentation is available on the [wiki](https://github.com/Yonaba/30log/wiki). Find the project page at [yonaba.github.io/30log](gttp://yonaba.github.io/30log). 
+
 
 ## Class-Commons support
 
 [Class-Commons](https://github.com/bartbes/Class-Commons) is an interface which provides a common API for a wide range of Object Orientation libraries in Lua. There is a small plugin, originally written by [TsT](https://github.com/tst2005) 
 which provides compatibility between *30log* and *Class-commons*. <br/>
-See here: [30logclasscommons](http://github.com/Yonaba/30logclasscommons).
+See the module [30log-commons.lua](https://github.com/Yonaba/30log/blob/master/30log-commons.lua).
 
 
-##Specification
+##Specs
 
 You can run the included specs with [Telescope](https://github.com/norman/telescope) using the following command from Lua from the root foolder:
 
@@ -68,9 +68,13 @@ The file [30log-global.lua](http://github.com/Yonaba/30log/blob/master/30log-glo
 excepts that it sets a global named `class`. This is convenient for Lua-based frameworks such as [Codea](http://twolivesleft.com/Codea/).
 
 
+####30log-singleton.lua
+
+The file [30log-singleton.lua](http://github.com/Yonaba/30log/blob/master/30log-global.lua) is a [singleton pattern](http://en.wikipedia.org/wiki/Singleton_pattern) implementation for use with *30log*.
+
 ## Contributors
 
-* [TsT2005](https://github.com/tst2005), for the original [Class-commons](https://github.com/bartbes/Class-Commons) support.
+* [TsT2005](https://github.com/tst2005), for the original [Class-commons](https://github.com/bartbes/Class-Commons) implementation.
 
 
 ##License

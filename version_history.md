@@ -1,5 +1,10 @@
 #Version history#
 
+##1.3.0 (10/20/16)
+* Added `class:create`, which allocates a new instance without invoking the class initializer
+* Added 30log-commons
+* Updated specs
+
 ##1.2.0 (03/10/2016)
 * Added `class:cast()`, changes the class of an instance
 
