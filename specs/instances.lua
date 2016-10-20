@@ -2,37 +2,52 @@ require 'luacov'
 local class = require('30log')
 
 context('Instantiation', function()
-	local Window, window
+	local Window, win1, win2, win3
+	local should_err, should_err2
 	
 	before(function()
 		Window = class('Window', {size = 100})
+		function Window:init(size) self.size = size end
 		function Window:setSize(size) self.size = size end
-		window = Window:new()
+		win1 = Window:new(10)
+		win2 = Window(15)
+		win3 = Window:create(25)
+		
+		should_err = function() local win_new = win1:new() end
+		should_err2 = function() local win_new = win1() end		
 	end)
 	
 	test('instances are created via new()',function()
-		assert_true(class.isInstance(window))
-		assert_true(class.isInstance(window, Window))
+		assert_true(class.isInstance(win1))
+		assert_true(win1:instanceOf(Window))
 	end)
 	
 	test('or via a class call, as a function',function()
-		local window = Window()
-		assert_true(class.isInstance(window))
-		assert_true(class.isInstance(window, Window))
+		assert_true(class.isInstance(win2))
+		assert_true(win2:instanceOf(Window))
 	end)
 	
-	test('instances can access their class attributes',function()
-		assert_equal(window.size,100)
+	test('an instance can also be created via create()',function()
+		assert_true(class.isInstance(win3))
+		assert_true(win3:instanceOf(Window))
+	end)
+
+	test('calling new() or a function call triggers init() function',function()
+		assert_equal(win1.size, 10)
+		assert_equal(win2.size, 15)
 	end)
 	
-	test('they also access their class methods',function()
-		window:setSize(50)
-		assert_equal(window.size, 50)
+	test('but create() allocates an instance without calling init() function',function()
+		assert_not_equal(win3.size, 25)
+		assert_equal(win3.size, 100)
+	end)	
+	
+	test('instances have access to their class methods',function()
+		win1:setSize(50)
+		assert_equal(win1.size, 50)
 	end)    
 
 	test('instances cannot instantiate new instances', function()
-		local function should_err() local win_new = window:new() end
-		local function should_err2() local win_new = window() end
 		assert_error(should_err)
 		assert_error(should_err2)
 	end)

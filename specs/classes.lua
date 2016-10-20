@@ -43,6 +43,10 @@ context('a class should have the following methods', function()
 		assert_type(aclass.new, 'function')
 	end)
 	
+	test('a method named "create"', function() 
+		assert_type(aclass.create, 'function')
+	end)
+	
 	test('a method named "extend"', function() 
 		assert_type(aclass.extend, 'function')
 	end)		
