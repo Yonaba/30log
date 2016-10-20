@@ -1,3 +1,6 @@
+-- 30log-singleton.lua, singleton pattern implementation
+-- (c) 2015, R. Yonaba 
+
 local class = require '30log'
 local SingletonClass = class("Singleton")
 local instance = SingletonClass()
