@@ -1,4 +1,4 @@
-![30log logo](https://github.com/Yonaba/Starz-Puzzle/raw/master/30log-logo.png)
+![30log logo](https://github.com/Yonaba/30log/raw/master/30log-logo.png)
 
 [![Join the chat at https://gitter.im/Yonaba/30log](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Yonaba/30log?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
