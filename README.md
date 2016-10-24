@@ -73,6 +73,7 @@ The file [30log-singleton.lua](http://github.com/Yonaba/30log/blob/master/30log-
 ## Contributors
 
 * [TsT2005](https://github.com/tst2005), for the original [Class-commons](https://github.com/bartbes/Class-Commons) implementation.
+* [Srdjan Marković](https://github.com/Yonaba/30log/blob/master/LICENSE#L22-L31) for the awesome graphic logo design.
 
 
 ##License
