@@ -166,6 +166,10 @@ context('methods',function()
 			assert_error(function() return instance() end)
 		end)
 		
+		test('create()', function()
+			assert_error(function() return instance:create() end)
+		end)		
+		
 		test('extend()', function()
 			assert_error(function() return instance:extend() end)
 		end)
