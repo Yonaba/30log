@@ -21,6 +21,6 @@ build = {
     ["30log-clean"] = "30log-clean.lua",
     ["30log-global"] = "30log-global.lua",
     ["30log-singleton"] = "30log-singleton.lua",
-    ["30log-commons"] = "30log-singleton.lua",
+    ["30log-commons"] = "30log-commons.lua",
   }
 }

@@ -1,11 +1,10 @@
 ![30log logo](https://github.com/Yonaba/Starz-Puzzle/raw/master/30log-logo.png)
 
 [![Join the chat at https://gitter.im/Yonaba/30log](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Yonaba/30log?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Build Status](https://travis-ci.org/Yonaba/30log.png)](https://travis-ci.org/Yonaba/30log)
-[![Coverage Status](https://coveralls.io/repos/Yonaba/30log/badge.png?branch=master)](https://coveralls.io/r/Yonaba/30log?branch=master)
 [![Lua](https://img.shields.io/badge/Lua-5.1%2C%205.2%2C%205.3%2C%20JIT-blue.svg)]()
 [![License](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
+[![Coverage Status](https://coveralls.io/repos/Yonaba/30log/badge.png?branch=master)](https://coveralls.io/r/Yonaba/30log?branch=master)
 
 *30log*, in extenso *30 Lines Of Goodness* is a minified framework for [object-orientation](http://lua-users.org/wiki/ObjectOrientedProgramming) in Lua.
 It provides  *named* and *unnamed classes*, *single inheritance*, *metamethods* and a basic support for _mixins_. In *30 lines*.<br/>
