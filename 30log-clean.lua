@@ -4,6 +4,7 @@ local pairs        = pairs
 local type         = type
 local tostring     = tostring
 local setmetatable = setmetatable
+local unpack       = unpack or table.unpack
 
 local _class
 local baseMt     = {}
@@ -18,12 +19,12 @@ local function assert_call_from_instance(instance, method)
 	assert(_instances[instance], ('Wrong method call. Expected instance:%s.'):format(method))
 end
 
-local function bind(f, v) 
-	return function(...) return f(v, ...) end 
+local function bind(f, v)
+	return function(...) return f(v, ...) end
 end
 
 local default_filter = function() return true end
-	
+
 local function deep_copy(t, dest, aType)
 	t = t or {}
 	local r = dest or {}
@@ -33,8 +34,8 @@ local function deep_copy(t, dest, aType)
 							and ((_classes[v] or _instances[v]) and v or deep_copy(v))
 							or v
 		elseif aType == nil then
-			r[k] = (type(v) == 'table') 
-			        and k~= '__index' and ((_classes[v] or _instances[v]) and v or deep_copy(v)) 
+			r[k] = (type(v) == 'table')
+			        and k~= '__index' and ((_classes[v] or _instances[v]) and v or deep_copy(v))
 							or v
 		end
 	end
@@ -51,11 +52,29 @@ local function instantiate(call_init, self, ...)
 	instance.__subclasses = nil
 	instance.__instances = nil
 	setmetatable(instance,self)
-	if call_init and self.init then
-		if type(self.init) == 'table' then
-			deep_copy(self.init, instance)
-		else
-			self.init(instance, ...)
+
+	if call_init then
+		local args = {...}
+		local function init_mixins(_class)
+			for mixin, _ in pairs(_class.mixins) do
+				if type(mixin.init) == "function" then
+					mixin.init(_class, unpack(args))
+				end
+			end
+		end
+		local super = self.super
+		while super do
+			init_mixins(super)
+			super = super.super
+		end
+		init_mixins(self)
+
+		if self.init then
+			if type(self.init) == 'table' then
+				deep_copy(self.init, instance)
+			else
+				self.init(instance, ...)
+			end
 		end
 	end
 	return instance
@@ -76,13 +95,13 @@ end
 
 baseMt = {
 	__call = function (self,...) return self:new(...) end,
-	
+
 	__tostring = function(self,...)
 		if _instances[self] then
-			return ("instance of '%s' (%s)"):format(rawget(self.class,'name') 
+			return ("instance of '%s' (%s)"):format(rawget(self.class,'name')
 								or '?', _instances[self])
 		end
-		return _classes[self] 
+		return _classes[self]
 							and ("class '%s' (%s)"):format(rawget(self,'name')
 							or '?',
 					_classes[self]) or self
@@ -107,29 +126,29 @@ _class = function(name, attr)
 	c.create = bind(instantiate, false)
 	c.extend = extend
 	c.__index = c
-	
+
 	c.mixins = setmetatable({},{__mode = 'k'})
 	c.__instances = setmetatable({},{__mode = 'k'})
 	c.__subclasses = setmetatable({},{__mode = 'k'})
-	
+
 	c.subclasses = function(self, filter, ...)
 		assert_call_from_class(self, 'subclasses(class)')
 		filter = filter or default_filter
 		local subclasses = {}
 		for class in pairs(_classes) do
-			if class ~= baseMt and class:subclassOf(self) and filter(class,...) then 
-				subclasses[#subclasses + 1] = class 
+			if class ~= baseMt and class:subclassOf(self) and filter(class,...) then
+				subclasses[#subclasses + 1] = class
 			end
 		end
 		return subclasses
 	end
-	
+
 	c.instances = function(self, filter, ...)
-		assert_call_from_class(self, 'instances(class)')	
-		filter = filter or default_filter		
+		assert_call_from_class(self, 'instances(class)')
+		filter = filter or default_filter
 		local instances = {}
 		for instance in pairs(_instances) do
-			if instance:instanceOf(self) and filter(instance, ...) then 
+			if instance:instanceOf(self) and filter(instance, ...) then
 				instances[#instances + 1] = instance
 			end
 		end
@@ -146,19 +165,19 @@ _class = function(name, attr)
 		end
 		return false
 	end
-	
+
 	c.classOf = function(self, subclass)
 		assert_call_from_class(self, 'classOf(subclass)')
-		assert(class.isClass(subclass), 'Wrong argument given to method "classOf()". Expected a class.')		
+		assert(class.isClass(subclass), 'Wrong argument given to method "classOf()". Expected a class.')
 		return subclass:subclassOf(self)
-	end	
+	end
 
 	c.instanceOf = function(self, fromclass)
 		assert_call_from_instance(self, 'instanceOf(class)')
 		assert(class.isClass(fromclass), 'Wrong argument given to method "instanceOf()". Expected a class.')
 		return ((self.class == fromclass) or (self.class:subclassOf(fromclass)))
 	end
-	
+
 	c.cast = function(self, toclass)
 		assert_call_from_instance(self, 'instanceOf(class)')
 		assert(class.isClass(toclass), 'Wrong argument given to method "cast()". Expected a class.')
@@ -166,32 +185,35 @@ _class = function(name, attr)
 		self.class = toclass
 		return self
 	end
-	
+
 	c.with = function(self,...)
 		assert_call_from_class(self, 'with(mixin)')
 		for _, mixin in ipairs({...}) do
 			assert(self.mixins[mixin] ~= true, ('Attempted to include a mixin which was already included in %s'):format(tostring(self)))
 			self.mixins[mixin] = true
+			local init = mixin.init
+			mixin.init = nil
 			deep_copy(mixin, self, 'function')
+			mixin.init = init
 		end
 		return self
 	end
-	
+
 	c.includes = function(self, mixin)
 		assert_call_from_class(self,'includes(mixin)')
 		return not not (self.mixins[mixin] or (self.super and self.super:includes(mixin)))
-	end	
-	
+	end
+
 	c.without = function(self, ...)
 		assert_call_from_class(self, 'without(mixin)')
 		for _, mixin in ipairs({...}) do
-			assert(self.mixins[mixin] == true, ('Attempted to remove a mixin which is not included in %s'):format(tostring(self)))		
+			assert(self.mixins[mixin] == true, ('Attempted to remove a mixin which is not included in %s'):format(tostring(self)))
 			local classes = self:subclasses()
 			classes[#classes + 1] = self
 			for _, class in ipairs(classes) do
 				for method_name, method in pairs(mixin) do
-					if type(method) == 'function' then 
-						class[method_name] = nil 
+					if type(method) == 'function' then
+						class[method_name] = nil
 					end
 				end
 			end
