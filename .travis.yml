@@ -18,12 +18,13 @@ before_install:
   - pip install --user cpp-coveralls
   - luarocks install Lua-cURL         --server=https://luarocks.org/dev
   - luarocks install luacov-coveralls --server=https://luarocks.org/dev
-  - luarocks install telescope 0.6.0 --server=http://rocks.moonscript.org
+  - luarocks install telescope        --server=http://rocks.moonscript.org
+  - bash .travis/fixtsc.sh
 
 script: "tsc -f specs/*"
-  
+
 after_success:
-  - luacov-coveralls -c .luacov -e 30log-
+  - luacov-coveralls -c .luacov -e 30log-plus-
 
 notifications:
   email:

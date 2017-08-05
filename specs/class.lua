@@ -1,5 +1,5 @@
 require 'luacov'
-local class = require('30log')
+local class = require('30log-plus')
 
 context('class()', function()
 
@@ -12,7 +12,7 @@ context('class()', function()
 			assert_type(aclass, 'table')
 			assert_true(class.isClass(aclass))
 		end)
-		
+
 		test('this class is unnamed', function()
 			assert_nil(aclass.name)
 		end)
@@ -28,7 +28,7 @@ context('class()', function()
 			assert_type(aclass, 'table')
 			assert_true(class.isClass(aclass))
 		end)
-		
+
 		test('this class has the given name set', function()
 			assert_equal(aclass.name, aclass_name)
 		end)

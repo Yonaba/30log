@@ -1,4 +1,11 @@
-#Version history#
+#Cpeosphoros's 30log-plus fork Version history#
+
+##alpha.0 (08/04/17)
+* Class setup
+* Mixin setup
+* Mixin chaining
+
+#Yonaba's 30log Version history#
 
 ##1.3.0 (10/24/16)
 * Added `class:create`, which allocates a new instance without invoking the class initializer
@@ -25,11 +32,11 @@
 * An instance of `class` is considered to be the instance of any superclass of `class`
 * A class is considered to be the subclass of any of its direct superclass's superclasses
 
-##1.0.0 (01/09/2015) 
+##1.0.0 (01/09/2015)
 
 ### New features
 * `require "30log"` now returns a callable table
-* Added `class.isClass` 
+* Added `class.isClass`
 * Added `class.isInstance`
 * Adding mixins can be chained
 * `subclass.super` returns the `superclass` of `subclass`
