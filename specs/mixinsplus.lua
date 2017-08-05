@@ -3,15 +3,11 @@ local class = require('30log-plus')
 
 context('mixinsplus', function()
 
-	local varChain, pipeChain, chainTests
-
 	local aclass
 	local chain1, chain2, intercept1, intercept2
 
-	print(1)
 
 	before(function()
-		print("b1")
 		chain1   = {
 			ChainTrue = function(self)
 				self.a = "C1"
@@ -70,13 +66,14 @@ context('mixinsplus', function()
 			return false
 		end
 
-		varChain  = function(instance) instance = aclass:with(chain1, chain2)() end
-		pipeChain = function(instance) instance = aclass:with(chain1):with(chain2)() end
+	end)
 
-		chainTests =  function(func)
+	context('Chained methods run in the order their mixins are declared', function()
+
+		context('with varargs', function()
 
 			local instance
-			before(func(instance))
+			before(function() instance = aclass:with(chain1, chain2)() end)
 
 			test("Mixin's methods run before the correspondent class method", function()
 				instance:ChainTrue()
@@ -95,23 +92,30 @@ context('mixinsplus', function()
 				assert_nil(instance.d)
 				assert_nil(instance.e)
 			end)
-		end
-
-		print("a")
-	end)
-
-	context('Chained methods run in the order their mixins are declared', function()
-
-		print("1.1")
-
-		context('with varargs', function(instance)
-			print("1.1.1")
-			chainTests(varChain)
 		end)
 
-		context('or piped methods', function(instance)
-			print("1.1.2")
-			chainTests(pipeChain)
+		context('or piped methods', function()
+
+			local instance
+			before(function() instance = aclass:with(chain1):with(chain2)() end)
+
+			test("Mixin's methods run before the correspondent class method", function()
+				instance:ChainTrue()
+				assert_equal(instance.a, "AA")
+				assert_equal(instance.b, "C2")
+				assert_equal(instance.c, "C2")
+				assert_nil(instance.d)
+				assert_nil(instance.e)
+			end)
+
+			test("but stop if a mixin's method return false", function()
+				instance:ChainFalse()
+				assert_equal(instance.a, "C1")
+				assert_equal(instance.b, "C1")
+				assert_nil  (instance.c)
+				assert_nil(instance.d)
+				assert_nil(instance.e)
+			end)
 		end)
 	end)
 end)
