@@ -67,7 +67,7 @@ local function extend(self, name, extra_params)
 	_classes[heir] = tostring(heir)
 	self.__subclasses[heir] = true
 	deep_copy(extra_params, deep_copy(self, heir))
-	heir.name    = extra_params and extra_params.name or name
+	heir.className = extra_params and extra_params.name or name
 	heir.__index = heir
 	heir.super   = self
 	heir.mixins = {}
@@ -79,11 +79,11 @@ baseMt = {
 	
 	__tostring = function(self,...)
 		if _instances[self] then
-			return ("instance of '%s' (%s)"):format(rawget(self.class,'name') 
+			return ("instance of '%s' (%s)"):format(rawget(self.class,'className') 
 								or '?', _instances[self])
 		end
 		return _classes[self] 
-							and ("class '%s' (%s)"):format(rawget(self,'name')
+							and ("class '%s' (%s)"):format(rawget(self,'className')
 							or '?',
 					_classes[self]) or self
 	end
@@ -100,7 +100,7 @@ local class = {
 _class = function(name, attr)
 	local c = deep_copy(attr)
 	_classes[c] = tostring(c)
-	c.name = name or c.name
+	c.className = name or c.name
 	c.__tostring = baseMt.__tostring
 	c.__call = baseMt.__call
 	c.new = bind(instantiate, true)
